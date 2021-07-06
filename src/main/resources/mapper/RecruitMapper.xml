@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.itjunior.domain.RecruitMapper">
+    <sql id="recruitColumns">
+          recruit_idx
+        , job_idx
+        , company_name
+        , location
+        , experience
+        , close_date
+        , close_type
+        , category
+        , salary
+        , job_type
+        , required_edu
+        , url
+        , applycnt
+        , likecnt
+    </sql>
+    
+    <insert id="insertRecruit" parameterType="RecruitDTO">
+        INSERT INTO tbl_recruit (
+            <include refid="recruitColumns" />
+        ) VALUES (
+            #{recruit_idx}
+            , #{job_idx}
+            , #{company_name}
+            , #{location}
+            , #{experience}
+            , #{close_date}
+            , #{close_type}
+            , #{category}
+            , #{salary}
+            , #{job_type}
+            , #{required_edu}
+            , #{url}
+            , #{applycnt}
+            , 0
+        )
+    </insert>
+
+</mapper>
