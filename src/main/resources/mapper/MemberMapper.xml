@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.itjunior.mapper.MemberMapper">
+    <sql id="memberColumns">
+          member_idx
+        , userId
+        , email
+        , password
+        , nickname
+        , name
+        , delete_yn
+        , create_time
+        , last_login_time
+        , role
+    </sql>
+    
+    <insert id="insertMember" parameterType="MemberDTO">
+        INSERT INTO tbl_member (
+            <include refid="memberColumns" />
+        ) VALUES (
+            #{member_idx}
+            , #{userId}
+            , #{email}
+            , #{password}
+            , #{nickname}
+            , #{name}
+            , 'N'
+            , NOW()
+            , NULL
+            , #{role}
+        )
+    </insert>
+
+</mapper>
