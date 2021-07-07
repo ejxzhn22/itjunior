@@ -1,6 +1,7 @@
 package com.spring.itjunior.domain;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 

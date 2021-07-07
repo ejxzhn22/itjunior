@@ -7,15 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 @Log4j2
 @Service
 public class RecruitServiceImpl implements RecruitService{
 
     private RecruitMapper recruitMapper;
+    private ApiService apiService;
 
     @Autowired
-    public RecruitServiceImpl(RecruitMapper recruitMapper) {
+    public RecruitServiceImpl(RecruitMapper recruitMapper, ApiService apiService) {
         this.recruitMapper = recruitMapper;
+        this.apiService = apiService;
     }
 
     @Transactional
@@ -26,5 +34,13 @@ public class RecruitServiceImpl implements RecruitService{
         queryResult = recruitMapper.insertRecruit(recruitDTO);
 
         return (queryResult == 1) ? true : false;
+    }
+
+    @Override
+    public String getApiList() {
+        String apiResult = apiService.recruitApiList();
+
+        return apiResult;
+
     }
 }

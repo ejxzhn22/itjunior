@@ -6,4 +6,6 @@ public interface RecruitService {
 
     public boolean saveRecruitInfo(RecruitDTO recruitDTO);
 
+    public String getApiList();
+
 }
