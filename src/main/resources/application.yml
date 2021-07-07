@@ -10,8 +10,7 @@ spring:
     username: root
     password: 12345
     hikari:
-      connection-test-query: SELECT NOW() FROM dual
-      pool-name: HikariCP
+      pool-name: HikariCP11
 
 server:
   servlet:
@@ -23,7 +22,3 @@ server:
 mybatis:
   mapper-locations: /mapper/**/*.xml
   type-aliases-package: com.spring.itjunior.domain
-
-logging:
-  level:
-    com.zaxxer.hikari.HikariConfig: INFO
