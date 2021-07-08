@@ -1,6 +1,7 @@
 package com.spring.itjunior.exception;
 
 import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -20,8 +21,8 @@ public class CommonExceptionHandler {
         return "exception 500,,";
     }
 
-    @ExceptionHandler(Exception.class)
-    public String Exception(Exception e) {
-        return "exception,,";
-    }
+//    @ExceptionHandler(BindingException.class)
+//    public String Exception(Exception e) {
+//        return "exception,,"+e.getMessage();
+//    }
 }

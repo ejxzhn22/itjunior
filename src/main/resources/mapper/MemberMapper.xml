@@ -32,5 +32,19 @@
             , #{role}
         )
     </insert>
+    
+    <select id="findByUseridAndPassword" parameterType="String" resultType="MemberDTO">
+        SELECT * FROM tbl_member
+        WHERE userId=#{userId} AND password=#{password}
+    </select>
+
+    <update id="updateLoginTime" parameterType="MemberDTO">
+        UPDATE
+            tbl_member
+        SET
+            last_login_time = NOW()
+        WHERE
+            userId=#{userId}
+    </update>
 
 </mapper>

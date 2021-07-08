@@ -6,9 +6,19 @@
     <title>Spring Boot Application with JSP</title>
 </head>
 <body> Hello, Spring Boot App
-제선이 풀 테스트
+<c:choose>
+    <c:when test="${empty sessionScope.info}">
+        <h2>로그인 정보 없음</h2>
+        <li>
+            <a href="/loginForm">로그인</a>
+        </li>
+    </c:when>
+    <c:otherwise>
+        <h1>${sessionScope.info.nickname}님 안녕하세요..!</h1>
+    </c:otherwise>
+</c:choose>
 
-안녕
+
 
 </body>
 
