@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.itjunior.mapper.FreeBoardMapper">
+
+    <sql id="freeBoardColumns">
+         title
+        , content
+        , writer
+        , create_time
+        , delete_yn
+        , category
+        ,viewcnt
+        ,replycnt
+        ,likecnt
+        ,member_idx
+    </sql>
+
+
+    <!-- 모든 게시글 가져오기 -->
+    <select id="selectAll" resultType="FreeBoard">
+        SELECT * FROM tbl_board_free
+    </select>
+
+    <!--  게시글 하나 가져오기  -->
+    <select id="selectById" parameterType="int">
+        SELECT * FROM tbl_board_free WHERE free_idx = #{free_idx}
+    </select>
+
+    <!--  게시글 추가  -->
+    <insert id="insertBoard" parameterType="FreeBoard">
+        INSERT INTO tbl_board_free (
+            <include refid="freeBoardColumns"/>
+        ) VALUES (
+            #{title}
+            ,#{content}
+            ,#{writer}
+            ,NOW()
+            ,#{delete_yn}
+            ,#{category}
+            ,0
+            ,0
+            ,0
+            ,#{member_idx}
+        )
+
+
+    </insert>
+    
+    <!--  게시글 수정  -->
+    <update id="updateBoard" parameterType="FreeBoard">
+
+    </update>
+</mapper>
