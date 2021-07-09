@@ -19,4 +19,7 @@ public interface FreeBoardMapper {
 
     //게시글 수정하기
     public int updateBoard(FreeBoard freeBoard);
+
+    //게시글 삭제하기
+    public int deleteBoard(FreeBoard freeBoard);
 }

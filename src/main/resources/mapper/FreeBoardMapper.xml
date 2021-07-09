@@ -50,6 +50,15 @@
     
     <!--  게시글 수정  -->
     <update id="updateBoard" parameterType="FreeBoard">
+        UPDATE tbl_board_free
+        SET title = #{title}, content = #{content}, writer=#{writer}, update_time=NOW(), category=#{category}
+        WHERE member_idx=#{member_idx}
+    </update>
 
+    <!--  게시글 삭제  -->
+    <update id="deleteBoard" parameterType="int">
+        UPDATE tbl_board_free
+        SET delete_time=NOW(), delete_yn="Y"
+        WHERE member_idx=#{member_idx}
     </update>
 </mapper>
