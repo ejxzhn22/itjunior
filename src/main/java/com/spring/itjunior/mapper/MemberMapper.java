@@ -1,15 +1,15 @@
 package com.spring.itjunior.mapper;
 
-import com.spring.itjunior.domain.MemberDTO;
+import com.spring.itjunior.domain.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
 
-    public int insertMember(MemberDTO memberDTO);
+    public int insertMember(Member member);
 
-    public MemberDTO findByUseridAndPassword(@Param("userId") String userId, @Param("password") String password);
+    public Member findByUseridAndPassword(@Param("userId") String userId, @Param("password") String password);
 
-    public void updateLoginTime(MemberDTO memberDTO);
+    public void updateLoginTime(Member member);
 }

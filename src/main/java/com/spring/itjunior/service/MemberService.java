@@ -1,12 +1,12 @@
 package com.spring.itjunior.service;
 
-import com.spring.itjunior.domain.MemberDTO;
+import com.spring.itjunior.domain.Member;
 
 public interface MemberService {
 
-    public boolean saveMemberInfo(MemberDTO memberDTO);
+    public boolean saveMemberInfo(Member member);
 
-    public MemberDTO loginMember(MemberDTO memberDTO);
+    public Member loginMember(Member member);
 
-    public void updateLastLogin(MemberDTO memberDTO);
+    public void updateLastLogin(Member member);
 }

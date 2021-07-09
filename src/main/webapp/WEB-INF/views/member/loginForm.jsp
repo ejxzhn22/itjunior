@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>로그인</h1>
-    <%--@elvariable id="params" type="com.spring.itjunior.domain.MemberDTO"--%>
+<%--@elvariable id="params" type="com.spring.itjunior.domain.Member"--%>
     <form:form class="form-signin" modelAttribute="params" name="form" id="form" role="form" method="post" action="/login">
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">ITJunior</h1>
