@@ -37,7 +37,29 @@ class FreeBoardServiceTest {
     public void 모든게시글가져오기() {
 
         List<FreeBoard> boards = freeBoardService.boards();
-        Assertions.assertThat(boards.size()).isEqualTo(1);
+        Assertions.assertThat(boards.size()).isEqualTo(3);
+
+    }
+
+    @Test
+    public void 게시글수정하기() {
+        FreeBoard freeBoard = new FreeBoard();
+
+        //게시글 하나 가져오기
+        freeBoard = freeBoardService.board(1);
+        freeBoard.setContent("수정2번째");
+
+        int result = freeBoardService.updateBaord(freeBoard);
+
+        FreeBoard freeBoard2 = freeBoardService.board(1);
+        Assertions.assertThat(result).isEqualTo(1);
+        Assertions.assertThat(freeBoard2.getContent()).isEqualTo("수정2번째");
+
+
+    }
+
+    @Test
+    public void 게시글삭제하기(){
 
     }
 
