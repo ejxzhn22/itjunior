@@ -18,10 +18,20 @@ public class FreeBoardService {
         return freeBoardMapper.selectAll();
     }
 
+    //게시글 하나 가져오기
+    public FreeBoard board(int free_idx){
+        return freeBoardMapper.selectById(free_idx);
+    }
+
     //게시글 추가
     public int newBoard(FreeBoard freeBoard) {
 
         return freeBoardMapper.insertBoard(freeBoard);
+    }
+
+    //게시글 수정
+    public int updateBaord(FreeBoard freeBoard){
+        return freeBoardMapper.updateBoard(freeBoard);
     }
 
 

@@ -12,7 +12,7 @@ public interface FreeBoardMapper {
     public List<FreeBoard> selectAll();
 
     // 게시글 하나 가져오기
-    public FreeBoard selectById();
+    public FreeBoard selectById(int free_idx);
 
     // 게시글 추가하기
     public int insertBoard(FreeBoard freeBoard);

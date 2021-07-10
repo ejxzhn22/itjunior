@@ -5,12 +5,12 @@
 <mapper namespace="com.spring.itjunior.mapper.FreeBoardMapper">
 
     <sql id="freeBoardColumns">
-         title
-        , content
-        , writer
-        , create_time
-        , delete_yn
-        , category
+        title
+        ,content
+        ,writer
+        ,create_time
+        ,delete_yn
+        ,category
         ,viewcnt
         ,replycnt
         ,likecnt
@@ -24,8 +24,10 @@
     </select>
 
     <!--  게시글 하나 가져오기  -->
-    <select id="selectById" parameterType="int">
-        SELECT * FROM tbl_board_free WHERE free_idx = #{free_idx}
+    <select id="selectById" parameterType="int" resultType="FreeBoard">
+        SELECT *
+        FROM tbl_board_free
+        WHERE free_idx = #{free_idx}
     </select>
 
     <!--  게시글 추가  -->
@@ -51,14 +53,20 @@
     <!--  게시글 수정  -->
     <update id="updateBoard" parameterType="FreeBoard">
         UPDATE tbl_board_free
-        SET title = #{title}, content = #{content}, writer=#{writer}, update_time=NOW(), category=#{category}
-        WHERE member_idx=#{member_idx}
+        SET title = #{title}, content = #{content}, writer=#{writer}, update_time=NOW(),delete_time=#{delete_time},delete_yn=#{delete_yn},
+            category=#{category}, viewcnt = #{viewcnt}, replycnt=#{replycnt}, likecnt=#{likecnt}, member_idx=#{member_idx}
+        WHERE free_idx=#{free_idx}
     </update>
 
     <!--  게시글 삭제  -->
     <update id="deleteBoard" parameterType="int">
         UPDATE tbl_board_free
         SET delete_time=NOW(), delete_yn="Y"
-        WHERE member_idx=#{member_idx}
+        WHERE free_idx=#{free_idx}
     </update>
+
+    <!-- 카테고리 가져오기 -->
+    <select id="category" resultType="">
+
+    </select>
 </mapper>
