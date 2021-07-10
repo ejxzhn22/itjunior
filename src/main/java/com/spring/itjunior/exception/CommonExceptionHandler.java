@@ -21,8 +21,8 @@ public class CommonExceptionHandler {
         return "exception 500,,";
     }
 
-//    @ExceptionHandler(BindingException.class)
-//    public String Exception(Exception e) {
-//        return "exception,,"+e.getMessage();
-//    }
+    @ExceptionHandler(Exception.class)
+    public String bindingException(Exception e) {
+        return "exception,,"+e.getMessage();
+    }
 }

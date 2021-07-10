@@ -22,11 +22,13 @@ public class ApiService {
             StringBuilder urlBuilder = new StringBuilder(requestUrl);
 
             urlBuilder.append("?" + URLEncoder.encode("access-key","UTF-8")+"="+serviceKey);
+            urlBuilder.append("&" + URLEncoder.encode("keywords","UTF-8")+"="+URLEncoder.encode("백엔드","UTF-8"));
             urlBuilder.append("&" + URLEncoder.encode("job_category","UTF-8")+"=404+410+402+407+408+413+417");
             urlBuilder.append("&" + URLEncoder.encode("loc_cd","UTF-8")+"=101000+102000+108000");
             urlBuilder.append("&" + URLEncoder.encode("fields","UTF-8")+"=posting-date+expiration-date+keyword-code+count");
 
             URL url = new URL(urlBuilder.toString());
+            log.info("url>>>>{}",url);
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");

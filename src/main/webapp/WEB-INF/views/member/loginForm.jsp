@@ -8,22 +8,24 @@
 </head>
 <body>
 <h1>로그인</h1>
-    <%--@elvariable id="params" type="com.spring.itjunior.domain.MemberDTO"--%>
-    <form:form class="form-signin" modelAttribute="params" name="form" id="form" role="form" method="post" action="/login">
-        <div class="text-center mb-4">
-            <h1 class="h3 mb-3 font-weight-normal">ITJunior</h1>
-        </div>
-        <div class="form-label-group">
-            <form:input path="userId" id="uid" class="form-control" placeholder="User ID" required="" autofocus="" />
-                <label for="uid" class="sr-only">ufozx</label>
-        </div>
-        <div class="form-label-group">
-            <form:password path="password" id="pwd" class="form-control" placeholder="User Password" required="" />
-            <label for="pwd" class="sr-only">1234</label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">login</button>
-        <span style="font-size:11pt;">Sign up</span>
-    </form:form> <!-- login form {e} -->
+    <div class="container">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label>User Id</label>
+                <input type="text" class="form-control" placeholder="ID" id="userId">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="PASSWORD" id="password">
+            </div>
+            <div class="form-group form-check">
+                <label>
+                    <input type="checkbox" class="form-check-input" name="remember">Remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </form>
+    </div>
 
 </body>
 

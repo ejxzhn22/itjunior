@@ -17,7 +17,7 @@
         , role
     </sql>
     
-    <insert id="insertMember" parameterType="MemberDTO">
+    <insert id="insertMember" parameterType="Member">
         INSERT INTO tbl_member (
             <include refid="memberColumns" />
         ) VALUES (
@@ -34,12 +34,8 @@
         )
     </insert>
     
-    <select id="findByUseridAndPassword" parameterType="String" resultType="MemberDTO">
-        SELECT * FROM tbl_member
-        WHERE userId=#{userId} AND password=#{password}
-    </select>
 
-    <update id="updateLoginTime" parameterType="MemberDTO">
+    <update id="updateLoginTime" parameterType="Member">
         UPDATE
             tbl_member
         SET
@@ -49,3 +45,8 @@
     </update>
 
 </mapper>
+
+    <!--<select id="findByUseridAndPassword" parameterType="String" resultType="Member">
+        SELECT * FROM tbl_member
+        WHERE userId=#{userId} AND password=#{password}
+    </select>-->
