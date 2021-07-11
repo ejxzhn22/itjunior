@@ -16,17 +16,14 @@
 
 <div class="container">
     <h2>Stacked form</h2>
-    <form action="">
-        <div class="dropdown">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                카테고리
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Link 1</a>
-                <a class="dropdown-item" href="#">Link 2</a>
-                <a class="dropdown-item" href="#">Link 3</a>
-            </div>
-        </div>
+
+    <form id="freeBoardForm" onsubmit="newFreeBoard()">
+        <select name="category" class="custom-select">
+            <option selected>카테고리</option>
+            <c:forEach var="category" items="${categories}">
+                <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name}</option>
+            </c:forEach>
+        </select>
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
@@ -41,7 +38,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
 
+</div>
+<script type="text/javascript" src="/js/freeBoard.js"></script>
 </body>
 </html>
