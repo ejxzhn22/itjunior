@@ -1,5 +1,6 @@
 package com.spring.itjunior.controller;
 
+import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.service.FreeBoardService;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,10 @@ public class FreeBoardController {
 
     //글쓰기 이동
     @GetMapping("/boards/new")
-    public String newBoard(){
+    public String newBoard(Model model){
         // 글 카테고리 가져오기
+        List<Category> categories = freeBoardService.category();
+        model.addAttribute("categories", categories);
 
         return "freeBoard/freeBoardForm";
     }
