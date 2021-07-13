@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService{
         if(member.getUserId().equals("root")){
             member.setRole(Role.ADMIN);
         }
+        member.setRole(Role.USER);
         int queryResult = memberMapper.insertMember(member);
         return (queryResult == 1) ? true : false;
     }
@@ -32,6 +33,26 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void updateLastLogin(Member member) {
         memberMapper.updateLoginTime(member);
+    }
+
+    @Override
+    public Member findByIdx(int member_idx) {
+        Member selectMemberInfo = memberMapper.selectMemberByIdx(member_idx);
+        log.info("member_idx로 회원정보조회 >>> {}",selectMemberInfo.toString());
+        return selectMemberInfo;
+    }
+
+    @Override
+    public Member findByUserId(String userId) {
+        Member selectMemberInfo = memberMapper.selectMemberByUserId(userId);
+        log.info("userId로 회원정보조회 >>> {}",selectMemberInfo.toString());
+        return selectMemberInfo;
+    }
+
+    @Override
+    public boolean deleteByIdx(int member_idx) {
+        int queryResult = memberMapper.deleteMemberByIdx(member_idx);
+        return (queryResult==1) ? true : false;
     }
 
 
