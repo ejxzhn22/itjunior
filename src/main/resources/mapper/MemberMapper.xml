@@ -17,14 +17,14 @@
         , role
     </sql>
     
-    <insert id="insertMember" parameterType="Member">
+    <insert id="insertOrUpdateMember" parameterType="Member">
         INSERT INTO tbl_member (
             <include refid="memberColumns" />
         ) VALUES (
             #{member_idx}
             , #{userId}
             , #{email}
-            , #{password}
+            , IFNULL(#{password}, password)
             , #{nickname}
             , #{name}
             , 'N'
@@ -33,9 +33,9 @@
             , #{role}
         )
         ON DUPLICATE KEY UPDATE
-            password = IFNULL(#{password},password)
-            ,nickname = #{nickname}
-            ,email = #{email}
+            password = IFNULL(#{password}, password)
+            , nickname = #{nickname}
+            , email = #{email}
     </insert>
 
     <!-- member_idx(PK)로 회원 상세정보 조회-->

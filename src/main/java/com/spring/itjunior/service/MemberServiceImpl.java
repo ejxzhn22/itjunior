@@ -26,8 +26,23 @@ public class MemberServiceImpl implements MemberService{
             member.setRole(Role.ADMIN);
         }
         member.setRole(Role.USER);
-        int queryResult = memberMapper.insertMember(member);
+        int queryResult = memberMapper.insertOrUpdateMember(member);
         return (queryResult == 1) ? true : false;
+    }
+
+    @Override
+    public boolean updateMemberInfo(int member_idx, Member requestMember) {
+        Member memberInfo = memberMapper.selectMemberByIdx(member_idx);
+
+        memberInfo.setPassword(requestMember.getPassword());
+        memberInfo.setNickname(requestMember.getNickname());
+        memberInfo.setEmail(requestMember.getEmail());
+
+        int queryResult = memberMapper.insertOrUpdateMember(memberInfo);
+
+        log.info("수정 결과 = {}",queryResult);
+
+        return (queryResult > 0) ? true : false;
     }
 
     @Override

@@ -6,6 +6,8 @@ public interface MemberService {
 
     public boolean saveMemberInfo(Member member);
 
+    public boolean updateMemberInfo(int member_idx, Member requestMember);
+
 
     public void updateLastLogin(Member member);
 

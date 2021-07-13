@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface MemberMapper {
 
-    public int insertMember(Member member);
+    public int insertOrUpdateMember(Member member);
 
     public void updateLoginTime(Member member);
 

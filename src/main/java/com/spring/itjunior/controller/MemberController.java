@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.servlet.http.HttpSession;
 
@@ -56,7 +57,19 @@ public class MemberController {
         return "member/info";
     }
 
-    
+    @GetMapping("/auth/updateForm")
+    public String updateForm(Model model) {
+        Member member = memberService.findByIdx(1); //테스트
+        model.addAttribute("member", member);
+        return "member/updateForm";
+    }
+
+    @PutMapping("/auth/member/{idx}")
+    public String updateMember(@PathVariable("idx") int member_idx, Member requestMember) {
+        log.info("password >>> {}",requestMember.getPassword());
+        memberService.updateMemberInfo(member_idx,requestMember);
+        return "redirect:/";
+    }
 
 
 //    전통적인 로그인 방식 (security 사용 아닌 것)
