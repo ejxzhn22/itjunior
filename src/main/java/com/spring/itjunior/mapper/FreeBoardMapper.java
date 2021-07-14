@@ -1,5 +1,6 @@
 package com.spring.itjunior.mapper;
 
+import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,4 +23,7 @@ public interface FreeBoardMapper {
 
     //게시글 삭제하기
     public int deleteBoard(FreeBoard freeBoard);
+
+    //카테고리 가져오기
+    public List<Category> category();
 }

@@ -1,5 +1,6 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.mapper.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,10 @@ public class FreeBoardService {
         return freeBoardMapper.updateBoard(freeBoard);
     }
 
+    //카테고리 가져오기
+    public List<Category> category(){
+        return freeBoardMapper.category();
+    }
 
 
 }
