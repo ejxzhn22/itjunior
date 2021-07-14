@@ -25,13 +25,49 @@ public class MemberServiceImpl implements MemberService{
         if(member.getUserId().equals("root")){
             member.setRole(Role.ADMIN);
         }
-        int queryResult = memberMapper.insertMember(member);
+        member.setRole(Role.USER);
+        int queryResult = memberMapper.insertOrUpdateMember(member);
         return (queryResult == 1) ? true : false;
+    }
+
+    @Override
+    public boolean updateMemberInfo(int member_idx, Member requestMember) {
+        Member memberInfo = memberMapper.selectMemberByIdx(member_idx);
+
+        memberInfo.setPassword(requestMember.getPassword());
+        memberInfo.setNickname(requestMember.getNickname());
+        memberInfo.setEmail(requestMember.getEmail());
+
+        int queryResult = memberMapper.insertOrUpdateMember(memberInfo);
+
+        log.info("수정 결과 = {}",queryResult);
+
+        return (queryResult > 0) ? true : false;
     }
 
     @Override
     public void updateLastLogin(Member member) {
         memberMapper.updateLoginTime(member);
+    }
+
+    @Override
+    public Member findByIdx(int member_idx) {
+        Member selectMemberInfo = memberMapper.selectMemberByIdx(member_idx);
+        log.info("member_idx로 회원정보조회 >>> {}",selectMemberInfo.toString());
+        return selectMemberInfo;
+    }
+
+    @Override
+    public Member findByUserId(String userId) {
+        Member selectMemberInfo = memberMapper.selectMemberByUserId(userId);
+        log.info("userId로 회원정보조회 >>> {}",selectMemberInfo.toString());
+        return selectMemberInfo;
+    }
+
+    @Override
+    public boolean deleteByIdx(int member_idx) {
+        int queryResult = memberMapper.deleteMemberByIdx(member_idx);
+        return (queryResult==1) ? true : false;
     }
 
 

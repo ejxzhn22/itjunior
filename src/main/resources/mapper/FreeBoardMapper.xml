@@ -70,4 +70,5 @@
         SELECT * FROM tbl_category WHERE cate_code=100
     </select>
 
+
 </mapper>

@@ -17,14 +17,14 @@
         , role
     </sql>
     
-    <insert id="insertMember" parameterType="Member">
+    <insert id="insertOrUpdateMember" parameterType="Member">
         INSERT INTO tbl_member (
             <include refid="memberColumns" />
         ) VALUES (
             #{member_idx}
             , #{userId}
             , #{email}
-            , #{password}
+            , IFNULL(#{password}, password)
             , #{nickname}
             , #{name}
             , 'N'
@@ -32,7 +32,34 @@
             , NULL
             , #{role}
         )
+        ON DUPLICATE KEY UPDATE
+            password = IFNULL(#{password}, password)
+            , nickname = #{nickname}
+            , email = #{email}
     </insert>
+
+    <!-- member_idx(PK)로 회원 상세정보 조회-->
+    <select id="selectMemberByIdx" resultType="Member" parameterType="int">
+        SELECT <include refid="memberColumns" />
+        FROM tbl_member
+        WHERE delete_yn='N' AND member_idx=#{member_idx}
+    </select>
+
+    <!-- userId(Unique key)로 회원 상세정보 조회-->
+    <select id="selectMemberByUserId" resultType="Member" parameterType="String">
+        SELECT <include refid="memberColumns" />
+        FROM tbl_member
+        WHERE delete_yn='N' AND userId=#{userId}
+    </select>
+
+    <update id="deleteMemberByIdx" parameterType="int">
+        UPDATE
+            tbl_member
+        SET
+            delete_yn='Y'
+        WHERE
+            member_idx=#{member_idx}
+    </update>
     
 
     <update id="updateLoginTime" parameterType="Member">

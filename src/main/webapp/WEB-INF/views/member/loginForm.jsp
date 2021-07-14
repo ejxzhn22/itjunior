@@ -24,6 +24,7 @@
                 </label>
             </div>
             <button type="submit" class="btn btn-primary">로그인</button>
+            <a href="/auth/joinForm">회원가입</a>
         </form>
     </div>
 
