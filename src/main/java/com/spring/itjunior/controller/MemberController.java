@@ -4,12 +4,10 @@ import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.service.MemberService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,7 +32,6 @@ public class MemberController {
     public String joinForm() {
         return "member/joinForm";
     }
-
     @PostMapping("/auth/join")
     public String join(Member member) {
         System.out.println(member.toString());
@@ -42,13 +39,18 @@ public class MemberController {
         if (resultJoin == false) {
             return "error404";
         }
+        log.info("회원가입 성공!!!");
         return "redirect:/";
     }
+
+
 
     @GetMapping("/auth/loginForm")
     public String loginForm(Model model) {
         return "member/loginForm";
     }
+
+
 
     @GetMapping("/auth/member/{idx}")
     public String detailIdx(@PathVariable("idx") int member_idx, Model model) {
@@ -57,20 +59,31 @@ public class MemberController {
         return "member/info";
     }
 
+
+
     @GetMapping("/auth/updateForm")
     public String updateForm(Model model) {
         Member member = memberService.findByIdx(1); //테스트
         model.addAttribute("member", member);
         return "member/updateForm";
     }
-
     @PutMapping("/auth/member/{idx}")
     public String updateMember(@PathVariable("idx") int member_idx, Member requestMember) {
         log.info("password >>> {}",requestMember.getPassword());
-        memberService.updateMemberInfo(member_idx,requestMember);
+        boolean resultUpdate = memberService.updateMemberInfo(member_idx,requestMember);
         return "redirect:/";
     }
 
+
+    @DeleteMapping("/auth/member/{idx}")
+    public String deleteMember(@PathVariable("idx") int member_idx) {
+        try{
+            boolean resultDelete = memberService.deleteByIdx(member_idx);
+        }catch (EmptyResultDataAccessException e){
+            e.printStackTrace();
+        }
+        return "redirect:/";
+    }
 
 //    전통적인 로그인 방식 (security 사용 아닌 것)
 //    @PostMapping("/auth/login")

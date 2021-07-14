@@ -35,7 +35,7 @@ public class MemberTests {
     public void updateWithIdx() {
         Member member = new Member();
 //        member.setPassword("1111");
-        member.setNickname("변경죠링이4");
+        member.setNickname("변경죠링이5");
         member.setEmail("noupdatepwd@naver.com");
         boolean updateMember = memberService.updateMemberInfo(1,member); //1번 회원 수정완료
 

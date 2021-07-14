@@ -34,7 +34,6 @@ public class FreeBoard {
     private int category;
     private int viewcnt;
     private int replycnt;
-    private int likecnt;
     private int member_idx;
 
 }

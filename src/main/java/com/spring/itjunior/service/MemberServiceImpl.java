@@ -5,6 +5,7 @@ import com.spring.itjunior.domain.Role;
 import com.spring.itjunior.mapper.MemberMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService{
 
     private MemberMapper memberMapper;
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
-    public MemberServiceImpl(MemberMapper memberMapper) {
+    public MemberServiceImpl(MemberMapper memberMapper,BCryptPasswordEncoder encoder) {
         this.memberMapper = memberMapper;
+        this.encoder = encoder;
     }
+
+//    @Autowired
+//    private BCryptPasswordEncoder encoder;
 
     @Transactional
     @Override
@@ -25,11 +31,16 @@ public class MemberServiceImpl implements MemberService{
         if(member.getUserId().equals("root")){
             member.setRole(Role.ADMIN);
         }
+        String rawPassword = member.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        member.setPassword(encPassword);
         member.setRole(Role.USER);
+
         int queryResult = memberMapper.insertOrUpdateMember(member);
         return (queryResult == 1) ? true : false;
     }
 
+    @Transactional
     @Override
     public boolean updateMemberInfo(int member_idx, Member requestMember) {
         Member memberInfo = memberMapper.selectMemberByIdx(member_idx);
