@@ -13,7 +13,6 @@
         ,category
         ,viewcnt
         ,replycnt
-        ,likecnt
         ,member_idx
     </sql>
 
@@ -43,7 +42,6 @@
             ,#{category}
             ,0
             ,0
-            ,0
             ,#{member_idx}
         )
 
@@ -54,7 +52,7 @@
     <update id="updateBoard" parameterType="FreeBoard">
         UPDATE tbl_board_free
         SET title = #{title}, content = #{content}, writer=#{writer}, update_time=NOW(),delete_time=#{delete_time},delete_yn=#{delete_yn},
-            category=#{category}, viewcnt = #{viewcnt}, replycnt=#{replycnt}, likecnt=#{likecnt}, member_idx=#{member_idx}
+            category=#{category}, viewcnt = #{viewcnt}, replycnt=#{replycnt}, member_idx=#{member_idx}
         WHERE free_idx=#{free_idx}
     </update>
 
@@ -70,5 +68,28 @@
         SELECT * FROM tbl_category WHERE cate_code=100
     </select>
 
+    <!-- -->
 
+    <!-- 조회수 올리기 -->
+    <update id="viewcntUpdate" parameterType="int">
+        UPDATE tbl_board_free
+        SET viewcnt = viewcnt+1
+        WHERE free_idx=#{free_idx}
+    </update>
+
+    <!-- 글추천하기 -->
+    <insert id="freeLike" parameterType="FreeLike">
+        INSERT INTO tbl_free_like (
+            free_idx, member_idX
+        ) VALUES (
+            #{free_idx}, #{member_idx}
+        )
+
+    </insert>
+
+    <!-- 글 추천 취소하기 -->
+    <delete id="deleteFreeLike" parameterType="FreeLike">
+        DELETE FROM tbl_free_like
+        WHERE free_idx=#{free_idx}, member_idx=#{member_idx}
+    </delete>
 </mapper>
