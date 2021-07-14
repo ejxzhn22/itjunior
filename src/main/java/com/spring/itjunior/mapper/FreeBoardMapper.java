@@ -2,6 +2,7 @@ package com.spring.itjunior.mapper;
 
 import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
+import com.spring.itjunior.domain.FreeLike;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -26,4 +27,13 @@ public interface FreeBoardMapper {
 
     //카테고리 가져오기
     public List<Category> category();
+
+    //조회수 올리기
+    public int viewcntUpdate(int free_idx);
+
+    //글 추천하기
+    public int freeLike(FreeLike freeLike);
+
+    //글 추천 취소하기
+    public int deleteFreeLike(FreeLike freeLike);
 }
