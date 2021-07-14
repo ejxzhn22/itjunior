@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/auth/**","/boards/**")
+                    .antMatchers("/auth/**","/boards/**","/js/**","/resources/**")
                     .permitAll()  // /auth로 시작하는 모든 매핑에 대하여 허용한다.
                     .anyRequest()
                     .authenticated() //허용을 제외한 나머지 모든 매핑은 인증을 받아야 진입 가능하다.

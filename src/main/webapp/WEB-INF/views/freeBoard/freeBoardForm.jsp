@@ -17,11 +17,11 @@
 <div class="container">
     <h2>Stacked form</h2>
 
-    <form id="freeBoardForm" onsubmit="newFreeBoard()">
-        <select name="category" class="custom-select">
-            <option selected>카테고리</option>
+    <form action="/boards/new" method="post">
+        <select id="select" name="category" class="custom-select" onchange="changeSelect()">
+            <option selected disabled>카테고리</option>
             <c:forEach var="category" items="${categories}">
-                <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name}</option>
+                <option  id="${category.cate_no}" name="category" value="${category.cate_no}">[${category.name}]</option>
             </c:forEach>
         </select>
         <div class="form-group">
@@ -32,14 +32,21 @@
             <label for="content">Content:</label>
             <textarea  class="form-control" rows="5" id="content" placeholder="Enter content" name="content"></textarea>
         </div>
-        <div class="form-group">
-            <label for="writer">Writer:</label>
-            <input type="text" class="form-control" id="writer" name="writer" value="">
-        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
 </div>
-<script type="text/javascript" src="/js/freeBoard.js"></script>
+<script>
+    function changeSelect() {
+
+        let select = document.getElementById("select");
+        let selectText = select.options[select.selectedIndex].text;
+        console.log(selectText);
+
+        $('input[name=title]').attr('value', selectText);
+
+    }
+</script>
 </body>
 </html>

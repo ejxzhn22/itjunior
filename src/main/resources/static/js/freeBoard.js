@@ -1,6 +1,15 @@
-function newFreeBoard() {
+function changeSelect() {
+
+    console.log("되고잇나");
+    let select = document.getElementById("select");
+    let selectText = select.options[select.selectedIndex].text;
+
+    let title = document.getElementById("title");
+
+    title.append(selectText);
 
 }
+
 
 
 
