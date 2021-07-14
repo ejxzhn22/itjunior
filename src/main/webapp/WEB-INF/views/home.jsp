@@ -23,9 +23,10 @@
     </c:when>
     <c:otherwise>
         <h1>로그인님 안녕하세요..!</h1>
-        <a href="/member/form">마이페이지</a>
+        ${principal}
+        <a href="/auth/member/form">마이페이지</a>
         <a href="/logout">로그아웃</a>
-        <a href="/auth/updateForm">로그아웃</a>
+        <a href="/auth/updateForm">회원수정</a>
     </c:otherwise>
 </c:choose>
 
