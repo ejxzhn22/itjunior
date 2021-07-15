@@ -28,5 +28,7 @@
         <a href="/auth/member/form">마이페이지</a>
         <a href="/logout">로그아웃</a>
         <a href="/auth/updateForm">회원수정</a>
+        <a href="/boards">게시판</a>
     </c:otherwise>
 </c:choose>
+<script src="/js/freeBoard.js>"></script>
