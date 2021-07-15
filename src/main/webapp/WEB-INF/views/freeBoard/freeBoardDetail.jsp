@@ -26,6 +26,10 @@
             <label for="content">Content:</label>
             <textarea  class="form-control" rows="5" id="content"  name="content" readonly>${board.content}</textarea>
         </div>
+        <div class="form-group">
+            <label for="writer">Writer:</label>
+            <input type="text"  class="form-control"  id="writer" value="${board.writer}" name="writer" readonly/>
+        </div>
         <div class="form-group d-flex justify-content-around">
             <div class="view">
                 <h2><i class="far fa-grin-hearts"></i></h2>
@@ -67,20 +71,22 @@
 
 
 </div>
-<script>
+
+<script type="text/javascript">
     function like(free_idx){
-        let likeIcon = $(`#likeIcon-${free_idx}`);
+        console.log("idx: ",${board.free_idx})
+        let likeIcon = $(`#likeIcon-`+free_idx);
 
         if(likeIcon.hasClass("far")) { //좋아요
             $.ajax({
                 type:"post",
-                url:`/boards/${free_idx}/likes`,
+                url:`/boards/`+free_idx+`/likes`,
                 dataType:"json"
             }).done(res=>{
-                let likeContStr = $(`#likeCount`).text();
+                let likeContStr = $("#likeCount").text();
                 let likeCount = Number(likeContStr) +1;
 
-                $(`#likeCount`).text(likeCount);
+                $("#likeCount").text(likeCount);
 
                 likeIcon.addClass("fas");
                 likeIcon.addClass("active");
@@ -91,14 +97,14 @@
         } else{ // 좋아요 취소
             $.ajax({
                 type: "delete",
-                url:`/boards/${free_idx}/likes`,
+                url:`/boards/`+free_idx+`/likes`,
                 dataType:"json"
             }).done(res=> {
 
-                let likeContStr = $(`#likeCount`).text();
-                let likeCount = Number(likeCountStr) - 1;
+                let likeContStr = $("#likeCount").text();
+                let likeCount = Number(likeContStr) - 1;
 
-                $(`#likeCount`).text(likeCount);
+                $("#likeCount").text(likeCount);
 
                 likeIcon.removeClass("fas");
                 likeIcon.removeClass("active");
@@ -110,5 +116,6 @@
         }
     }
 </script>
+
 </body>
 </html>

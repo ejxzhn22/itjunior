@@ -1,10 +1,12 @@
 package com.spring.itjunior.controller;
 
-import com.spring.itjunior.domain.Category;
-import com.spring.itjunior.domain.FreeBoard;
+import com.spring.itjunior.config.auth.PrincipalDetails;
+import com.spring.itjunior.domain.*;
 import com.spring.itjunior.dto.BoardDto;
 import com.spring.itjunior.service.FreeBoardService;
+import com.spring.itjunior.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +44,11 @@ public class FreeBoardController {
         boardDto.setFree_idx(free_idx);
         boardDto.setTitle(freeBoard.getTitle());
         boardDto.setContent(freeBoard.getContent());
+        boardDto.setWriter(freeBoard.getWriter());
         boardDto.setCategory(freeBoard.getCategory());
         boardDto.setViewcnt(freeBoard.getViewcnt());
         boardDto.setLikecnt(likecnt);
+
         model.addAttribute("board",boardDto);
 
         return "freeBoard/freeBoardDetail";
@@ -64,14 +68,17 @@ public class FreeBoardController {
 
     //글쓰기
     @PostMapping("/boards/new")
-    public String newBoard(BoardDto boardDto) {
+    public String newBoard(BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         FreeBoard freeBoard = new FreeBoard();
+        freeBoard.setMember_idx(principalDetails.getMember().getMember_idx());
+        freeBoard.setWriter(principalDetails.getMember().getNickname());
         freeBoard.setCategory(boardDto.getCategory());
         freeBoard.setTitle(boardDto.getTitle());
         freeBoard.setContent(boardDto.getContent());
+        freeBoard.setDelete_yn(DeleteYN.N);
 
-        //freeBoardService.newBoard(freeBoard);
+        freeBoardService.newBoard(freeBoard);
 
         return "redirect:/boards";
     }
@@ -79,17 +86,23 @@ public class FreeBoardController {
     //글 추천하기
     @ResponseBody
     @PostMapping("/boards/{free_idx}/likes")
-    public int freeLike(@PathVariable int free_idx){
+    public int freeLike(@PathVariable int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        FreeLike freeLike = new FreeLike();
+        freeLike.setFree_idx(free_idx);
+        freeLike.setMember_idx(principalDetails.getMember().getMember_idx());
 
-        return freeBoardService.freeLike(free_idx);
+        return freeBoardService.freeLike(freeLike);
     }
 
     //글 추천 취소하기
     @ResponseBody
     @DeleteMapping("/boards/{free_idx}/likes")
-    public int DeleteFreeLike(@PathVariable int free_idx){
+    public int DeleteFreeLike(@PathVariable int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        FreeLike freeLike = new FreeLike();
+        freeLike.setFree_idx(free_idx);
+        freeLike.setMember_idx(principalDetails.getMember().getMember_idx());
 
-        return freeBoardService.freeLike(free_idx);
+        return freeBoardService.freeLike(freeLike);
     }
 
     // 글 수정 이동

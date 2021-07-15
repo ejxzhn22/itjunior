@@ -1,11 +1,13 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.domain.FreeLike;
 import com.spring.itjunior.dto.BoardDto;
 import com.spring.itjunior.mapper.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +35,6 @@ public class FreeBoardService {
 
     //게시글 추가
     public int newBoard(FreeBoard freeBoard) {
-
         return freeBoardMapper.insertBoard(freeBoard);
     }
 
@@ -57,16 +58,14 @@ public class FreeBoardService {
         return freeBoardMapper.viewcntUpdate(free_idx);
     }
 
-    //글 추천하기 -> 회원 받아서 넣기
-    public int freeLike(int free_idx){
-        FreeLike freeLike = new FreeLike();
+    //글 추천하기
+    public int freeLike(FreeLike freeLike){
 
         return freeBoardMapper.freeLike(freeLike);
     }
 
-    //글 추천 삭제하기 -> 회원 받아서 넣기
-    public int deleteFreeLike(int free_idx){
-        FreeLike freeLike = new FreeLike();
+    //글 추천 삭제하기
+    public int deleteFreeLike(FreeLike freeLike){
 
         return freeBoardMapper.deleteFreeLike(freeLike);
     }
