@@ -24,11 +24,11 @@
         </select>
         <div class="form-group">
             <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" placeholder="${board.title}" name="title">
+            <input type="text" class="form-control" id="title"  value="${board.title}" name="title">
         </div>
         <div class="form-group">
             <label for="content">Content:</label>
-            <textarea  class="form-control" rows="5" id="content" placeholder="${board.content}" name="content"></textarea>
+            <textarea  class="form-control" rows="5" id="content"  name="content">${board.content}</textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

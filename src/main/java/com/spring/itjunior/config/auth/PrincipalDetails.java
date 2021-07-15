@@ -1,12 +1,14 @@
 package com.spring.itjunior.config.auth;
 
 import com.spring.itjunior.domain.Member;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Getter
 public class PrincipalDetails implements UserDetails {
 
     private Member member; //콤포지션 : 객체를 품고 있는 것

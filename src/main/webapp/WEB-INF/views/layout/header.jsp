@@ -24,7 +24,7 @@
     </c:when>
     <c:otherwise>
         <h1>로그인 되었습니다..!</h1>
-        ${principal.member}<br>
+        ${principal}<br>
         <a href="/auth/member/form">마이페이지</a>
         <a href="/logout">로그아웃</a>
         <a href="/auth/updateForm">회원수정</a>
