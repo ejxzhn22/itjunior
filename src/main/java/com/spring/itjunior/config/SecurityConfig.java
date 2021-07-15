@@ -1,7 +1,10 @@
 package com.spring.itjunior.config;
 
+import com.spring.itjunior.config.auth.PrincipalDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +15,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity //시큐리티 필터 추 = 스프링 시큐리티가 활성화가 되어있고, 그에 해당하는 설정들을 현재 파일에서 하겠다.
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private PrincipalDetailsService principalDetailsService;
+
+    @Autowired
+    public SecurityConfig(PrincipalDetailsService principalDetailsService) {
+        this.principalDetailsService = principalDetailsService;
+    }
 
     @Bean
     public BCryptPasswordEncoder encodePWD() {
@@ -32,8 +42,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/auth/loginForm")
                     .loginProcessingUrl("/auth/loginProc") //스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인 해준다.
                     .usernameParameter("userId")
-                    .passwordParameter("password")
                     .defaultSuccessUrl("/");
 
     }
+
+    //암호화된 비번 체킹 메소드 구현 안해도 security가 이 메서드를 default로 생각하여 해쉬된 비밀번호 자동 비교 해줌.
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(principalDetailsService).passwordEncoder(encodePWD());
+//    }
 }

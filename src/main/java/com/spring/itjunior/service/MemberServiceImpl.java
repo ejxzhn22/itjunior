@@ -22,8 +22,6 @@ public class MemberServiceImpl implements MemberService{
         this.encoder = encoder;
     }
 
-//    @Autowired
-//    private BCryptPasswordEncoder encoder;
 
     @Transactional
     @Override
@@ -56,10 +54,6 @@ public class MemberServiceImpl implements MemberService{
         return (queryResult > 0) ? true : false;
     }
 
-    @Override
-    public void updateLastLogin(Member member) {
-        memberMapper.updateLoginTime(member);
-    }
 
     @Override
     public Member findByIdx(int member_idx) {
@@ -83,6 +77,13 @@ public class MemberServiceImpl implements MemberService{
 
 
 }
+//    //security PrincipalDetailsService 에서 해당 mapper를 사용하므로, 이 메서드는 일단 사용 안함.
+//    @Override
+//    public void updateLastLogin(Member member) {
+//        memberMapper.updateLoginTime(member);
+//    }
+
+
 //    해당 로그인 service 역시 전통적인 방식이기때문에 사용 x
 //    @Transactional(readOnly = true) //Select할때 트랜잭션 시작.서비스 종료시에 트랜잭션 종료(정합성유지)
 //    @Override

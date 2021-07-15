@@ -8,15 +8,14 @@ public interface MemberService {
 
     public boolean updateMemberInfo(int member_idx, Member requestMember);
 
-
-    public void updateLastLogin(Member member);
-
     public Member findByIdx(int member_idx);
 
     public Member findByUserId(String userId);
 
     public boolean deleteByIdx(int member_idx);
+
 }
 
+//    public void updateLastLogin(Member member); //일단 사용 안함. mapper updateLastLogin은 사용함
 
 //    public Member loginMember(Member member);

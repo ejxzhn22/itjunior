@@ -69,7 +69,7 @@ public class FreeBoardController {
 
     //글 추천하기
     @ResponseBody
-    @PostMapping("/boards/${free_idx}/likes")
+    @PostMapping("/boards/{free_idx}/likes")
     public int freeLike(@PathVariable int free_idx){
 
         return freeBoardService.freeLike(free_idx);
@@ -77,7 +77,7 @@ public class FreeBoardController {
 
     //글 추천 취소하기
     @ResponseBody
-    @DeleteMapping("/boards/${free_idx}/likes")
+    @DeleteMapping("/boards/{free_idx}/likes")
     public int DeleteFreeLike(@PathVariable int free_idx){
 
         return freeBoardService.freeLike(free_idx);
