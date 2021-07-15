@@ -3,6 +3,7 @@ package com.spring.itjunior.service;
 import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.domain.FreeLike;
+import com.spring.itjunior.dto.BoardDto;
 import com.spring.itjunior.mapper.FreeBoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,11 @@ public class FreeBoardService {
         return freeBoardMapper.selectById(free_idx);
     }
 
+    //게시글 하나 가져오기 -> 카테고리 이름 포함
+    public BoardDto selectBoard(int free_idx){
+        return freeBoardMapper.selectOne(free_idx);
+    }
+
     //게시글 추가
     public int newBoard(FreeBoard freeBoard) {
 
@@ -34,6 +40,11 @@ public class FreeBoardService {
     //게시글 수정
     public int updateBaord(FreeBoard freeBoard){
         return freeBoardMapper.updateBoard(freeBoard);
+    }
+
+    //게시글 삭제
+    public int deleteBoard(int free_idx){
+        return freeBoardMapper.deleteBoard(free_idx);
     }
 
     //카테고리 가져오기
@@ -58,6 +69,11 @@ public class FreeBoardService {
         FreeLike freeLike = new FreeLike();
 
         return freeBoardMapper.deleteFreeLike(freeLike);
+    }
+
+    //글 추천수 가져오기
+    public int viewcnt(int free_idx){
+        return freeBoardMapper.viewcnt(free_idx);
     }
 
 

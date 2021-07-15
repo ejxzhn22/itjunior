@@ -17,36 +17,24 @@
 <div class="container">
     <h2>Stacked form</h2>
 
-    <form action="/boards/new" method="post">
+    <form action="/boards/${board.free_idx}/update" method="post">
         <select id="select" name="category" class="custom-select" onchange="changeSelect()">
-            <option selected disabled>카테고리</option>
-            <c:forEach var="category" items="${categories}">
-                <option  id="${category.cate_no}" name="category" value="${category.cate_no}">[${category.name}] </option>
-            </c:forEach>
+            <option selected disabled>${board.cate_name}</option>
+
         </select>
         <div class="form-group">
             <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" placeholder="Enter title" name="title">
+            <input type="text" class="form-control" id="title" placeholder="${board.title}" name="title">
         </div>
         <div class="form-group">
             <label for="content">Content:</label>
-            <textarea  class="form-control" rows="5" id="content" placeholder="Enter content" name="content"></textarea>
+            <textarea  class="form-control" rows="5" id="content" placeholder="${board.content}" name="content"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
 </div>
-<script>
-    function changeSelect() {
 
-        let select = document.getElementById("select");
-        let selectText = select.options[select.selectedIndex].text;
-        console.log(selectText);
-
-        $('input[name=title]').attr('value', selectText);
-
-    }
-</script>
 </body>
 </html>
