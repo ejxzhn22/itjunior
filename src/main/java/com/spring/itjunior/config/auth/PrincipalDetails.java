@@ -11,6 +11,10 @@ public class PrincipalDetails implements UserDetails {
 
     private Member member; //콤포지션 : 객체를 품고 있는 것
 
+    public PrincipalDetails(Member member) {
+        this.member = member;
+    }
+
     @Override
     public String getPassword() {
         return member.getPassword();
@@ -53,4 +57,5 @@ public class PrincipalDetails implements UserDetails {
 
         return collectors;
     }
+
 }
