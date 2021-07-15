@@ -38,7 +38,7 @@
                 <td>${board.writer}</td>
                 <td>${board.create_time}</td>
                 <td>${board.viewcnt}</td>
-                <td>${board.likecnt}</td>
+                <td></td>
             </tr>
         </c:forEach>
         </tbody>

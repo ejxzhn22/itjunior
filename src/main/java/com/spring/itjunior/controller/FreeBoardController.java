@@ -33,11 +33,19 @@ public class FreeBoardController {
         // 조회수 올리기
         freeBoardService.viewUpdate(free_idx);
 
+        //추천수 가져오기
+        int likecnt = freeBoardService.viewcnt(free_idx);
+
+        //DTO에 담아서 보낸다.
         FreeBoard freeBoard = freeBoardService.board(free_idx);
-
-        //추천수
-
-        model.addAttribute("board",freeBoard);
+        BoardDto boardDto = new BoardDto();
+        boardDto.setFree_idx(free_idx);
+        boardDto.setTitle(freeBoard.getTitle());
+        boardDto.setContent(freeBoard.getContent());
+        boardDto.setCategory(freeBoard.getCategory());
+        boardDto.setViewcnt(freeBoard.getViewcnt());
+        boardDto.setLikecnt(likecnt);
+        model.addAttribute("board",boardDto);
 
         return "freeBoard/freeBoardDetail";
 
@@ -46,6 +54,7 @@ public class FreeBoardController {
     //글쓰기 이동
     @GetMapping("/boards/new")
     public String newBoard(Model model){
+
         // 글 카테고리 가져오기
         List<Category> categories = freeBoardService.category();
         model.addAttribute("categories", categories);
@@ -69,7 +78,7 @@ public class FreeBoardController {
 
     //글 추천하기
     @ResponseBody
-    @PostMapping("/boards/${free_idx}/likes")
+    @PostMapping("/boards/{free_idx}/likes")
     public int freeLike(@PathVariable int free_idx){
 
         return freeBoardService.freeLike(free_idx);
@@ -77,9 +86,39 @@ public class FreeBoardController {
 
     //글 추천 취소하기
     @ResponseBody
-    @DeleteMapping("/boards/${free_idx}/likes")
+    @DeleteMapping("/boards/{free_idx}/likes")
     public int DeleteFreeLike(@PathVariable int free_idx){
 
         return freeBoardService.freeLike(free_idx);
+    }
+
+    // 글 수정 이동
+    @GetMapping("/boards/{free_idx}/update")
+    public String freeBoardUpdateForm(@PathVariable int free_idx, Model model) {
+        BoardDto boardDto = freeBoardService.selectBoard(free_idx);
+
+        model.addAttribute("board",boardDto);
+
+
+        return "freeBoard/freeBoardUpdateForm";
+    }
+
+    //글수정
+    @PostMapping("/boards/{free_idx}/update")
+    public String freeBoardUpdate(@PathVariable int free_idx, BoardDto boardDto){
+        FreeBoard freeBoard = freeBoardService.board(free_idx);
+        freeBoard.setTitle(boardDto.getTitle());
+        freeBoard.setContent(boardDto.getContent());
+        freeBoardService.updateBaord(freeBoard);
+
+        return "redirect:/boards";
+    }
+
+    //글삭제
+    @GetMapping("/boards/{free_idx}/delete")
+    public String freeBoardDelete(@PathVariable int free_idx){
+        freeBoardService.deleteBoard(free_idx);
+
+        return "redirect:/boards";
     }
 }

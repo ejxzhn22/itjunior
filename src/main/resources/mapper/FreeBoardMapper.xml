@@ -19,12 +19,19 @@
 
     <!-- 모든 게시글 가져오기 -->
     <select id="selectAll" resultType="FreeBoard">
-        SELECT * FROM tbl_board_free
+        SELECT * FROM tbl_board_free WHERE delete_yn="N"
     </select>
 
     <!--  게시글 하나 가져오기  -->
     <select id="selectById" parameterType="int" resultType="FreeBoard">
         SELECT *
+        FROM tbl_board_free
+        WHERE free_idx = #{free_idx}
+    </select>
+
+    <!-- 게시글 하나 가져오기 -> 카테고리 이름포함 -->
+    <select id="selectOne" parameterType="int" resultType="BoardDto">
+        SELECT *, (select name from tbl_category c where c.cate_no = category) as cate_name
         FROM tbl_board_free
         WHERE free_idx = #{free_idx}
     </select>
@@ -92,4 +99,11 @@
         DELETE FROM tbl_free_like
         WHERE free_idx=#{free_idx}, member_idx=#{member_idx}
     </delete>
+
+    <!-- 글 추천수가져오기 -->
+    <select id="viewcnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_free_like
+        WHERE free_idx=#{free_idx}
+    </select>
 </mapper>

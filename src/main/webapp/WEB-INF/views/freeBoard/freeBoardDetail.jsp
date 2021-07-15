@@ -32,8 +32,36 @@
                 <h2>${board.viewcnt}</h2>
             </div>
             <div class="like">
-                <h2><i id="likeIcon-${board.free_idx}" class="far fa-thumbs-up" onclick="like(${board.free_idx}"></i></h2>
+                <h2><i id="likeIcon-${board.free_idx}" class="far fa-thumbs-up" onclick="like(${board.free_idx})"></i></h2>
                 <h2 id="likeCount">${board.likecnt}</h2>
+            </div>
+        </div>
+        <div class="form-group">
+            <a href="/boards/${board.free_idx}/update" class="btn btn-outline-warning">수정</a>
+            <a href="/boards/${board.free_idx}/delete" class="btn btn-outline-danger">삭제</a>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Card title</h4>
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    <hr/>
+        <div class="media border p-3">
+            <img src="img_avatar3.png" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+            <div class="media-body">
+                <h4>John Doe <small><i>Posted on February 19, 2016</i></small></h4>
+                <p>Lorem ipsum...</p>
+                <div class="media p-3">
+                    <img src="img_avatar2.png" alt="Jane Doe" class="mr-3 mt-3 rounded-circle" style="width:45px;">
+                    <div class="media-body">
+                        <h4>Jane Doe <small><i>Posted on February 20 2016</i></small></h4>
+                        <p>Lorem ipsum...</p>
+                    </div>
+                </div>
             </div>
         </div>
 
