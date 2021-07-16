@@ -39,16 +39,7 @@ public class FreeBoardController {
         int likecnt = freeBoardService.viewcnt(free_idx);
 
         //DTO에 담아서 보낸다.
-        FreeBoard freeBoard = freeBoardService.board(free_idx);
-        BoardDto boardDto = new BoardDto();
-        boardDto.setFree_idx(free_idx);
-        boardDto.setTitle(freeBoard.getTitle());
-        boardDto.setContent(freeBoard.getContent());
-        boardDto.setWriter(freeBoard.getWriter());
-        boardDto.setCreate_time(freeBoard.getCreate_time());
-        boardDto.setCategory(freeBoard.getCategory());
-
-        boardDto.setViewcnt(freeBoard.getViewcnt());
+        BoardDto boardDto = freeBoardService.selectBoard(free_idx);
         boardDto.setLikecnt(likecnt);
 
         model.addAttribute("board",boardDto);

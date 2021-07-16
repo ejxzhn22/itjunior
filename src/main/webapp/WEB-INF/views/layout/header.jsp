@@ -56,16 +56,19 @@
             <li><a href="/boards">취업토론</a></li>
         </ul>
     </div>
+
     <div class="member-div">
-<c:choose>
-    <c:when test="${empty principal}">
-            <a href="/auth/loginForm">로그인</a>
-            <a href="/auth/joinForm">회원가입</a>
-    </c:when>
-    <c:otherwise>
-            <a href="/auth/member/form">마이페이지</a>
-            <a href="/logout">로그아웃</a>
-    </c:otherwise>
-</c:choose>
+
+        <c:choose>
+            <c:when test="${empty principal}">
+                <a href="/auth/loginForm">로그인</a>
+                <a href="/auth/joinForm">회원가입</a>
+            </c:when>
+            <c:otherwise>
+                <a href="/auth/member/form">마이페이지</a>
+                <a href="/logout">로그아웃</a>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 </div>
