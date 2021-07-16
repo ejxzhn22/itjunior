@@ -25,7 +25,7 @@ public class FreeBoardController {
         List<FreeBoard> boards = freeBoardService.boards();
         model.addAttribute("boards", boards);
 
-        return "freeBoard/freeBoard";
+        return "freeBoard/freeBoardList";
     }
 
     //글 상세 페이지 이동
