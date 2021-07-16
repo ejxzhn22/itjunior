@@ -4,7 +4,7 @@
 
 <%@include file="layout/header.jsp"%>
 <div>
-    <h1>홈 입니다.</h1>
+    <h1>홈 입니다.ggg</h1>
 </div>
 <%@include file="layout/footer.jsp"%>
 <%--<script src="/resources/static/js/freeBoard.js" type="text/javascript"></script>
