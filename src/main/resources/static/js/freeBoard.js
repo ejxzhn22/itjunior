@@ -41,7 +41,10 @@ function like(free_idx){
     }
 }
 
-
+function test(){
+    console.log("test")
+}
+test();
 
 
 

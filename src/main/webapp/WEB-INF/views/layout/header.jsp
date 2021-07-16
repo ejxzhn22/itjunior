@@ -31,4 +31,3 @@
         <a href="/boards">게시판</a>
     </c:otherwise>
 </c:choose>
-<script src="/js/freeBoard.js>"></script>

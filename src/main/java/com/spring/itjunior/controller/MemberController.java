@@ -34,7 +34,6 @@ public class MemberController {
     }
     @PostMapping("/auth/join")
     public String join(Member member) {
-        System.out.println(member.toString());
         boolean resultJoin = memberService.saveMemberInfo(member);
         if (resultJoin == false) {
             return "error404";

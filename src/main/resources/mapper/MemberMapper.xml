@@ -27,7 +27,7 @@
             , IFNULL(#{password}, password)
             , #{nickname}
             , #{name}
-            , 'N'
+            , #{delete_yn}
             , NOW()
             , NULL
             , #{role}

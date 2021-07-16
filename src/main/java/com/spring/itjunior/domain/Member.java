@@ -13,7 +13,7 @@ public class Member {
     private String password;
     private String nickname;
     private String name;
-    private String delete_yn;
+    private DeleteYN delete_yn;
     private LocalDateTime create_time;
     private LocalDateTime last_login_time;
     private Role role;
