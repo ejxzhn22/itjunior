@@ -6,7 +6,7 @@ public interface MemberService {
 
     public boolean saveMemberInfo(Member member);
 
-    public boolean updateMemberInfo(int member_idx, Member requestMember);
+    public boolean updateMemberInfo(Member requestMember);
 
     public Member findByIdx(int member_idx);
 

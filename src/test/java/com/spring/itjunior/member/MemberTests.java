@@ -37,7 +37,7 @@ public class MemberTests {
 //        member.setPassword("1111");
         member.setNickname("변경죠링이5");
         member.setEmail("noupdatepwd@naver.com");
-        boolean updateMember = memberService.updateMemberInfo(1,member); //1번 회원 수정완료
+        boolean updateMember = memberService.updateMemberInfo(member); //1번 회원 수정완료
 
         Member expectMember = memberService.findByIdx(1); //수정 commit 후 1번 회원정보 가져오기
         if (updateMember == true) {

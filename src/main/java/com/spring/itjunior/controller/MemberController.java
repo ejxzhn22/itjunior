@@ -60,16 +60,20 @@ public class MemberController {
 
 
 
+//    @GetMapping("/auth/updateForm")
+//    public String updateForm(Model model) {
+//        Member member = memberService.findByIdx(1); //테스트
+//        model.addAttribute("member", member);
+//        return "member/updateForm";
+//    }
     @GetMapping("/auth/updateForm")
-    public String updateForm(Model model) {
-        Member member = memberService.findByIdx(1); //테스트
-        model.addAttribute("member", member);
+    public String updateForm() {
         return "member/updateForm";
     }
-    @PutMapping("/auth/member/{idx}")
-    public String updateMember(@PathVariable("idx") int member_idx, Member requestMember) {
+    @PutMapping("/auth/member")
+    public String updateMember(Member requestMember) {
         log.info("password >>> {}",requestMember.getPassword());
-        boolean resultUpdate = memberService.updateMemberInfo(member_idx,requestMember);
+        boolean resultUpdate = memberService.updateMemberInfo(requestMember);
         return "redirect:/";
     }
 

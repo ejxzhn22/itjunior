@@ -7,6 +7,4 @@
     <h1>홈 입니다.</h1>
 </div>
 <%@include file="layout/footer.jsp"%>
-<%--<script src="/resources/static/js/freeBoard.js" type="text/javascript"></script>
-<script src="/static/js/freeBoard.js>" type="text/javascript"></script>--%>
-
+<script src="/js/testt.js" type="text/javascript"></script>
