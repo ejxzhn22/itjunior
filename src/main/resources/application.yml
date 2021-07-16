@@ -11,6 +11,7 @@ spring:
     include: datasource
 
 server:
+  port: 8000
   servlet:
     encoding:
       charset: UTF-8
