@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Spring Boot Application with JSP</title>
-</head>
-<body>
+
+<%@include file="../layout/header.jsp"%>
+
 <h1>회원가입</h1>
     <div class="container">
         <form action="/auth/join" method="post">
@@ -34,6 +31,5 @@
         </form>
     </div>
 
-</body>
 
-</html>
+<%@include file="../layout/footer.jsp"%>
