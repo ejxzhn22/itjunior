@@ -15,7 +15,7 @@
 </div>
 <div class="content-section">
     <div class="detail-header">
-        <span>잡담</span>
+        <span>${board.cate_name}</span>
         <img src="/image/icon-minus.png" alt="">
         <h1>${board.title}</h1>
     </div>

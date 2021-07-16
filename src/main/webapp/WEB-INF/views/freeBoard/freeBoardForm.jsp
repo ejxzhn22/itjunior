@@ -21,13 +21,14 @@
             <select id="select" name="category" class="board-category-select" onchange="changeSelect()">
                 <option selected disabled>카테고리</option>
                 <c:forEach var="category" items="${categories}">
-                    <option  id="${category.cate_no}" name="category" value="${category.cate_no}">[${category.name}] </option>
+                    <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name} </option>
                 </c:forEach>
             </select>
+            <input type="text" class="cate-input" id="cate_name"  name="cate_name" readonly>
             <input type="text" class="write-input" id="title" placeholder="Enter title" name="title">
         </div>
 
-        <div id="summernote"placeholder="Enter content" name="content"></div>
+        <textarea id="summernote" placeholder="Enter content" name="content"></textarea>
 
         <div class="btns-box">
             <input type="submit" value="작성하기" class="write-submit">
@@ -72,7 +73,7 @@
         let selectText = select.options[select.selectedIndex].text;
         console.log(selectText);
 
-        $('input[name=title]').attr('value', selectText);
+        $('input[name=cate_name]').attr('value', "["+selectText+"]");
 
     }
 </script>

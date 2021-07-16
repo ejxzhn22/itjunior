@@ -57,8 +57,19 @@
             <li><a href="/boards">취업토론</a></li>
         </ul>
     </div>
+
+
     <div class="member-div">
-        <a href="/auth/loginForm">login</a>
-        <a href="/auth/joinForm">join</a>
+        <c:choose>
+            <c:when test="${empty principal}">
+                <a href="/auth/loginForm">login</a>
+                <a href="/auth/joinForm">join</a>
+            </c:when>
+            <c:otherwise>
+                <a href="/auth/member/form">마이페이지</a>
+                <a href="/logout">로그아웃</a>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 </div>

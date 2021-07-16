@@ -23,10 +23,11 @@
         <option selected disabled>${board.cate_name}</option>
 
     </select>
+            <input type="text" class="cate-input" id="cate_name"  name="cate_name" value="[${board.cate_name}]" readonly>
             <input type="text" class="write-input" id="title" name="title" value="${board.title}">
         </div>
 
-        <div id="summernote" name="content">${board.content}</div>
+        <textarea id="summernote" name="content">${board.content}</textarea>
 
         <div class="btns-box">
             <input type="submit" value="작성하기" class="write-submit">

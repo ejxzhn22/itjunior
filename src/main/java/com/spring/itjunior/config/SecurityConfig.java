@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() //csrf토큰 비활성 (테스트시 걸어두는게 좋음)
                 .authorizeRequests()
-                    .antMatchers("/auth/**","/boards/**","/js/**","/css/**","/image/**","/")
+                    .antMatchers("/auth/**","/boards/**","/js/**","/css/**","/image/**","/","/font/**")
                     .permitAll()  // /auth로 시작하는 모든 매핑에 대하여 허용한다.
                     .anyRequest()
                     .authenticated() //허용을 제외한 나머지 모든 매핑은 인증을 받아야 진입 가능하다.
