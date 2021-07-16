@@ -25,9 +25,8 @@
             <th>글번호</th>
             <th>제목</th>
             <th>작성자</th>
-            <th>쓴날짜</th>
             <th>조회수</th>
-            <th>추천수</th>
+            <th>작성일</th>
         </tr>
         </thead>
         <tbody>
@@ -36,9 +35,8 @@
                 <td>${board.free_idx}</td>
                 <td><a href="/boards/${board.free_idx}">${board.title}</a></td>
                 <td>${board.writer}</td>
-                <td>${board.create_time}</td>
                 <td>${board.viewcnt}</td>
-                <td></td>
+                <td>${board.create_time}</td>
             </tr>
         </c:forEach>
         </tbody>

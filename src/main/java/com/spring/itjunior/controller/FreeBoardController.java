@@ -45,7 +45,9 @@ public class FreeBoardController {
         boardDto.setTitle(freeBoard.getTitle());
         boardDto.setContent(freeBoard.getContent());
         boardDto.setWriter(freeBoard.getWriter());
+        boardDto.setCreate_time(freeBoard.getCreate_time());
         boardDto.setCategory(freeBoard.getCategory());
+
         boardDto.setViewcnt(freeBoard.getViewcnt());
         boardDto.setLikecnt(likecnt);
 
