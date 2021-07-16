@@ -1,5 +1,6 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
 import com.spring.itjunior.mapper.MemberMapper;
@@ -33,6 +34,7 @@ public class MemberServiceImpl implements MemberService{
         String encPassword = encoder.encode(rawPassword);
         member.setPassword(encPassword);
         member.setRole(Role.USER);
+        member.setDelete_yn(DeleteYN.N);
 
         int queryResult = memberMapper.insertOrUpdateMember(member);
         return (queryResult == 1) ? true : false;
