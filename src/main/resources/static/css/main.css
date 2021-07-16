@@ -1,0 +1,365 @@
+/* 공통 */
+@font-face {
+    font-family: "hannam";
+    src: url("../font/hanna-m.otf") format('otf');
+}
+@font-face {
+    font-family: "hannaw";
+    src: url("../font/hanna-w.ttf") format('ttf');
+}
+@font-face {
+    font-family: "hannaair";
+    src: url("../font/hanna-air.otf") format('otf');
+}
+@font-face{
+    font-family : "nanumgothic";
+    src: url("../font/NanumGothic.ttf") format('ttf');
+}
+ul,li{
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+p{
+    margin:0;
+    padding:0;
+}
+a{
+    text-decoration: none;
+}
+li a:visited, .member-div a:visited{
+    color:#000;
+}
+body{
+    font-family: hannaw,hannam,nanumGothic;
+    margin:0;
+    padding:0;
+}
+/* 헤더 */
+.logo-div{
+    width:15%;
+}
+.nav-div{
+    width:60%;
+}
+.member-div{
+    width:22%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.nav-div ul{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height:100%;
+    font-size:20px;
+}
+.logo-img{
+    width:180px;
+    height:70px;
+}
+.header-section{
+    display:flex;
+    position:sticky;
+    top:0;
+    background-color: #fff;
+    z-index: 10;
+    padding:10px 35px;
+    transition:1s linear;
+}
+.member-div a{
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 10px 40px;
+    transition:.2s linear;
+}
+.member-div a:hover{
+    color:#fff;
+    background-color:#2904f8;
+    border:1px solid #2904f8;
+    box-shadow: 0 0 3px black;
+}
+
+
+/* 컨텐츠 */
+.content1-section{
+    position:relative;
+    height:100vh;
+}
+.main-card-img{
+    width:700px;
+    border-radius:10px;
+    box-shadow: 9px 9px 9px #d2d2d2;
+    position:absolute;
+    left:10%;
+    top:10%;
+}
+.main-words{
+    position:absolute;
+    right:7%;
+    top:19%;
+    font-size:80px;
+    animation-name: mainitju;
+    animation-duration: 2s;
+}
+.main-words-itju{
+    animation-name: mainitju;
+    animation-duration: 5s;
+    display:inline;
+    transition:ease;
+}
+.down-arrow {
+    width: 35px;
+    position: absolute;
+    bottom: 120px;
+    left: 222px;
+    border: 1px solid #000;
+    border-radius: 25px;
+    padding: 15px 0px;
+    z-index: 1;
+    cursor: pointer;
+    animation-name: downArrow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    transition:1s linear;
+}
+@keyframes downArrow {
+    from{
+        opacity: 0;
+        transform: translateY(-1em);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(2em);
+
+    }
+    
+}
+.main-join{
+    position:absolute;
+    cursor:pointer;
+    box-shadow: 8px 8px 3px 3px black;
+    right:10%;
+    bottom:40%;
+    font-size:30px;
+    background-color:#2904f8;
+    border-radius:10px;
+    color:#fff;
+    padding:20px 30px;
+}
+.main-join:hover{
+    right:9.5%;
+    bottom:39.2%;
+    box-shadow: 1px 1px 0 0 black;
+}
+@keyframes mainitju {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.main-o{
+    position: absolute;
+    top: 538px;
+    right: 0px;
+    width: 500px;
+    opacity: 0.2;
+    animation-name: mainO;
+    animation-duration: 3s;
+    display:inline;
+    transition:ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+.main-tri{
+    position: absolute;
+    bottom:1219px;
+    left: -409px;
+    overflow-y: hidden;
+    width: 847px;
+    opacity: 0.6;
+    animation-name: mainTri;
+    animation-duration: 33s;
+    display: inline;
+    transition: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes mainO {
+    from{
+        top:520px;
+    }
+    to{
+        top:640px
+    }
+
+}
+@keyframes mainTri {
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+/* 컨텐츠2 */
+.content2-section{
+    height:190vh;
+    background: #f8fbff;
+}
+.spelling-img{
+    width:440px;
+}
+.itju-i {
+    position: absolute;
+    top: -75%;
+    left: 20px;
+}
+.itju-t {
+    position: absolute;
+    left: 112px;
+}
+
+.spelling-i, .spelling-t, .spelling-j, .spelling-u{
+    display:flex;
+}
+.spelling-i{
+    width:60%;
+}
+.spelling-t {
+    margin-top: -70px;
+}
+.spelling-j{
+    width: 88%;
+    float: right;
+    margin-top: -40px;
+}
+.spelling-u{
+    width: 81%;
+    margin-top: -50px;
+    float:right;
+}
+.spelling-container1, .spelling-container2, .spelling-container3, .spelling-container4{
+    position:relative;
+    width:30%;
+}
+.spelling-container3, .spelling-container4{
+    width:310px;
+}
+.desc-container{
+    width: 60%;
+    height: 173px;
+    margin-top: 80px;
+    padding: 20px;
+    z-index:1;
+}
+.desc-container1{
+    width:120%;
+}
+.desc-container1 span{
+    animation-duration: 3s;
+    animation-name: slidein;
+}
+.spelling-container1 span {
+    position: absolute;
+    bottom: 232px;
+    left: 317px;
+    font-size: 40px;
+    color: #4628fb;
+    font-family: hannaair;
+}
+.spelling-container2 span{
+    position: absolute;
+    bottom: 4px;
+    left: 379px;
+    font-size: 40px;
+    color: #4628fb;
+    font-family: hannaair;
+}
+.spelling-container3 span{
+    position: absolute;
+    bottom: 45px;
+    left: 290px;
+    font-size: 40px;
+    color: #4628fb;
+    font-family: hannaair;
+}
+.spelling-container4 span{
+    position: absolute;
+    bottom: 44px;
+    left: 293px;
+    font-size: 40px;
+    color: #4628fb;
+    font-family: hannaair;
+}
+.desc-container p{
+    font-size:35px;
+    font-weight:700;
+    letter-spacing: -2px;
+}
+.desc-container p::first-letter{
+    font-size:45px;
+}
+.desc-container span{
+    font-size: 23px;
+    letter-spacing: -1px;
+    font-family: nanumgothic;
+    
+}
+@keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+  .sa {
+    opacity: 0;
+    transition: all .5s ease;
+  }
+  .sa.show {
+    opacity: 1;
+    transform: none;
+    
+  }
+  .sa-right {
+    transform: translate(-100px, 0);
+  }
+  .sa-left {
+    transform: translate(100px, 0);
+  }
+/* 컨텐츠3 */
+.itju-sum{
+    width: 100%;
+}
+
+/* 푸터 */
+.footer-section{
+    border-top:3px solid #d2d2d2;
+    height:250px;
+    background-color: #f1f0f0;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: nanumgothic;
+    color:#5c5c5c;
+}
+.itju-footer-logo{
+    width:250px;
+    margin:-30px auto;
+}
+.git-icon{
+    width:16px;
+}
+.mail-icon{
+    width:16px;
+}

@@ -2,6 +2,8 @@ package com.spring.itjunior.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class BoardDto {
     private int free_idx;
@@ -10,6 +12,7 @@ public class BoardDto {
     private String writer;
     private int category;
     private String cate_name;
+    private LocalDateTime create_time;
     private int viewcnt;
     private int likecnt;
 }
