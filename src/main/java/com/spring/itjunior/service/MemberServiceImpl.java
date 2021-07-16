@@ -1,11 +1,13 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
 import com.spring.itjunior.mapper.MemberMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +32,7 @@ public class MemberServiceImpl implements MemberService{
         if(member.getUserId().equals("root")){
             member.setRole(Role.ADMIN);
         }
-        String rawPassword = member.getPassword();
-        String encPassword = encoder.encode(rawPassword);
+        String encPassword = getEncPassword(member);
         member.setPassword(encPassword);
         member.setRole(Role.USER);
         member.setDelete_yn(DeleteYN.N);
@@ -40,14 +41,22 @@ public class MemberServiceImpl implements MemberService{
         return (queryResult == 1) ? true : false;
     }
 
+    //암호화 메서드
+    private String getEncPassword(Member member) {
+        String rawPassword = member.getPassword();
+        return encoder.encode(rawPassword);
+    }
+
     @Transactional
     @Override
     public boolean updateMemberInfo(Member requestMember) {
         Member memberInfo = memberMapper.selectMemberByIdx(requestMember.getMember_idx());
 
-        String rawPassword = requestMember.getPassword();
-        String encPassword = encoder.encode(rawPassword);
-        memberInfo.setPassword(encPassword);
+        if (!requestMember.getPassword().equals("")) {
+            log.info("패스워드가 null이 아입니다.");
+            String encPassword = getEncPassword(requestMember);
+            memberInfo.setPassword(encPassword);
+        }
         memberInfo.setNickname(requestMember.getNickname());
         memberInfo.setEmail(requestMember.getEmail());
 
