@@ -67,7 +67,6 @@
 </div>
 <%@include file="layout/footer.jsp"%>
 
-
 <script>
     // Scroll Animation (sa, 스크롤 애니메이션)
     const saTriggerMargin = 300;
@@ -112,3 +111,4 @@
         });
     }
 </script>
+

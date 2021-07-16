@@ -42,10 +42,12 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public boolean updateMemberInfo(int member_idx, Member requestMember) {
-        Member memberInfo = memberMapper.selectMemberByIdx(member_idx);
+    public boolean updateMemberInfo(Member requestMember) {
+        Member memberInfo = memberMapper.selectMemberByIdx(requestMember.getMember_idx());
 
-        memberInfo.setPassword(requestMember.getPassword());
+        String rawPassword = requestMember.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        memberInfo.setPassword(encPassword);
         memberInfo.setNickname(requestMember.getNickname());
         memberInfo.setEmail(requestMember.getEmail());
 
@@ -76,6 +78,8 @@ public class MemberServiceImpl implements MemberService{
         int queryResult = memberMapper.deleteMemberByIdx(member_idx);
         return (queryResult==1) ? true : false;
     }
+
+
 
 
 }
