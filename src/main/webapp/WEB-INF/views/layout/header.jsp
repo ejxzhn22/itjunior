@@ -11,9 +11,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Spring Boot Application with JSP</title>
-<%--    link--%>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
-<%--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
@@ -58,12 +57,12 @@
         </ul>
     </div>
 
-
     <div class="member-div">
+
         <c:choose>
             <c:when test="${empty principal}">
-                <a href="/auth/loginForm">login</a>
-                <a href="/auth/joinForm">join</a>
+                <a href="/auth/loginForm">로그인</a>
+                <a href="/auth/joinForm">회원가입</a>
             </c:when>
             <c:otherwise>
                 <a href="/auth/member/form">마이페이지</a>

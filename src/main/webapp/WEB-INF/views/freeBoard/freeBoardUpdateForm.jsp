@@ -49,22 +49,6 @@
 
         });
     });
-    window.addEventListener('scroll',e=>{
-        if(window.scrollY>0){
-            document.getElementById("header").style.background="#fff";
-            document.getElementById("header").style.height="30px";
-            document.querySelector(".logo-img").style.marginLeft="50px";
-            document.querySelector(".logo-img").style.marginTop="-5px";
-            document.querySelector(".logo-img").style.width="110px";
-            document.querySelector(".logo-img").style.height="45px";
-        }
-        else if(window.scrollY==0){
-            document.getElementById("header").style.height="53px";
-            document.querySelector(".logo-img").style.marginLeft="0px";
-            document.querySelector(".logo-img").style.width="180px";
-            document.querySelector(".logo-img").style.height="70px";
-        }
-    });
 
     function changeSelect() {
 

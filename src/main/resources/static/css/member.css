@@ -1,11 +1,11 @@
 /* 배너  */
-.banner-section{
+.banner-section2{
     height:30vh;
     background-color: #a1a2a2;
     position:relative;
     margin-top:-30px;
 }
-.banner-write{
+.banner-write2{
     color:#fff;
     display:flex;
     flex-direction: column;
@@ -16,25 +16,25 @@
     margin-left:100px;
     font-family: nanumGothic;
 }
-.banner-title{
+.banner-title2{
     font-size: 50px;
     font-weight: 700;
     color:#2f2f41;
     letter-spacing: -6px;
 }
-.banner-desc{
+.banner-desc2{
     font-size:20px;
     margin-top:10px;
     letter-spacing: -3px;;
 }
-.banner-img {
+.banner-img2 {
     position: absolute;
     right: 20px;
     bottom: -27px;
     width: 330px;
     z-index: 1;
 }
-.banner-link-img {
+.banner-link-img2 {
     width: 250px;
     position: absolute;
     right: 37px;
