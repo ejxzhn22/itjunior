@@ -1,0 +1,142 @@
+/* 배너  */
+.banner-section{
+    height:30vh;
+    background-color: #a1a2a2;
+    position:relative;
+    margin-top:-30px;
+}
+.banner-write{
+    color:#fff;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    height:100%;
+    width:200px;
+    padding-top: 20px;
+    margin-left:100px;
+    font-family: nanumGothic;
+}
+.banner-title{
+    font-size: 50px;
+    font-weight: 700;
+    color:#2f2f41;
+    letter-spacing: -6px;
+}
+.banner-desc{
+    font-size:20px;
+    margin-top:10px;
+    letter-spacing: -3px;;
+}
+.banner-img {
+    position: absolute;
+    right: 20px;
+    bottom: -27px;
+    width: 330px;
+    z-index: 1;
+}
+.banner-link-img {
+    width: 250px;
+    position: absolute;
+    right: 37px;
+    bottom: 37px;
+    z-index: 0;
+    opacity: 0.7;
+    overflow: hidden;
+}
+
+/* 로그인 영역 */
+.login-section{
+    width:480px;
+    margin:35px auto;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom:1px solid #d2d2d2;
+    font-family: nanumGothic;
+    letter-spacing: -2px;
+}
+.login-form{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+.id-section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.id-input{
+    width: 95%;
+    padding:10px;
+    margin-top: 5px;
+}
+.pw-section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin:20px 0;
+}
+.pw-input{
+    width: 95%;
+    padding:10px;
+    margin-top: 5px;
+}
+
+.member-bottom-section{
+    display:flex;
+    justify-content: space-between;
+    padding: 0 12px;
+}
+.login-submit {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    width: auto;
+    font-size: 20px;
+    margin: 20px 0;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.another-login-section{
+    width:480px;
+    margin:25px auto;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: nanumGothic;
+    letter-spacing:-2px;
+}
+.kakao-login{
+    background-color: #f3db04;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    padding: 10px 0;
+    font-size: 20px;
+}
+.kakao-login img, .naver-login img, .google-login img{
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+}
+.google-login{
+    background-color: #000;
+    color:#fff;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    padding: 10px 0;
+    font-size: 20px;
+}
+.naver-login{
+    background-color: #1fc800;
+    margin: 10px 0px;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    padding: 10px 0;
+    font-size: 20px;
+    color:#fff
+}

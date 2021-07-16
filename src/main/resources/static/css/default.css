@@ -1,0 +1,130 @@
+/* 공통 */
+@font-face {
+    font-family: "hannam";
+    src: url(../font/hanna-m.otf);
+}
+@font-face {
+    font-family: "hannaw";
+    src: url(../font/hanna-w.ttf);
+}
+@font-face {
+    font-family: "hannaair";
+    src: url(../font/hanna-air.otf);
+}
+@font-face{
+    font-family : "nanumgothic";
+    src: url(../font/NanumGothic.ttf);
+}
+html,body{
+    min-height: 100%;
+    position:relative;
+}
+ul,li{
+    margin:0;
+    padding:0;
+    list-style: none;
+}
+p{
+    margin:0;
+    padding:0;
+}
+a{
+    text-decoration: none;
+    color:#000;
+}
+li a:visited, .member-div a:visited{
+    color:#000;
+}
+body{
+    font-family: hannaw,hannam;
+    margin:0;
+    padding:0;
+}
+/* 헤더 */
+.logo-div{
+    width:15%;
+}
+.nav-div{
+    width:60%;
+}
+.member-div{
+    width:22%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.nav-div ul{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height:100%;
+    font-size:20px;
+}
+.logo-img{
+    width:180px;
+    height:70px;
+    transition: 1s linear;
+}
+#header{
+    transition: 1s linear;
+}
+.header-section{
+    display:flex;
+    position:sticky;
+    top:0;
+    background-color: #fff;
+    z-index: 10;
+    padding:10px 35px;
+    transition:1s linear;
+}
+.member-div a{
+    border: 1px solid #000;
+    border-radius: 20px;
+    padding: 10px 40px;
+    transition:.2s linear;
+}
+.member-div a:hover{
+    color:#fff;
+    background-color:#2904f8;
+    border:1px solid #2904f8;
+    box-shadow: 0 0 3px black;
+}
+.content-section{
+    min-height:90vh;
+}
+
+
+/* 푸터 */
+.footer-section{
+    border-top:3px solid #d2d2d2;
+    height:250px;
+    background-color: #f1f0f0;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: nanumgothic;
+    color:#5c5c5c;
+    margin-top: 200px;
+}
+.itju-footer-logo{
+    width:250px;
+    margin:-30px auto;
+}
+.git-icon{
+    width:16px;
+}
+.mail-icon{
+    width:16px;
+}
+
+/* 공통 */
+.btn1{
+    background: #7d7b7b;
+    border: 1px solid #d2d2d2;
+    color: #fff;
+    padding: 5px 30px;
+    line-height: 1.4;
+    border-radius: 10px;
+    cursor: pointer;
+}
