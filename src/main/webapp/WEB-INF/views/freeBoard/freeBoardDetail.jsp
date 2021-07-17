@@ -27,14 +27,30 @@
     </div>
     <div class="detail-content-recommend">
         <div class="recommend-box">
-            <img src="/image/icon-up.png" alt="" id="likeIcon-${board.free_idx}" onclick="like(${board.free_idx})">
-            <span class="up-count">${board.likecnt}</span>
+        <c:choose>
+            <c:when test="${principal.member.member_idx != board.member_idx}">
+                <c:choose>
+                    <c:when test="${board.likeState}">
+                        <i class="fas fa-thumbs-up" id="likeIcon-${board.free_idx}" onclick="like(${board.free_idx})"></i>
+                    </c:when>
+                    <c:otherwise>
+                        <i class="far fa-thumbs-up" id="likeIcon-${board.free_idx}" onclick="like(${board.free_idx})"></i>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+        </c:choose>
+            <span class="up-count" id="likeCount">${board.likecnt}</span>
         </div>
     </div>
     <div class="detail-content-bottom">
 
-        <a href="/boards/${board.free_idx}/update" class="btn1 update">수정</a>
-        <a href="/boards/${board.free_idx}/delete" class="btn1 delete">삭제</a>
+        <c:choose>
+            <c:when test="${principal.member.member_idx == board.member_idx}">
+                <a href="/boards/${board.free_idx}/update" class="btn1 update">수정</a>
+                <a href="/boards/${board.free_idx}/delete" class="btn1 delete">삭제</a>
+            </c:when>
+        </c:choose>
+
 
         <a href="/boards" class="btn1">목록</a>
     </div>
@@ -57,49 +73,20 @@
         </form>
     </div>
 
-    <div class="detail-reply-section">
-        <div class="reply-top">
-            <span class="reply-emoji">😀</span>
-            <span class="reply-nick">nickname</span>
-            <span class="reply-date">2021.03.03</span>
-        </div>
-        <div class="reply-content">
-            <span>oh~that's hot</span><!--댓글 구역-->
+    <!-- ====================== 댓글 ========================== -->
+        <div class="detail-reply-section" id="reply-container">
 
-            <div class="rereply-section">
-                <img src="/image/icon-rereply.png" alt="" class="rereply-img">
-                <span>oh i agree!</span>
-                <div class="rereply-btns">
-                    <a href="#" class="update">수정</a>
-                    <a href="#" class="delete">삭제</a>
-                </div>
-            </div><!-- 답글 구역 -->
-            <form class="rereply-form visible" action="" method="POST">
-                <img src="/image/icon-rereply.png" alt="" style="width:20px;">
-                <span>nickname</span>
-                <textarea name="rereply" class="rereply-input" placeholder="답글을 입력해주세요."></textarea>
-                <input type="submit" value="작성" class="btn1">
-            </form>
-        </div>
-        <div class="reply-bottom">
-            <div class="btns">
-                <span class="rereply" onclick="rereply();">답글</span>
-                <a href="#" class="update">수정</a>
-                <a href="#" class="delete">삭제</a>
-            </div>
-            <div class="reply-eval">
-                <span><img src="/image/icon-up.png" alt="">0</span>
-                <span><img src="/image/icon-down.png" class="icon-down"alt="">0</span>
-            </div>
-        </div>
-    </div>
 
+        </div>
+
+    <!-- =========================================== -->
 
 </div>
 
 <%@include file="../layout/footer.jsp"%>
 
 <script type="text/javascript">
+    <!-- 글 추천 -->
     function like(free_idx){
         console.log("idx: ",${board.free_idx})
         let likeIcon = $(`#likeIcon-`+free_idx);
@@ -123,7 +110,7 @@
             });
         } else{ // 좋아요 취소
             $.ajax({
-                type: "delete",
+                type:"delete",
                 url:`/boards/`+free_idx+`/likes`,
                 dataType:"json"
             }).done(res=> {
@@ -144,7 +131,7 @@
     }
 
 
-
+    // 댓글 이모지
     var select = document.getElementById("selected");
     var choose = document.getElementsByClassName("emoji");
 
@@ -156,11 +143,123 @@
         select.innerText=a;
     }
 
-    var rereplyForm = document.querySelector(".rereply-form");
 
-    function rereply(){
+
+    function rereply(reply_idx){
+        const rereplyForm = document.querySelector("#rereply-form-"+reply_idx);
+
         rereplyForm.classList.toggle("visible");
 
     }
+
+
+    <!-- 댓글 -->
+    let listhtml = "";
+    function replyList() {
+
+        $.ajax({
+            type:"get",
+            url:`/replies/${board.free_idx}`,
+            dataType:"json"
+        }).done(res=>{
+            console.log(res);
+
+            for(const i in res){
+                console.log("for문 : " ,i);
+                console.log("깊이 : " ,res[i].depth);
+
+                let content= res[i].content;
+                let create_time= res[i].create_time;
+                let depth= res[i].depth;
+                let emoji= res[i].emoji;
+                let free_idx= res[i].free_idx;
+                let member_idx= res[i].member_idx;
+                let parent_idx= res[i].parent_idx;
+                let reply_idx= res[i].reply_idx;
+                let reply_order= res[i].reply_order;
+                let writer= res[i].writer;
+                let nickname = $("#principalNick").val();
+
+                listhtml = "<div id='reply-total-container-"+reply_idx+"'>";
+
+                if( depth === 0){ // 부모 댓글
+                    listhtml+="<div class='reply-top' id='reply-top-"+reply_idx+"'>";
+                    listhtml+= "<span class='reply-emoji'>"+emoji+"</span>";
+                    listhtml+="<span class='reply-nick'>"+writer+"</span>";
+                    listhtml+="<span class='reply-date'>"+create_time+"</span>";
+                    listhtml+="</div>";
+                    <!--댓글 구역-->
+                        listhtml+="<div class='reply-content' id='reply-content-"+reply_idx+"'>";
+                    listhtml+="<span>"+content+"</span>";
+                    listhtml+="<div class='reply-bottom' id='rereply-bottom-"+reply_idx+"'>";
+                    listhtml+="<div class='btns'>";
+                    listhtml+="<span class='rereply' onclick='rereply("+reply_idx+");'>답글</span>";
+                    listhtml+="<a href='#' class='update'>수정</a>";
+                    listhtml+=" <a href='#' class='delete'>삭제</a>";
+                    listhtml+=" </div>";
+
+                    <!-- 부모댓글 추천 비추천 -->
+                    listhtml+="<div class='reply-eval' id='reply-eval-"+reply_idx+"'>";
+                    listhtml+="<span><img src='/image/icon-up.png' alt=''>0</span>";
+                    listhtml+="<span><img src='/image/icon-down.png' class='icon-down' alt=''>0</span>";
+                    listhtml+="</div>";
+                    listhtml+="</div>";
+
+                        listhtml+="</div>";
+                    <!-- 답글 들어갈 곳 -->
+
+
+                    <!-- ======= -->
+
+                    listhtml+="<form class='rereply-form visible' id='rereply-form-"+reply_idx+"' action='' method='POST'>";
+                    listhtml+="<img src='/image/icon-rereply.png' alt='' style='width:20px;'>";
+                    listhtml+="<span>"+nickname+"</span>";
+                    listhtml+="<textarea name='rereply' class='rereply-input' placeholder='답글을 입력해주세요.'></textarea>";
+                    listhtml+="<input type='submit' value='작성' class='btn1'>";
+                    listhtml+="</form>";
+
+
+
+
+                    console.log("여기까지");
+                    //let container = document.getElementById("reply-container");  이렇게 가져로면 .html 쓸수 없음
+                    //container.html(listhtml);
+                     //$("#reply-container").html(listhtml);
+
+                }else if(depth === 1){ // 대댓글
+                    listhtml+="<div class='rereply-section' id='rereply-section'>";
+
+                    listhtml += "<img src='/image/icon-rereply.png' alt='' class='rereply-img'>";
+                    listhtml += "<span>"+content+"</span>";
+                    listhtml += "<div class='rereply-btns'>";
+                    listhtml += "<a href='#' class='update'>수정</a>";
+                    listhtml += "<a href='#' class='delete'>삭제</a>";
+                    listhtml += "</div>";
+
+                    listhtml+="</div>";
+
+                    console.log("들어와유?");
+                   // let id = "rereply-section-"+parent_idx;
+                    //console.log("id", id);
+
+                    //document.getElementById("rereply-section-"+parent_idx).innerHTML = listhtml;
+                  //$("#reply-section").html(listhtml);
+                }
+
+                listhtml+="</div>";
+                console.log("끝");
+                console.log(listhtml);
+            }
+
+            $("#reply-container").append(listhtml);
+
+
+
+        }).fail(error=>{
+            console.log("오류",error);
+        });
+    }
+
+    replyList();
 </script>
 

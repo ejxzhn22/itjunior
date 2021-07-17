@@ -97,7 +97,7 @@
     <!-- 글 추천 취소하기 -->
     <delete id="deleteFreeLike" parameterType="FreeLike">
         DELETE FROM tbl_free_like
-        WHERE free_idx=#{free_idx}, member_idx=#{member_idx}
+        WHERE free_idx=#{free_idx} and member_idx=#{member_idx}
     </delete>
 
     <!-- 글 추천수가져오기 -->
@@ -106,4 +106,12 @@
         FROM tbl_free_like
         WHERE free_idx=#{free_idx}
     </select>
+
+    <!-- 추천 여부 가져오기 -->
+    <select id="likeState" parameterType="FreeLike" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_free_like
+        WHERE free_idx=#{free_idx} and member_idx=#{member_idx}
+    </select>
+
 </mapper>

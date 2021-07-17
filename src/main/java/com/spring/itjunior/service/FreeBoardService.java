@@ -18,12 +18,12 @@ public class FreeBoardService {
 
     private final FreeBoardMapper freeBoardMapper;
 
-    //모든 게시글 가져오기
+    //모든 게시글 가져오기 /
     public List<FreeBoard> boards() {
         return freeBoardMapper.selectAll();
     }
 
-    //게시글 하나 가져오기
+    //게시글 하나 가져오기/
     public FreeBoard board(int free_idx){
         return freeBoardMapper.selectById(free_idx);
     }
@@ -33,12 +33,12 @@ public class FreeBoardService {
         return freeBoardMapper.selectOne(free_idx);
     }
 
-    //게시글 추가
+    //게시글 추가/
     public int newBoard(FreeBoard freeBoard) {
         return freeBoardMapper.insertBoard(freeBoard);
     }
 
-    //게시글 수정
+    //게시글 수정/
     public int updateBaord(FreeBoard freeBoard){
         return freeBoardMapper.updateBoard(freeBoard);
     }
@@ -73,6 +73,17 @@ public class FreeBoardService {
     //글 추천수 가져오기
     public int viewcnt(int free_idx){
         return freeBoardMapper.viewcnt(free_idx);
+    }
+
+    //글 추천 여부 가져오기
+    public boolean likeState(FreeLike freeLike) {
+        int likeState = freeBoardMapper.likeState(freeLike);
+
+        if(likeState == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

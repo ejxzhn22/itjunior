@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.itjunior.mapper.ReplyMapper">
+    <sql id="replyColumns">
+        reply_idx
+        ,free_idx
+        ,member_idx
+        , content
+        , writer
+        , create_time
+        , parent_idx
+        , depth
+        , reply_order
+        , emoji
+    </sql>
+
+    <!--  댓글 가져오기  -->
+    <select id="selectAll" resultType="Reply" parameterType="int">
+        SELECT *
+        FROM tbl_board_reply
+        WHERE free_idx = #{free_idx}
+        ORDER BY parent_idx ASC , reply_order DESC
+    </select>
+
+<!--    &lt;!&ndash;  대댓글 모두 가져오기  &ndash;&gt;-->
+<!--    <select id="selectChild" resultType="Reply" parameterType="int">-->
+<!--        SELECT *-->
+<!--        FROM tbl_board_reply-->
+<!--        WHERE free_idx = #{free_idx} and depth = 1-->
+<!--        ORDER BY parent_idx ASC , reply_order DESC-->
+<!--    </select>-->
+
+    <!--  부모 댓글 추가하기  -->
+    <insert id="insertParent" parameterType="Reply">
+        INSERT INTO tbl_board_reply(
+            <include refid="replyColumns"/>
+        ) VALUES (
+            #{reply_idx}
+            ,#{free_idx}
+            ,#{member_idx}
+            ,#{content}
+            ,#{writer}
+            ,now()
+            ,#{reply_idx}
+            ,0
+            ,0
+            ,#{emoji}
+        )
+    </insert>
+    <!--  대댓글 추가하기  -->
+    <insert id="insertChild" parameterType="Reply">
+        INSERT INTO tbl_board_reply(
+        <include refid="replyColumns"/>
+        ) VALUES (
+        #{reply_idx}
+        ,#{free_idx}
+        ,#{member_idx}
+        ,#{content}
+        ,#{writer}
+        ,now()
+        ,#{parent_idx}
+        ,1
+        ,#{reply_order}
+        ,#{emoji}
+        )
+    </insert>
+    <!-- 댓글 갯수 가져오기 -->
+    <select id="replycnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_board_reply
+        WHERE free_idx = #{free_idx}
+    </select>
+    <!--  부모 댓글 수정  -->
+    <!--  대댓글 수정  -->
+    <!--  부모 댓글 삭제 (대댓글도 삭제됨)  -->
+    <!--  대댓글 삭제  -->
+
+
+</mapper>

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
     <script src="${pageContext.request.contextPath}/js/summernote/summernote-lite.js"></script>
     <script src="${pageContext.request.contextPath}/js/summernote/lang/summernote-ko-KR.js"></script>
+    <!-- 아이콘 -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/summernote/summernote-lite.css">
 
@@ -58,7 +60,8 @@
     </div>
 
     <div class="member-div">
-
+        <input type="hidden" id ="principalId" value="${principal.member.member_idx}"/>
+        <input type="hidden" id ="principalNick" value="${principal.member.nickname}"/>
         <c:choose>
             <c:when test="${empty principal}">
                 <a href="/auth/loginForm">로그인</a>

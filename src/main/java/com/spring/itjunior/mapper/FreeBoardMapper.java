@@ -43,4 +43,7 @@ public interface FreeBoardMapper {
 
     //글 추천수 가져오기
     public int viewcnt(int free_idx);
+
+    //글 추천여부
+    public int likeState(FreeLike freeLike);
 }

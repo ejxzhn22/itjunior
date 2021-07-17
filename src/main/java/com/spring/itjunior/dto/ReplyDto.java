@@ -5,17 +5,15 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class BoardDto {
+public class ReplyDto {
+    private int reply_idx;
     private int free_idx;
     private int member_idx;
-    private String title;
     private String content;
     private String writer;
-    private int category;
-    private String cate_name;
+    private String emoji;
     private LocalDateTime create_time;
-    private int viewcnt;
-    private int likecnt;
-    private int replycnt;
-    private boolean likeState;
+    private int parent_idx;
+    private int depth;
+    private int reply_order;
 }
