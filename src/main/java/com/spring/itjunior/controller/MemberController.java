@@ -1,10 +1,17 @@
 package com.spring.itjunior.controller;
 
+import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.service.MemberService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +29,12 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
 
     private MemberService memberService;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, AuthenticationManager authenticationManager) {
         this.memberService = memberService;
+        this.authenticationManager = authenticationManager;
     }
 
     @GetMapping("/auth/joinForm")
@@ -42,6 +51,10 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @GetMapping("/auth/member/find-id")
+    public String findIdForm() {
+        return "member/findIdForm";
+    }
 
 
     @GetMapping("/auth/loginForm")
@@ -51,7 +64,7 @@ public class MemberController {
 
 
 
-    @GetMapping("/auth/member/{idx}")
+    @GetMapping("/member/{idx}")
     public String detailIdx(@PathVariable("idx") int member_idx, Model model) {
         Member resultMemberInfo = memberService.findByIdx(member_idx);
         model.addAttribute("member", resultMemberInfo);
@@ -59,26 +72,47 @@ public class MemberController {
     }
 
 
-
-//    @GetMapping("/auth/updateForm")
-//    public String updateForm(Model model) {
-//        Member member = memberService.findByIdx(1); //테스트
-//        model.addAttribute("member", member);
-//        return "member/updateForm";
-//    }
-    @GetMapping("/auth/updateForm")
-    public String updateForm() {
+    //비밀번호 체크 페이지 >>>완료 후 회원수정 페이지.
+    @GetMapping("/mypage/passwordCheck")
+    public String passwordCheckForm() {
+        return "mypage/passwordCheckForm";
+    }
+    @PostMapping("/member/updateForm")
+    public String updateForm(@ModelAttribute("member") Member member) {
+        log.info("uadateForm에서 받은 password >>> {}",member.toString());
         return "member/updateForm";
     }
-    @PutMapping("/auth/member")
-    public String updateMember(Member requestMember) {
-        log.info("password >>> {}",requestMember.getPassword());
+    @PutMapping("/member")
+    public String updateMember(@RequestParam("originPwd") String originPwd, Member requestMember,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        log.info("수정 요청한 password >>> {}",requestMember.getPassword());
+        log.info("평문 비밀번호 >>> {}",originPwd);
+
+        String updatedPwd = requestMember.getPassword();
         boolean resultUpdate = memberService.updateMemberInfo(requestMember);
+
+        if (StringUtils.isBlank(updatedPwd)) { //받아온 비밀번호가 null,"" 일때
+            log.info("비밀번호를 수정하지 않았습니다. 평문 비밀번호를 가져오세요.");
+            forceLoginProc(requestMember,originPwd);
+        }else {
+            forceLoginProc(requestMember,updatedPwd);
+        }
+
+        log.info("수정된 세션 비밀번호 >>> {}",principalDetails.getPassword());
+
         return "redirect:/";
     }
 
+    //강제 로그인 처리(수정시 세션 업데이트 로직),,
+    //update form에서 패스워드가 수정되는 값이 null이거나 ""공백 일때 기존회원 평문 비밀번호(패스워드 수정 안했을때)
+    //update form에서 패스워드를 수정 하였다면 수정한 평문 비밀번호(패스워드 수정 했을때)
+    private void forceLoginProc(Member requestMember,String sessionPwd) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(requestMember.getUserId(),sessionPwd));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
 
-    @DeleteMapping("/auth/member/{idx}")
+
+    @DeleteMapping("/member/{idx}")
     public String deleteMember(@PathVariable("idx") int member_idx) {
         try{
             boolean resultDelete = memberService.deleteByIdx(member_idx);

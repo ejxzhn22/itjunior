@@ -52,6 +52,12 @@
         WHERE delete_yn='N' AND userId=#{userId}
     </select>
 
+    <select id="findNameAndEmail" resultType="String" parameterType="Member">
+        SELECT userId
+        FROM tbl_member
+        WHERE name=#{name} AND email=#{email}
+    </select>
+
     <update id="deleteMemberByIdx" parameterType="int">
         UPDATE
             tbl_member

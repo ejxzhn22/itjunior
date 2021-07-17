@@ -6,8 +6,13 @@ import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
 import com.spring.itjunior.mapper.MemberMapper;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +23,13 @@ public class MemberServiceImpl implements MemberService{
 
     private MemberMapper memberMapper;
     private BCryptPasswordEncoder encoder;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    public MemberServiceImpl(MemberMapper memberMapper,BCryptPasswordEncoder encoder) {
+    public MemberServiceImpl(MemberMapper memberMapper,BCryptPasswordEncoder encoder,AuthenticationManager authenticationManager) {
         this.memberMapper = memberMapper;
         this.encoder = encoder;
+        this.authenticationManager = authenticationManager;
     }
 
 
@@ -52,16 +59,18 @@ public class MemberServiceImpl implements MemberService{
     public boolean updateMemberInfo(Member requestMember) {
         Member memberInfo = memberMapper.selectMemberByIdx(requestMember.getMember_idx());
 
-        if (!requestMember.getPassword().equals("")) {
-            log.info("패스워드가 null이 아입니다.");
+        if (StringUtils.isNotBlank(requestMember.getPassword())) {
+            log.info("null,공백이 아닌 정상적인 패스워드. 암호화 실행.");
             String encPassword = getEncPassword(requestMember);
             memberInfo.setPassword(encPassword);
         }
+
         memberInfo.setNickname(requestMember.getNickname());
         memberInfo.setEmail(requestMember.getEmail());
 
+        log.info("기존 회원 >>> {}",requestMember.toString());
         int queryResult = memberMapper.insertOrUpdateMember(memberInfo);
-
+        log.info("수정된 회원 >>> "+memberInfo.toString());
         log.info("수정 결과 = {}",queryResult);
 
         return (queryResult > 0) ? true : false;
@@ -80,6 +89,15 @@ public class MemberServiceImpl implements MemberService{
         Member selectMemberInfo = memberMapper.selectMemberByUserId(userId);
         log.info("userId로 회원정보조회 >>> {}",selectMemberInfo.toString());
         return selectMemberInfo;
+    }
+
+    @Override
+    public String findNameAndEmail(Member member) {
+        String resultId = memberMapper.findNameAndEmail(member);
+        if (StringUtils.isBlank(resultId)) {
+            return "fail";
+        }
+        return resultId;
     }
 
     @Override

@@ -6,8 +6,9 @@
 
 <h1>회원가입</h1>
     <div class="container">
-        <form action="/auth/member" method="post">
+        <form action="/member" method="post">
             <input type="hidden" name="_method" value="put">
+            <input type="hidden" name="originPwd" value="${member.password}">
             <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
             <div class="form-group">
                 <label>User Id</label>
