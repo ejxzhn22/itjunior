@@ -347,7 +347,7 @@
 .detail-reply-section {
     display: flex;
     width: 75%;
-    height: 100px;
+    /*height: 100px;*/
     margin: 12px auto;
     padding-left: 60px;
     flex-direction: column;
@@ -494,4 +494,8 @@
     font-family: hannaw;
 }
 #summernote{
+}
+
+.fa-thumbs-up{
+    color: red;
 }

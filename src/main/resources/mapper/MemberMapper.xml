@@ -16,7 +16,7 @@
         , last_login_time
         , role
     </sql>
-    
+
     <insert id="insertOrUpdateMember" parameterType="Member">
         INSERT INTO tbl_member (
             <include refid="memberColumns" />

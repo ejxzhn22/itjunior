@@ -5,6 +5,7 @@ import com.spring.itjunior.domain.*;
 import com.spring.itjunior.dto.BoardDto;
 import com.spring.itjunior.service.FreeBoardService;
 import com.spring.itjunior.service.MemberService;
+import com.spring.itjunior.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
+    private  final ReplyService replyService;
 
     //자유게시판 이동
     @GetMapping("/boards")
@@ -30,7 +32,7 @@ public class FreeBoardController {
 
     //글 상세 페이지 이동
     @GetMapping("/boards/{free_idx}")
-    public String boardDetail(@PathVariable int free_idx, Model model){
+    public String boardDetail(@PathVariable int free_idx, Model model,@AuthenticationPrincipal PrincipalDetails principalDetails){
 
         // 조회수 올리기
         freeBoardService.viewUpdate(free_idx);
@@ -38,9 +40,22 @@ public class FreeBoardController {
         //추천수 가져오기
         int likecnt = freeBoardService.viewcnt(free_idx);
 
+        //추천상태
+        FreeLike freeLike = new FreeLike();
+        freeLike.setFree_idx(free_idx);
+        freeLike.setMember_idx(principalDetails.getMember().getMember_idx());
+        boolean likeState = freeBoardService.likeState(freeLike);
+
+        // 댓글 갯수
+        int replycnt = replyService.replycnt(free_idx);
+
         //DTO에 담아서 보낸다.
         BoardDto boardDto = freeBoardService.selectBoard(free_idx);
         boardDto.setLikecnt(likecnt);
+        String title = boardDto.getTitle().replace("["+boardDto.getCate_name()+"]", "");
+        boardDto.setTitle(title);
+        boardDto.setLikeState(likeState);
+        boardDto.setReplycnt(replycnt);
 
         model.addAttribute("board",boardDto);
 
@@ -60,6 +75,7 @@ public class FreeBoardController {
     }
 
     //글쓰기
+    @ResponseBody
     @PostMapping("/boards/new")
     public String newBoard(BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
@@ -67,13 +83,20 @@ public class FreeBoardController {
         freeBoard.setMember_idx(principalDetails.getMember().getMember_idx());
         freeBoard.setWriter(principalDetails.getMember().getNickname());
         freeBoard.setCategory(boardDto.getCategory());
-        freeBoard.setTitle(boardDto.getTitle());
+        freeBoard.setTitle(boardDto.getCate_name()+" "+boardDto.getTitle());
         freeBoard.setContent(boardDto.getContent());
         freeBoard.setDelete_yn(DeleteYN.N);
 
-        freeBoardService.newBoard(freeBoard);
+        int result = freeBoardService.newBoard(freeBoard);
 
-        return "redirect:/boards";
+        String resultmsg="";
+        if(result>0){
+            resultmsg = "<script>alert('글쓰기 성공'); location.href='/boards'</script>";
+        }else{
+            resultmsg = "<script>alert('글쓰기 실패'); location.href='/boards'</script>";
+        }
+
+        return resultmsg;
     }
 
     //글 추천하기
@@ -91,18 +114,21 @@ public class FreeBoardController {
     @ResponseBody
     @DeleteMapping("/boards/{free_idx}/likes")
     public int DeleteFreeLike(@PathVariable int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println("취소하기");
         FreeLike freeLike = new FreeLike();
         freeLike.setFree_idx(free_idx);
         freeLike.setMember_idx(principalDetails.getMember().getMember_idx());
-
-        return freeBoardService.freeLike(freeLike);
+        System.out.println("free_idx: " + free_idx);
+        System.out.println("member_idx: " + principalDetails.getMember().getMember_idx());
+        return freeBoardService.deleteFreeLike(freeLike);
     }
 
     // 글 수정 이동
     @GetMapping("/boards/{free_idx}/update")
     public String freeBoardUpdateForm(@PathVariable int free_idx, Model model) {
         BoardDto boardDto = freeBoardService.selectBoard(free_idx);
-
+        String title = boardDto.getTitle().replace("["+boardDto.getCate_name()+"]", "");
+        boardDto.setTitle(title);
         model.addAttribute("board",boardDto);
 
 
@@ -110,21 +136,37 @@ public class FreeBoardController {
     }
 
     //글수정
+    @ResponseBody
     @PostMapping("/boards/{free_idx}/update")
     public String freeBoardUpdate(@PathVariable int free_idx, BoardDto boardDto){
         FreeBoard freeBoard = freeBoardService.board(free_idx);
-        freeBoard.setTitle(boardDto.getTitle());
+        freeBoard.setTitle(boardDto.getCate_name()+" "+boardDto.getTitle());
         freeBoard.setContent(boardDto.getContent());
-        freeBoardService.updateBaord(freeBoard);
+        int result = freeBoardService.updateBaord(freeBoard);
 
-        return "redirect:/boards";
+        String resultmsg="";
+        if(result>0){
+            resultmsg = "<script>alert('글을 수정했습니다!'); location.href='/boards/"+free_idx+"'</script>";
+        }else{
+            resultmsg = "<script>alert('수정 실패 ㅠ.ㅠ'); location.href='/boards/"+free_idx+"'</script>";
+        }
+
+        return resultmsg;
     }
 
     //글삭제
+    @ResponseBody
     @GetMapping("/boards/{free_idx}/delete")
     public String freeBoardDelete(@PathVariable int free_idx){
-        freeBoardService.deleteBoard(free_idx);
+        int result = freeBoardService.deleteBoard(free_idx);
 
-        return "redirect:/boards";
+
+        String resultmsg="";
+        if(result>0){
+            resultmsg = "<script>alert('글을 삭제했습니다!'); location.href='/boards'</script>";
+        }else{
+            resultmsg = "<script>alert('삭제 실패 ㅠ.ㅠ'); location.href='/boards'</script>";
+        }
+        return resultmsg;
     }
 }
