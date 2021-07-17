@@ -1,5 +1,6 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
 
 public interface MemberService {
@@ -11,6 +12,8 @@ public interface MemberService {
     public Member findByIdx(int member_idx);
 
     public Member findByUserId(String userId);
+
+    public String findNameAndEmail(Member member);
 
     public boolean deleteByIdx(int member_idx);
 

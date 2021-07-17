@@ -16,6 +16,8 @@ public interface MemberMapper {
     public Member selectMemberByUserId(String UserId);
 
     public int deleteMemberByIdx(int member_idx);
+
+    public String findNameAndEmail(Member member);
 }
 
 //    public Member findByUseridAndPassword(@Param("userId") String userId, @Param("password") String password);

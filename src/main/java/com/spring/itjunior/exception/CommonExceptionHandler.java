@@ -6,12 +6,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Log4j2
 @RestControllerAdvice
-public class CommonExceptionHandler {
+public class CommonExceptionHandler extends RuntimeException{
 
     @ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND) //500 error
     public String exception404(NoHandlerFoundException e) {
         return "error404.." + e.getMessage();
     }
@@ -19,7 +21,7 @@ public class CommonExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500 error
     public String handleArgumentException(IllegalArgumentException e) {
-        return e.getMessage() + "exception 500,,";
+        return "<h1>요청한 값이 잘못되었거나 존재하지 않습니다. 잘못된 접근입니다. >>> </h>"+e.getMessage() + "exception 500,,";
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
