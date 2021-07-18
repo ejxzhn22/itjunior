@@ -58,6 +58,18 @@
         WHERE name=#{name} AND email=#{email}
     </select>
 
+    <select id="findUserIdAndName" resultType="int" parameterType="Member">
+        SELECT member_idx
+        FROM tbl_member
+        WHERE userId=#{userId} AND name=#{name}
+    </select>
+
+    <update id="changePasswordByIdx" parameterType="Member">
+        UPDATE tbl_member
+        SET password=#{password}
+        WHERE member_idx=#{member_idx}
+    </update>
+
     <update id="deleteMemberByIdx" parameterType="int">
         UPDATE
             tbl_member

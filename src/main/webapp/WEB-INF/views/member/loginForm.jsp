@@ -29,7 +29,7 @@
             </div>
             <div class="member-bottom-section">
                 <p><input type="checkbox" value="" id="check"><label for="check">정보 기억하기</label></p>
-                <a href="#">ID/PW 찾기</a>
+                <a href="/auth/member/find-id">ID 찾기</a><a href="/auth/member/find-password">PW 찾기</a>
             </div>
             <input type="submit" value="로그인" class="login-submit">
         </form>

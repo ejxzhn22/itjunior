@@ -2,10 +2,11 @@ package com.spring.itjunior.service;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
+import com.spring.itjunior.dto.JoinDto;
 
 public interface MemberService {
 
-    public boolean saveMemberInfo(Member member);
+    public boolean saveMemberInfo(JoinDto joinDto);
 
     public boolean updateMemberInfo(Member requestMember);
 
@@ -15,7 +16,13 @@ public interface MemberService {
 
     public String findNameAndEmail(Member member);
 
+    public int findUserIdAndName(Member member);
+
+    public String partialEncEmail(String rawEmail);
+
     public boolean deleteByIdx(int member_idx);
+
+    public boolean updateMemberPassword(Member member);
 
 }
 

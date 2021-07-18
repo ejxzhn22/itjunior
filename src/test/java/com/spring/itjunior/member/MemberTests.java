@@ -26,9 +26,9 @@ public class MemberTests {
         member.setName("리재복");
 //        member.setRole(Role.ADMIN);
 
-        boolean result = memberService.saveMemberInfo(member);
-
-        System.out.println("결과는 "+result+"입니다.");
+//        boolean result = memberService.saveMemberInfo(member);
+//
+//        System.out.println("결과는 "+result+"입니다.");
     }
 
     @Test
