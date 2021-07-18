@@ -2,11 +2,15 @@ package com.spring.itjunior.controller;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
+import com.spring.itjunior.dto.JoinDto;
+import com.spring.itjunior.service.MailService;
 import com.spring.itjunior.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,9 +18,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth 허용
@@ -25,29 +35,22 @@ import javax.servlet.http.HttpSession;
  * 쉽게말해 Mapping에 인증이 필요없는 것들은 /auth를 붙일것.
  */
 @Log4j2
+@AllArgsConstructor
 @Controller
 public class MemberController {
 
     private MemberService memberService;
     private AuthenticationManager authenticationManager;
+    private MailService mailService;
 
-    @Autowired
-    public MemberController(MemberService memberService, AuthenticationManager authenticationManager) {
-        this.memberService = memberService;
-        this.authenticationManager = authenticationManager;
-    }
 
     @GetMapping("/auth/joinForm")
     public String joinForm() {
         return "member/joinForm";
     }
     @PostMapping("/auth/join")
-    public String join(Member member) {
-        boolean resultJoin = memberService.saveMemberInfo(member);
-        if (resultJoin == false) {
-            return "error404";
-        }
-        log.info("회원가입 성공!!!");
+    public String join(@Valid JoinDto joinDto) {
+        boolean resultJoin = memberService.saveMemberInfo(joinDto);
         return "redirect:/";
     }
 
@@ -56,12 +59,39 @@ public class MemberController {
         return "member/findIdForm";
     }
 
+    @GetMapping("/auth/member/find-password")
+    public String findPwdForm() {
+        return "member/findPwdForm";
+    }
+
+    @GetMapping("/auth/member/find-password-certification/{idx}")
+    public String findPwdByEmail(@PathVariable("idx") int member_idx, Model model) {
+        log.info("memberIdx >>> {}",member_idx);
+
+        Member member= memberService.findByIdx(member_idx);
+        String encEmail = memberService.partialEncEmail(member.getEmail());
+        int certificationNum = mailService.mailSend(member.getEmail(),member.getName());
+        log.info("email전송 서비스 완료,, 인증번호 >>> {}",certificationNum);
+        model.addAttribute("email", encEmail);
+        model.addAttribute("certificationNum", certificationNum);
+        model.addAttribute("member", member);
+
+        return "member/findPwdCertificationForm";
+    }
+
+    @GetMapping("/auth/member/change-pw/{idx}")
+    public String changePwd(@PathVariable("idx") int member_idx, Model model) {
+        log.info("비밀번호 변경 페이지 진입,, member_idx >>> {}",member_idx);
+        model.addAttribute("member_idx",member_idx);
+        return "member/changePasswordForm";
+    }
+
+
 
     @GetMapping("/auth/loginForm")
     public String loginForm(Model model) {
         return "member/loginForm";
     }
-
 
 
     @GetMapping("/member/{idx}")

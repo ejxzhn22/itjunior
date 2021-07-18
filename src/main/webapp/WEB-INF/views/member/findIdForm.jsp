@@ -37,18 +37,17 @@
             data: JSON.stringify(member),
             success: function (result){
                 console.log(result);
-                if (result === "fail") {
-                    $("#check-yn").text("회원 아이디를 찾을 수 없습니다.");
-                    return false;
-                }else {
-                    let htmls="";
-                    $("#findId").empty();
-                    htmls += '<h1>회원님의 아이디는'+result+'입니다</h1>';
-                    $("#findId").append(htmls);
-                }
+
+                let htmls="";
+                $("#findId").empty();
+                htmls += '<h1>회원님의 아이디는'+result+'입니다</h1>';
+                $("#findId").append(htmls);
             },
             error: function (e) {
                 console.log(e+"에러");
+                $("#check-yn").text("회원 아이디를 찾을 수 없습니다.");
+                return false;
+
             }
         });
     }

@@ -5,12 +5,11 @@ import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.service.MemberService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
@@ -27,12 +26,33 @@ public class MemberApiController {
 
 
     @PostMapping("/auth/member/find-id")
-    public String findIdProc(@RequestBody Member member) {
+    public ResponseEntity<String> findIdProc(@RequestBody Member member) {
         String resultSuccessOne = memberService.findNameAndEmail(member);
         if (resultSuccessOne.equals("fail")) {
-            return "fail";
+            return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
         }
-        return resultSuccessOne;
+        return new ResponseEntity<>(resultSuccessOne, HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/member/find-pw")
+    public ResponseEntity<Integer> findPwProc(@RequestBody Member member) {
+        log.info("UserId, Name 넘겨받은 Member >>> {}",member);
+        int resultIdx = memberService.findUserIdAndName(member);
+        if (resultIdx == 0) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(resultIdx, HttpStatus.OK);
+    }
+
+    @PutMapping("/auth/member/change-pw")
+    public ResponseEntity<String> changePwProc(@RequestBody Member member) {
+        log.info("비밀번호 변경 폼 Member >>> {}",member.toString());
+        boolean resultUpdate = memberService.updateMemberPassword(member);
+        if (!resultUpdate) {
+            return new ResponseEntity<String>("failUpdate",HttpStatus.BAD_REQUEST);
+        }
+        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
+        return new ResponseEntity<String>("successUpdate",HttpStatus.OK);
     }
 
 

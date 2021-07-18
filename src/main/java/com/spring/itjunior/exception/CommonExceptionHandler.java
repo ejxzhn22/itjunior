@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Log4j2
 @RestControllerAdvice
-public class CommonExceptionHandler extends RuntimeException{
+public class CommonExceptionHandler {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND) //500 error
