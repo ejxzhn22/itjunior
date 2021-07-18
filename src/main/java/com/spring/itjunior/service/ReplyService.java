@@ -18,16 +18,28 @@ public class ReplyService {
         return replyMapper.selectAll(free_idx);
     }
 
+    //댓글 하나 가져오기
+    public Reply reply(int reply_idx){
+
+        return replyMapper.selectOne(reply_idx);
+    }
+
     //부모 댓글 추가
     public int insertParent(Reply reply){
-        return replyMapper.insertParent(reply);
+        replyMapper.insertParent(reply);
+        System.out.println("키값 : "+reply.getReply_idx());
+        return reply.getReply_idx();
 
     }
-    //대댓글 추가
-    public int insertChild(Reply reply){
-        return replyMapper.insertChild(reply);
+
+    // 대댓글 추가
+    public Reply insertChild(Reply reply){
+        replyMapper.insertChild(reply);
+
+        return replyMapper.lastOne();
 
     }
+
 
     //댓글 갯수
     public int replycnt(int free_idx){

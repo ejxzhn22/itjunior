@@ -16,12 +16,19 @@
         , emoji
     </sql>
 
-    <!--  댓글 가져오기  -->
+    <!--  댓글 모두 가져오기  -->
     <select id="selectAll" resultType="Reply" parameterType="int">
         SELECT *
         FROM tbl_board_reply
         WHERE free_idx = #{free_idx}
         ORDER BY parent_idx ASC , reply_order DESC
+    </select>
+
+    <!--  댓글 하나 가져오기  -->
+    <select id="selectOne" resultType="Reply" parameterType="int">
+        SELECT *
+        FROM tbl_board_reply
+        WHERE reply_idx = #{reply_idx}
     </select>
 
 <!--    &lt;!&ndash;  대댓글 모두 가져오기  &ndash;&gt;-->
@@ -34,6 +41,10 @@
 
     <!--  부모 댓글 추가하기  -->
     <insert id="insertParent" parameterType="Reply">
+        <selectKey resultType="int" keyProperty="reply_idx" order="BEFORE">
+            SELECT MAX(reply_idx)+1 FROM tbl_board_reply
+        </selectKey>
+
         INSERT INTO tbl_board_reply(
             <include refid="replyColumns"/>
         ) VALUES (
@@ -45,12 +56,20 @@
             ,now()
             ,#{reply_idx}
             ,0
-            ,0
+            ,NULL
             ,#{emoji}
+
+
         )
     </insert>
     <!--  대댓글 추가하기  -->
     <insert id="insertChild" parameterType="Reply">
+
+        <selectKey resultType="int" keyProperty="reply_order" order="BEFORE">
+            SELECT MAX(reply_order)+1 FROM tbl_board_reply WHERE parent_idx =#{parent_idx}
+        </selectKey>
+
+
         INSERT INTO tbl_board_reply(
         <include refid="replyColumns"/>
         ) VALUES (
@@ -65,7 +84,18 @@
         ,#{reply_order}
         ,#{emoji}
         )
+
+
     </insert>
+
+    <!-- 마지막 insert 대댓 가져오기 -->
+    <select id="lastOne" resultType="Reply">
+        SELECT *
+        FROM tbl_board_reply
+        where reply_idx = (select max(reply_idx) from tbl_board_reply )
+    </select>
+
+
     <!-- 댓글 갯수 가져오기 -->
     <select id="replycnt" parameterType="int" resultType="int">
         SELECT COUNT(*)
