@@ -11,6 +11,12 @@ public interface ReplyMapper {
     //댓글 모두 가져오기
     public List<Reply> selectAll(int free_idx);
 
+    //댓글 하나 가져오기
+    public Reply selectOne(int reply_idx);
+
+    //마지막 insert 대댓글 가져오기
+    public Reply lastOne();
+
     //부모 댓글 추가
     public int insertParent(Reply reply);
 

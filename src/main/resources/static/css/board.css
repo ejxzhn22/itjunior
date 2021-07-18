@@ -347,7 +347,7 @@
 .detail-reply-section {
     display: flex;
     width: 75%;
-    /*height: 100px;*/
+    height: 100px;
     margin: 12px auto;
     padding-left: 60px;
     flex-direction: column;
@@ -424,6 +424,7 @@
     align-items: center;
     justify-content: space-between;
     margin:20px 0;
+
 }
 .rereply-section span {
     width: fit-content;
