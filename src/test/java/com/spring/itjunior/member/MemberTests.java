@@ -2,6 +2,7 @@ package com.spring.itjunior.member;
 
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
+import com.spring.itjunior.dto.UpdateMemberDto;
 import com.spring.itjunior.service.MemberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,11 +34,19 @@ public class MemberTests {
 
     @Test
     public void updateWithIdx() {
-        Member member = new Member();
+        UpdateMemberDto updateMemberDto = UpdateMemberDto.builder()
+                .member_idx(4)
+                .userId("dto죠링이")
+                .password("123123")
+                .nickname("병경조링")
+                .email("ufo@naver.com")
+                .build();
+
+//        Member member = new Member();
 //        member.setPassword("1111");
-        member.setNickname("변경죠링이5");
-        member.setEmail("noupdatepwd@naver.com");
-        boolean updateMember = memberService.updateMemberInfo(member); //1번 회원 수정완료
+//        member.setNickname("변경죠링이5");
+//        member.setEmail("noupdatepwd@naver.com");
+        boolean updateMember = memberService.updateMemberInfo(updateMemberDto); //1번 회원 수정완료
 
         Member expectMember = memberService.findByIdx(1); //수정 commit 후 1번 회원정보 가져오기
         if (updateMember == true) {

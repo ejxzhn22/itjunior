@@ -3,14 +3,13 @@ package com.spring.itjunior.controller;
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.dto.JoinDto;
+import com.spring.itjunior.dto.UpdateMemberDto;
 import com.spring.itjunior.service.MailService;
 import com.spring.itjunior.service.MemberService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,14 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth 허용
@@ -35,13 +28,13 @@ import java.util.Map;
  * 쉽게말해 Mapping에 인증이 필요없는 것들은 /auth를 붙일것.
  */
 @Log4j2
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 public class MemberController {
 
-    private MemberService memberService;
-    private AuthenticationManager authenticationManager;
-    private MailService mailService;
+    private final MemberService memberService;
+    private final AuthenticationManager authenticationManager;
+    private final MailService mailService;
 
 
     @GetMapping("/auth/joinForm")
@@ -49,7 +42,7 @@ public class MemberController {
         return "member/joinForm";
     }
     @PostMapping("/auth/join")
-    public String join(@Valid JoinDto joinDto) {
+    public String join(@Valid JoinDto joinDto, BindingResult bindingResult,Model model) {
         boolean resultJoin = memberService.saveMemberInfo(joinDto);
         return "redirect:/";
     }
@@ -113,18 +106,19 @@ public class MemberController {
         return "member/updateForm";
     }
     @PutMapping("/member")
-    public String updateMember(@RequestParam("originPwd") String originPwd, Member requestMember,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        log.info("수정 요청한 password >>> {}",requestMember.getPassword());
+    public String updateMember(@RequestParam("originPwd") String originPwd,@Valid UpdateMemberDto updateMemberDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        log.info("들어온 member >> {}",updateMemberDto.toString());
+        log.info("수정 요청한 password >>> {}",updateMemberDto.getPassword());
         log.info("평문 비밀번호 >>> {}",originPwd);
 
-        String updatedPwd = requestMember.getPassword();
-        boolean resultUpdate = memberService.updateMemberInfo(requestMember);
+        String updatedPwd = updateMemberDto.getPassword();
+        boolean resultUpdate = memberService.updateMemberInfo(updateMemberDto);
 
         if (StringUtils.isBlank(updatedPwd)) { //받아온 비밀번호가 null,"" 일때
             log.info("비밀번호를 수정하지 않았습니다. 평문 비밀번호를 가져오세요.");
-            forceLoginProc(requestMember,originPwd);
+            forceLoginProc(updateMemberDto,originPwd);
         }else {
-            forceLoginProc(requestMember,updatedPwd);
+            forceLoginProc(updateMemberDto,updatedPwd);
         }
 
         log.info("수정된 세션 비밀번호 >>> {}",principalDetails.getPassword());
@@ -132,12 +126,13 @@ public class MemberController {
         return "redirect:/";
     }
 
+
     //강제 로그인 처리(수정시 세션 업데이트 로직),,
     //update form에서 패스워드가 수정되는 값이 null이거나 ""공백 일때 기존회원 평문 비밀번호(패스워드 수정 안했을때)
     //update form에서 패스워드를 수정 하였다면 수정한 평문 비밀번호(패스워드 수정 했을때)
-    private void forceLoginProc(Member requestMember,String sessionPwd) {
+    private void forceLoginProc(UpdateMemberDto updateMemberDto,String sessionPwd) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(requestMember.getUserId(),sessionPwd));
+                .authenticate(new UsernamePasswordAuthenticationToken(updateMemberDto.getUserId(),sessionPwd));
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

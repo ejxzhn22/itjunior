@@ -5,6 +5,7 @@ import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
 import com.spring.itjunior.dto.JoinDto;
+import com.spring.itjunior.dto.UpdateMemberDto;
 import com.spring.itjunior.mapper.MemberMapper;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
@@ -64,19 +65,19 @@ public class MemberServiceImpl implements MemberService{
 
     @Transactional
     @Override
-    public boolean updateMemberInfo(Member requestMember) {
-        Member memberInfo = memberMapper.selectMemberByIdx(requestMember.getMember_idx());
+    public boolean updateMemberInfo(UpdateMemberDto updateMemberDto) {
+        Member memberInfo = memberMapper.selectMemberByIdx(updateMemberDto.getMember_idx());
 
-        if (StringUtils.isNotBlank(requestMember.getPassword())) {
+        if (StringUtils.isNotBlank(updateMemberDto.getPassword())) {
             log.info("null,공백이 아닌 정상적인 패스워드. 암호화 실행.");
-            String encPassword = getEncPassword(requestMember.getPassword());
+            String encPassword = getEncPassword(updateMemberDto.getPassword());
             memberInfo.setPassword(encPassword);
         }
 
-        memberInfo.setNickname(requestMember.getNickname());
-        memberInfo.setEmail(requestMember.getEmail());
+        memberInfo.setNickname(updateMemberDto.getNickname());
+        memberInfo.setEmail(updateMemberDto.getEmail());
 
-        log.info("기존 회원 >>> {}",requestMember.toString());
+        log.info("기존 회원 >>> {}",updateMemberDto.toString());
         int queryResult = memberMapper.insertOrUpdateMember(memberInfo);
         log.info("수정된 회원 >>> "+memberInfo.toString());
         log.info("수정 결과 = {}",queryResult);
@@ -167,6 +168,24 @@ public class MemberServiceImpl implements MemberService{
         int resultUpdate = memberMapper.changePasswordByIdx(member);
 
         return resultUpdate > 0 ? true : false;
+    }
+
+    @Override
+    public String idCheckByUserId(String userId) {
+        int resultCheck = memberMapper.idCheck(userId);
+        return resultCheck == 1 ? "same" : "notSame";
+    }
+
+    @Override
+    public String emailCheckByEmail(String email) {
+        int resultCheck = memberMapper.emailCheck(email);
+        return resultCheck == 1 ? "same" : "notSame";
+    }
+
+    @Override
+    public String nickNameCheckByNickname(String nickname) {
+        int resultCheck = memberMapper.nickNameCheck(nickname);
+        return resultCheck == 1 ? "same" : "notSame";
     }
 
 

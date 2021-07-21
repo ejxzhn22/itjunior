@@ -3,8 +3,8 @@ package com.spring.itjunior.controller;
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,17 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
+@RequiredArgsConstructor
 public class MemberApiController {
 
-    private MemberService memberService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    public MemberApiController(MemberService memberService,BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.memberService = memberService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
+    private final MemberService memberService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/auth/member/find-id")
     public ResponseEntity<String> findIdProc(@RequestBody Member member) {
@@ -53,6 +47,40 @@ public class MemberApiController {
         }
         log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
         return new ResponseEntity<String>("successUpdate",HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/join/idCheck")
+    public ResponseEntity<String> idCheck(@RequestBody Member member) {
+        log.info("userId 중복 체크 Member >>> {}",member.toString());
+        String resultCheck = memberService.idCheckByUserId(member.getUserId());
+        if (resultCheck.equals("same")) {
+            //아이디가 중복이면 "same"을 리턴, 중복이 아니면 notSame
+            return new ResponseEntity<String>("same",HttpStatus.BAD_REQUEST);
+        }
+        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
+        return new ResponseEntity<String>("notSame",HttpStatus.OK);
+    }
+    @PostMapping("/auth/join/emailCheck")
+    public ResponseEntity<String> emailCheck(@RequestBody Member member) {
+        log.info("email 중복 체크 Member >>> {}",member.toString());
+        String resultCheck = memberService.emailCheckByEmail(member.getEmail());
+        if (resultCheck.equals("same")) {
+            //email이 중복이면 "same"을 리턴, 중복이 아니면 notSame
+            return new ResponseEntity<String>("same",HttpStatus.BAD_REQUEST);
+        }
+        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
+        return new ResponseEntity<String>("notSame",HttpStatus.OK);
+    }
+    @PostMapping("/auth/join/nickNameCheck")
+    public ResponseEntity<String> nickNameCheck(@RequestBody Member member) {
+        log.info("nickname 중복체크 Member >>> {}",member.toString());
+        String resultCheck = memberService.nickNameCheckByNickname(member.getNickname());
+        if (resultCheck.equals("same")) {
+            //닉네임이 중복이면 "same"을 리턴, 중복이 아니면 notSame
+            return new ResponseEntity<String>("same",HttpStatus.BAD_REQUEST);
+        }
+        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
+        return new ResponseEntity<String>("notSame",HttpStatus.OK);
     }
 
 
