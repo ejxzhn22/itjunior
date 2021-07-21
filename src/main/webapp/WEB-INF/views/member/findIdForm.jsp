@@ -4,24 +4,35 @@
 
 <%@include file="../layout/header.jsp"%>
 
-<h1>아이디찾기!!</h1>
-    <div class="container" id="findId">
-        <form id="passForm" method="post" action="/member/updateForm">
-            <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" class="form-control" placeholder="이름" id="name" name="name" autofocus required>
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control" placeholder="가입한 이메일 주소" id="email" name="email" autofocus required>
-            </div>
-            <div class="check-yn" id="check-yn"></div>
-            <a href="#" type="button">뒤로가기</a>
-            <button type="button" onclick="nameAndEmailCheck()" class="btn btn-primary">아이디찾기</button>
-        </form>
+<div class="banner-section2">
+    <div class="banner-write2">
+        <span class="banner-title2">잇주멤버</span>
+        <span class="banner-desc2">잇주멤버가 되어 <br>많은 정보를 얻어보세요😎</span>
     </div>
+    <div class="banner-img2">
+        <img src="${pageContext.request.contextPath}/image/banner-member.png" alt="banner img" class="banner-img2">
+        <img src="${pageContext.request.contextPath}/image/icon-link.png" alt="" class="banner-link-img2">
+    </div>
+</div>
 
+<div class="content-section">
+    <div class="login-section">
+        <h1>아이디찾기</h1>
+        <div class="container" id="findId">
+            <form id="passForm" method="post" action="/member/updateForm">
+                <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
+                <input type="text" class="find-input1" placeholder="이름을 입력해주세요." id="name" name="name" autofocus autocomplete="off" required>
+                <input type="email" class="find-input2" placeholder="이메일 주소를 입력해주세요." id="email" name="email" autocomplete="off" required>
+                <div class="check-yn" id="check-yn"></div>
+                <div class="find-btns-container">
+                    <button type="button" onclick="nameAndEmailCheck()" class="btn btn-primary">아이디찾기</button>
+                    <img src="${pageContext.request.contextPath}/image/right-arrow.png" alt="">
+                    <!-- <a href="#" type="button">뒤로가기</a> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <%@include file="../layout/footer.jsp"%>
 <script type="text/javascript">
 
@@ -40,7 +51,9 @@
 
                 let htmls="";
                 $("#findId").empty();
-                htmls += '<h1>회원님의 아이디는'+result+'입니다</h1>';
+                htmls += '<span class="result-id">회원님의 아이디는<strong>'+result+'</strong>입니다</span>';
+                htmls += '<a href="/auth/loginForm" class="go-login">로그인하러가기</a>';
+                htmls += '<a href="/auth/member/find-password" class="go-pwfind">비밀번호찾기</a>';
                 $("#findId").append(htmls);
             },
             error: function (e) {

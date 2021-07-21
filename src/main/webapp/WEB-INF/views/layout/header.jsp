@@ -12,10 +12,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Spring Boot Application with JSP</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
     <script src="${pageContext.request.contextPath}/js/summernote/summernote-lite.js"></script>
     <script src="${pageContext.request.contextPath}/js/summernote/lang/summernote-ko-KR.js"></script>
     <!-- 아이콘 -->
@@ -56,6 +57,7 @@
             <li><a href="#">채용공고</a></li>
             <li><a href="#">관련학원</a></li>
             <li><a href="/boards">취업토론</a></li>
+            <li><a href="/qnaboards">Q&A</a></li>
         </ul>
     </div>
 

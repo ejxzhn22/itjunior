@@ -69,6 +69,9 @@
     width: 95%;
     padding:10px;
     margin-top: 5px;
+    border:none;
+    border-bottom:1px solid #d2d2d2;
+    transition: .5s linear;
 }
 .pw-section{
     display: flex;
@@ -80,6 +83,13 @@
     width: 95%;
     padding:10px;
     margin-top: 5px;
+    border:none;
+    border-bottom:1px solid #d2d2d2;
+    transition: .5s linear;
+}
+.id-input:focus, .pw-input:focus{
+    outline: none;
+    border-bottom:1px solid #3ab0e7;
 }
 
 .member-bottom-section{
@@ -139,4 +149,167 @@
     padding: 10px 0;
     font-size: 20px;
     color:#fff
+}
+
+/* 회원가입폼 */
+.join-section{
+    font-family: nanumGothic;
+    width:480px;
+    margin:35px auto;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+}
+h1{
+    margin: 0 auto !important;
+    margin-bottom: 30px;
+}
+.join{
+    margin:15px 0;
+}
+.join span:first-child{
+    width: 100px;
+    display:inline-block
+}
+.join input:nth-child(2){
+    font-size: 16px;
+    padding:5px 10px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #d2d2d2;
+    transition: .5s linear;
+}
+.join input:nth-child(2):focus{
+    outline: none;
+    border-bottom:1px solid #3ab0e7;
+}
+.join-section :nth-child(5){
+    padding-bottom:50px;
+}
+.join-btns{
+    display: flex;
+    justify-content: center;
+}
+#join-btn {
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px 80px;
+    background: #a5a5a5;
+    color: #fff;
+    cursor: pointer;
+}
+.join-btns button{
+    border-radius: 5px;
+    border: none;
+    background: #fdebeb;
+    cursor: pointer;
+}
+
+.join-box{
+    display: flex;
+}
+#email{
+    padding: 5px 10px;
+    width: 80%;
+    border: none;
+    border-bottom: 1px solid #d2d2d2;
+    transition: .5s linear;
+    margin-right: 5%;
+}
+#email:focus{
+    outline: none;
+    border-bottom:1px solid #3ab0e7;
+}
+#select-mail{
+    width: 15%;
+    font-size:13px;
+}
+
+/* 0721 */
+#passForm{
+    display:flex;
+    flex-direction: column;
+    height:100%;
+    width: 96%;
+}
+#findId {
+    width: 80%;
+    margin: 30px auto;
+    min-height: 200px;
+}
+.find-input1 {
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px !important;
+    border: 1px solid #202020 !important;
+}
+.find-input2{
+    padding:10px !important;
+    border: 1px solid #202020 !important;
+    border-radius: 5px !important;
+    width: 100% !important;
+    margin: 20px 0;
+}
+.find-input2:focus, .find-input1:focus{
+    outline: none;
+}
+.find-btns-container{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    align-items: center;
+    position:relative;
+}
+.find-btns-container a{
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+}
+.find-btns-container img{
+    position: absolute;
+    top: 11.5px;
+    width: 12px;
+    right: 126px;
+}
+.find-btns-container button{
+    width: 106%;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 15px;
+    border: none;
+    background: #3ab0e7;
+    color: #fff;
+    cursor: pointer;
+}
+#findId {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.result-id {
+    font-size: 25px;
+    margin:auto;
+}
+.go-login {
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    background: #3ab0e7;
+    border: none;
+    width: 70%;
+    text-align: center;
+}
+.go-pwfind {
+    border: 1px solid #d2d2d2;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #000;
+    background: #d2d2d2;
+    border: none;
+    width: 70%;
+    text-align: center;
 }
