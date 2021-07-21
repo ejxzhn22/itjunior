@@ -371,7 +371,7 @@
     border-radius:5px;
     cursor:pointer;
 }
-.reply-eval span{
+.reply-eval .span-con{
     border:1px solid #d2d2d2;
     background:#fff;
     padding:7px 10px;
@@ -625,4 +625,12 @@
     opacity: 0.2;
     top: 10px;
     right: -14px;
+}
+
+.replycnt {
+    width: 80%;
+    margin: 0 auto;
+    text-align: right;
+    color: #8c8b8b;
+    font-size: 13px;
 }

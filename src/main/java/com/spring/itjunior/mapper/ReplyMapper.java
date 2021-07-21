@@ -1,6 +1,7 @@
 package com.spring.itjunior.mapper;
 
 import com.spring.itjunior.domain.Reply;
+import com.spring.itjunior.domain.ReplyLike;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -31,4 +32,28 @@ public interface ReplyMapper {
 
     //대댓글 삭제
     public int deleteChild(int reply_idx);
+
+    //댓글 좋아요
+    public int likeParent(ReplyLike replyLike);
+
+    //댓글 좋아요취소하기
+    public int likeParentDelete(ReplyLike replyLike);
+
+    //댓글 싫어요
+    public int unlikeParent(ReplyLike replyLike);
+
+    //댓글 싫어요취소하기
+    public int unlikeParentDelete(ReplyLike replyLike);
+
+    //좋아요한 댓글 리스트
+    public List<Integer> likeList(int member_idx);
+
+    //싫어요한 댓글 리스트
+    public List<Integer> unlikeList(int member_idx);
+
+    //댓글 좋아요 갯수 가져오기
+    public int likeCount(int reply_idx);
+
+    //댓글 싫어요 갯수 가져오기
+    public int unlikeCount(int reply_idx);
 }

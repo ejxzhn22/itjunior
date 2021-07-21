@@ -72,7 +72,7 @@
             </div>
         </form>
     </div>
-
+    <div class="replycnt">댓글 갯수: ${board.replycnt}</div>
     <!-- ====================== 댓글 ========================== -->
         <div class="detail-reply-section" id="reply-container">
 
@@ -87,7 +87,7 @@
 <%@include file="../layout/footer.jsp"%>
 
 <script type="text/javascript">
-    <!-- 글 추천 -->
+    <!-- 글추천 -->
     function like(free_idx){
         console.log("idx: ",${board.free_idx})
         let likeIcon = $(`#likeIcon-`+free_idx);
@@ -181,6 +181,10 @@
                 let reply_idx= i.reply_idx;
                 let reply_order= i.reply_order;
                 let writer= i.writer;
+                let like_count = i.like_count;
+                let unlike_count = i.unlike_count;
+                let like_state = i.like_state;
+                let unlike_state = i.unlike_state;
                 let nickname = $("#principalNick").val();
                 let principalId = $("#principalId").val();
 
@@ -235,8 +239,24 @@
 
                     <!-- 부모댓글 추천 비추천 -->
                     listhtml+="<div class='reply-eval' id='reply-eval-"+reply_idx+"'>";
-                        listhtml+="<span><i onclick='parentLike("+reply_idx+")' id='parent-like"+reply_idx+"' class='far fa-thumbs-up'></i>0</span>";
-                        listhtml+="<span><i id='parent-hate"+reply_idx+"' class='far fa-thumbs-down'></i>0</span>";
+
+                    listhtml+="<span class='span-con' onclick='parentLike("+reply_idx+")'>"
+                    console.log("like",like_state);
+                    console.log("unlike",unlike_state);
+                    if(like_state){
+                        listhtml+="<i  id='parent-like-"+reply_idx+"' class='fas fa-thumbs-up'></i><span id='parentLikeCount"+reply_idx+"'>"+like_count+"</span>";
+                    }else{
+                        listhtml+="<i  id='parent-like-"+reply_idx+"' class='far fa-thumbs-up'></i><span id='parentLikeCount"+reply_idx+"'>"+like_count+"</span>";
+                    }
+                    listhtml+="</span>"
+                    listhtml+="<span class='span-con' onclick='parentUnlike("+reply_idx+")'>"
+                    if(unlike_state){
+                        listhtml+="<i id='parent-unlike-"+reply_idx+"' class='fas fa-thumbs-down'></i><span id='parentUnlikeCount"+reply_idx+"'>"+unlike_count+"</span>";
+                    }else{
+                        listhtml+="<i id='parent-unlike-"+reply_idx+"' class='far fa-thumbs-down'></i><span id='parentUnlikeCount"+reply_idx+"'>"+unlike_count+"</span>";
+
+                    }
+                    listhtml+="</span>"
                     listhtml+="</div>";
                     listhtml+="</div>";
 
@@ -372,8 +392,12 @@
 
             <!-- 부모댓글 추천 비추천 -->
             listhtml+="<div class='reply-eval' id='reply-eval-"+res.reply_idx+"'>";
-            listhtml+="<span><i onclick='parentLike("+res.reply_idx+")' id='parent-like"+res.reply_idx+"' class='far fa-thumbs-up'></i>0</span>";
-            listhtml+="<span><i id='parent-hate"+res.reply_idx+"' class='far fa-thumbs-down'></i>0</span>";
+            listhtml+="<span class='span-con' onclick='parentLike("+res.reply_idx+")'>"
+            listhtml+="<i  id='parent-like-"+res.reply_idx+"' class='far fa-thumbs-up'></i><span id='parentLikeCount"+res.reply_idx+"'>0</span>";
+            listhtml+="</span>"
+            listhtml+="<span class='span-con' onclick='parentUnlike("+res.reply_idx+")'>"
+            listhtml+="<i id='parent-unlike-"+res.reply_idx+"' class='far fa-thumbs-down'></i><span id='parentUnlikeCount"+res.reply_idx+"'>0</span>";
+            listhtml+="</span>"
             listhtml+="</div>";
             listhtml+="</div>";
             <!--================ -->
@@ -486,35 +510,45 @@
     <!-- 댓글 좋아요하기 -->
     function parentLike(reply_idx) {
         let likeIcon = $(`#parent-like-`+reply_idx);
+        let unlikeIcon = $(`#parent-unlike-`+reply_idx);
 
-        if(likeIcon.hasClass("far")) { //좋아요
-            $.ajax({
-                type:"post",
-                url:`/replies/`+reply_idx+`/likes`,
-                dataType:"json"
-            }).done(res=>{
-                let likeContStr = $("#likeCount").text();
-                let likeCount = Number(likeContStr) +1;
+        if(likeIcon.hasClass("far")) { //댓글좋아요
+            if(unlikeIcon.has("fas")){
+                parentUnlike(reply_idx);
+            }else{
+                $.ajax({
+                    type:"post",
+                    url:`/replies/`+reply_idx+`/likes`,
+                    dataType:"json"
+                }).done(res=>{
+                    let likeCountStr = $("#parentLikeCount"+reply_idx).html();
+                    let likeCount = Number(likeCountStr) +1;
 
-                $("#likeCount").text(likeCount);
+                    console.log("좋아요", likeCountStr);
 
-                likeIcon.addClass("fas");
-                likeIcon.addClass("active");
-                likeIcon.removeClass("far");
-            }).fail(error=>{
-                console.log("오류", error);
-            });
-        } else { // 좋아요 취소
+                    $("#parentLikeCount"+reply_idx).text(likeCount);
+
+                    likeIcon.addClass("fas");
+                    likeIcon.addClass("active");
+                    likeIcon.removeClass("far");
+                }).fail(error=>{
+                    console.log("오류", error);
+                });
+            }
+
+
+        } else { // 댓글좋아요 취소
             $.ajax({
                 type: "delete",
-                url: `/boards/` + free_idx + `/likes`,
+                url: `/replies/` + reply_idx + `/likes`,
                 dataType: "json"
             }).done(res => {
 
-                let likeContStr = $("#likeCount").text();
-                let likeCount = Number(likeContStr) - 1;
+                let likeCountStr = $("#parentLikeCount"+reply_idx).text();
+                let likeCount = Number(likeCountStr) -1;
+                console.log("취소", likeCountStr);
 
-                $("#likeCount").text(likeCount);
+                $("#parentLikeCount"+reply_idx).text(likeCount);
 
                 likeIcon.removeClass("fas");
                 likeIcon.removeClass("active");
@@ -528,6 +562,56 @@
 
 
     <!-- 댓글 싫어요 -->
+    function parentUnlike(reply_idx) {
+        let unlikeIcon = $(`#parent-unlike-`+reply_idx);
+        let likeIcon = $(`#parent-like-`+reply_idx);
+        console.log("true?",unlikeIcon.hasClass("far"));
+        if(unlikeIcon.hasClass("far")) { //댓글 싫어요
+            if(likeIcon.has("fas")){
+                parentLike(reply_idx);
+            }else{
+                $.ajax({
+                    type:"post",
+                    url:`/replies/`+reply_idx+`/unlikes`,
+                    dataType:"json"
+                }).done(res=>{
+                    let unlikeCountStr = $("#parentUnlikeCount"+reply_idx).html();
+                    let unlikeCount = Number(unlikeCountStr) +1;
+
+                    console.log("좋아요", unlikeCountStr);
+
+                    $("#parentUnlikeCount"+reply_idx).text(unlikeCount);
+
+                    unlikeIcon.addClass("fas");
+                    unlikeIcon.addClass("active");
+                    unlikeIcon.removeClass("far");
+                }).fail(error=>{
+                    console.log("오류", error);
+                });
+            }
+
+
+        } else { // 댓글 싫어요 취소
+            $.ajax({
+                type: "delete",
+                url: `/replies/` + reply_idx + `/unlikes`,
+                dataType: "json"
+            }).done(res => {
+
+                let unlikeCountStr = $("#parentUnlikeCount"+reply_idx).text();
+                let unlikeCount = Number(unlikeCountStr) -1;
+                console.log("취소", unlikeCountStr);
+
+                $("#parentUnlikeCount"+reply_idx).text(unlikeCount);
+
+                unlikeIcon.removeClass("fas");
+                unlikeIcon.removeClass("active");
+                unlikeIcon.addClass("far");
+            }).fail(error => {
+                console.log("오류", error);
+            });
+        }
+    }
 
 </script>
 
