@@ -18,11 +18,11 @@ public class CommonExceptionHandler {
         return "error404.." + e.getMessage();
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500 error
-    public String handleArgumentException(IllegalArgumentException e) {
-        return "<h1>요청한 값이 잘못되었거나 존재하지 않습니다. 잘못된 접근입니다. >>> </h>"+e.getMessage() + "exception 500,,";
-    }
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) //500 error
+//    public String handleArgumentException(IllegalArgumentException e) {
+//        return "<h1>요청한 값이 잘못되었거나 존재하지 않습니다. 잘못된 접근입니다. >>> </h>"+e.getMessage() + "exception 500,,";
+//    }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public String exceptionDelete(EmptyResultDataAccessException e) {
