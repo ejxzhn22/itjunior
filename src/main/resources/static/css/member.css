@@ -140,15 +140,15 @@
     padding: 10px 0;
     font-size: 20px;
 }
-.naver-login{
+.naver-login {
     background-color: #1fc800;
     margin: 10px 0px;
-    width:100%;
-    display:flex;
+    width: 100%;
+    display: flex;
     justify-content: center;
     padding: 10px 0;
     font-size: 20px;
-    color:#fff
+    color: #fff;
 }
 
 /* 회원가입폼 */
