@@ -500,3 +500,129 @@
 .fa-thumbs-up{
     color: red;
 }
+.board-table2{
+    width: 100%;
+    margin: 10px 0 50px 0;
+    font-family: nanumGothic;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: #faf9f9;
+    border-radius: 10px;
+    letter-spacing: -1px;
+}
+.board-table2 li{
+    border-bottom: 10px solid #fff;
+}
+.board-table2 li:last-child{
+    border-bottom:none;
+}
+.qna-q{
+    font-family: hannam;
+    color:#202020
+}
+.qna-div1{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 200px;
+    padding:30px;
+}
+.qna-div1 .title{
+    font-size:20px;
+    margin-bottom: 5px;
+}
+.qna-div2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:150px;
+}
+.qna-div2 .badge{
+    border:1px solid #202020;
+    border-radius: 5px;
+    padding:5px 10px;
+    margin:0 auto;
+}
+.qna-a{
+    display:flex;
+    justify-content: space-between;
+}
+.success-badge{
+    color:#fff;
+    background-color: #202020;
+}
+.wait-badge{
+
+}
+
+
+#mask {
+    position:absolute;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+    left:0;
+    top:0;
+}
+/* 팝업으로 뜨는 윈도우 css  */
+.window{
+    display: none;
+    position:fixed;
+    left:10%;
+    right:10%;
+    margin:0 auto;
+    top:110px;
+    width:550px;
+    height:350px;
+    background-color:#FFF;
+    z-index:10000;
+    font-family: nanumGothic;
+    letter-spacing: -3px;
+}
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    height: 100%;
+}
+.modal-pw {
+    width: 90%;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d2d2d2;
+}
+.btns-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+.btns-container input{
+    width:50%;
+    background: #202020;
+    color:#fff;
+    text-align: center;
+    font-size:20px;
+    cursor: pointer;
+}
+.btns-container a {
+    width: 50%;
+    background: #d2d2d2;
+    text-align: center;
+    display: inline-block;
+    line-height: 2.4;
+    font-size: 20px;
+}
+.icon-lock{
+    position: absolute;
+    z-index: -1;
+    opacity: 0.2;
+    top: 10px;
+    right: -14px;
+}
