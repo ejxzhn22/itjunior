@@ -347,7 +347,7 @@
 .detail-reply-section {
     display: flex;
     width: 75%;
-    height: 100px;
+    height: inherit;
     margin: 12px auto;
     padding-left: 60px;
     flex-direction: column;

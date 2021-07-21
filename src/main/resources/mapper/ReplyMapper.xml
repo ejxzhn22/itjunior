@@ -21,7 +21,7 @@
         SELECT *
         FROM tbl_board_reply
         WHERE free_idx = #{free_idx}
-        ORDER BY parent_idx ASC , reply_order DESC
+        ORDER BY parent_idx ASC , create_time ASC, reply_order DESC;
     </select>
 
     <!--  댓글 하나 가져오기  -->
@@ -56,7 +56,7 @@
             ,now()
             ,#{reply_idx}
             ,0
-            ,NULL
+            ,0
             ,#{emoji}
 
 
@@ -102,10 +102,19 @@
         FROM tbl_board_reply
         WHERE free_idx = #{free_idx}
     </select>
-    <!--  부모 댓글 수정  -->
-    <!--  대댓글 수정  -->
-    <!--  부모 댓글 삭제 (대댓글도 삭제됨)  -->
-    <!--  대댓글 삭제  -->
 
+    <!--  부모 댓글 삭제 (대댓글도 삭제됨)  -->
+    <delete id="deleteParent" parameterType="int">
+        DELETE
+        FROM tbl_board_reply
+        WHERE parent_idx = #{reply_id}
+    </delete>
+
+    <!--  대댓글 삭제  -->
+    <delete id="deleteChild" parameterType="int">
+        DELETE
+        FROM tbl_board_reply
+        WHERE reply_idx = #{reply_idx}
+    </delete>
 
 </mapper>

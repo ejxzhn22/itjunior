@@ -2,6 +2,7 @@ package com.spring.itjunior.controller;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Reply;
+import com.spring.itjunior.domain.ReplyLike;
 import com.spring.itjunior.dto.ReplyDto;
 import com.spring.itjunior.service.ReplyService;
 import lombok.RequiredArgsConstructor;
@@ -57,10 +58,39 @@ public class ReplyController {
         reply.setEmoji(replyDto.getEmoji());
         reply.setParent_idx(replyDto.getParent_idx());
 
+        reply.setReply_order(replyDto.getReply_order());
+
         System.out.println("reply: " + reply);
         Reply aa = replyService.insertChild(reply);
 
         System.out.println("dpdldpdlsms?"+aa);
         return replyService.insertChild(reply);
+    }
+
+
+    //부모 댓글 삭제
+    @ResponseBody
+    @GetMapping("replies/{reply_idx}/deleteParent")
+    public int deleteParent(@PathVariable int reply_idx) {
+       return replyService.deleteParent(reply_idx);
+    }
+
+    //대댓글 삭제
+    @ResponseBody
+    @GetMapping("replies/{reply_idx}/deleteChild")
+    public int deleteChild(@PathVariable int reply_idx) {
+        return replyService.deleteChild(reply_idx);
+    }
+
+    //댓글 좋아요
+    @ResponseBody
+    @PostMapping("/replies/{reply_idx}/likes")
+    public int likeParent(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ReplyLike replyLike = new ReplyLike();
+        replyLike.setReply_idx(reply_idx);
+        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
+
+
+        return replyService.likeParent(replyLike);
     }
 }

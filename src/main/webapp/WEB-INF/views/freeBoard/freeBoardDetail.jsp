@@ -83,6 +83,7 @@
 
 </div>
 
+
 <%@include file="../layout/footer.jsp"%>
 
 <script type="text/javascript">
@@ -157,6 +158,7 @@
     <!-- 댓글 리스트 -->
     function replyList() {
         let listhtml = "";
+        let relisthtml = "";
 
         $.ajax({
             type:"get",
@@ -180,9 +182,9 @@
                 let reply_order= i.reply_order;
                 let writer= i.writer;
                 let nickname = $("#principalNick").val();
+                let principalId = $("#principalId").val();
 
                 listhtml = "<div id='reply-total-container-"+reply_idx+"'>";
-
                 if( depth === 0){ // 부모 댓글
                     listhtml+="<div class='reply-top' id='reply-top-"+reply_idx+"'>";
                     listhtml+= "<span class='reply-emoji'>"+emoji+"</span>";
@@ -193,7 +195,7 @@
 
                     <!--댓글 구역-->
                         listhtml+="<div class='reply-content' id='reply-content-"+reply_idx+"'>";
-                    listhtml+="<span>"+content+"</span>";
+                    listhtml+="<span id='parent-content-"+reply_idx+"'>"+content+"</span>";
 
 
                     <!-- 답글 들어갈 곳 -->
@@ -206,8 +208,10 @@
                     listhtml+="<form class='rereply-form visible' id='rereply-form-"+reply_idx+"' action='' method='POST'>";
                     listhtml+="<img src='/image/icon-rereply.png' alt='' style='width:20px;'>";
                     listhtml+="<span>"+nickname+"</span>";
-                    listhtml+="<textarea  id='child-content' name='rereply' class='rereply-input' placeholder='답글을 입력해주세요.'></textarea>";
+
+                    listhtml+="<textarea  id='child-content-"+reply_idx+"' name='rereply' class='rereply-input' placeholder='답글을 입력해주세요.'></textarea>";
                     listhtml+="<input type='button' onclick='insertChild("+reply_idx+")' value='작성' class='btn1'>";
+
                     listhtml+="</form>";
                     <!-- ======================= -->
 
@@ -217,15 +221,22 @@
                     <!-- 부모 버튼 -->
                     listhtml+="<div class='reply-bottom' id='rereply-bottom-"+reply_idx+"'>";
                     listhtml+="<div class='btns'>";
+
+                    console.log("member",member_idx);
+                    console.log("principal",principalId);
+
                     listhtml+="<span class='rereply' onclick='rereply("+reply_idx+");'>답글</span>";
-                    listhtml+="<a href='#' class='update'>수정</a>";
-                    listhtml+=" <a href='#' class='delete'>삭제</a>";
+
+                    if(member_idx == principalId){
+                        listhtml+=" <a href='javascript:void(0)' onclick='deleteParent("+reply_idx+")' class='delete'>삭제</a>";
+                    }
+
                     listhtml+=" </div>";
 
                     <!-- 부모댓글 추천 비추천 -->
                     listhtml+="<div class='reply-eval' id='reply-eval-"+reply_idx+"'>";
-                    listhtml+="<span><img src='/image/icon-up.png' alt=''>0</span>";
-                    listhtml+="<span><img src='/image/icon-down.png' class='icon-down' alt=''>0</span>";
+                        listhtml+="<span><i onclick='parentLike("+reply_idx+")' id='parent-like"+reply_idx+"' class='far fa-thumbs-up'></i>0</span>";
+                        listhtml+="<span><i id='parent-hate"+reply_idx+"' class='far fa-thumbs-down'></i>0</span>";
                     listhtml+="</div>";
                     listhtml+="</div>";
 
@@ -250,27 +261,33 @@
                     listhtml += "<span>"+writer+"</span>";
                     listhtml += "<span class='reply-date'>"+create_time+"</span>";
                     listhtml += "<div class='rereply-btns'>";
-                    listhtml += "<a href='#' class='update'>수정</a>";
-                    listhtml += "<a href='#' class='delete'>삭제</a>";
+                    if(member_idx == principalId){
+                        listhtml += "<a href='javascript:void(0)' onclick='deleteChild("+reply_idx+")' class='delete'>삭제</a>";
+                    }
                     listhtml += "</div>";
 
                     listhtml+="</div>";
 
+                    console.log(listhtml);
+                   $('#rereply-container-'+i.parent_idx).append(listhtml);
 
-                   let id = "rereply-container-"+parent_idx;
                     //console.log("id", id);
 
                     //document.getElementById("rereply-section-"+parent_idx).innerHTML = listhtml;
                   //$("#reply-section").html(listhtml);
-                    //$("#rereply-container-+parent_idx+").append(listhtml);
+
                     //let textnode = document.createTextNode(listhtml);
 
-                    let container = document.getElementById(id);
-                    container.innerHTML=listhtml;
+                   // let id = "rereply-container-"+parent_idx;
+                   //  let container = document.getElementById(id);
+                   //  container.innerHTML=listhtml;
+
                 }
 
 
-            });
+            } // for end
+
+            );
 
 
 
@@ -285,6 +302,7 @@
 
     <!-- 부모댓글 추가 -->
     function insertParent() {
+
         const emoji = $("#selected").text();
         const content = $("#parent_content").val();
         const member_idx = $("#principalId").val();
@@ -323,7 +341,7 @@
 
             <!--댓글 구역-->
             listhtml+="<div class='reply-content' id='reply-content-"+res.reply_idx+"'>";
-            listhtml+="<span>"+res.content+"</span>";
+            listhtml+="<span id='parent-content-"+res.reply_idx+"'>"+res.content+"</span>";
 
 
             <!-- 답글 들어갈 곳 -->
@@ -336,7 +354,7 @@
             listhtml+="<form class='rereply-form visible' id='rereply-form-"+res.reply_idx+"' action='' method='POST'>";
             listhtml+="<img src='/image/icon-rereply.png' alt='' style='width:20px;'>";
             listhtml+="<span>"+nickname+"</span>";
-            listhtml+="<textarea name='rereply' class='rereply-input' placeholder='답글을 입력해주세요.'></textarea>";
+            listhtml+="<textarea id='child-content-"+res.reply_idx+"' name='content' class='rereply-input' placeholder='답글을 입력해주세요.'></textarea>";
             listhtml+="<input onclick='insertChild("+res.reply_idx+")' value='작성' class='btn1'>";
             listhtml+="</form>";
             <!-- ======================= -->
@@ -348,15 +366,14 @@
             listhtml+="<div class='reply-bottom' id='rereply-bottom-"+res.reply_idx+"'>";
             listhtml+="<div class='btns'>";
             listhtml+="<span class='rereply' onclick='rereply("+res.reply_idx+");'>답글</span>";
-            listhtml+="<a href='#' class='update'>수정</a>";
-            listhtml+=" <a href='#' class='delete'>삭제</a>";
+            listhtml+=" <a href='javascript:void(0)' onclick='deleteParent("+res.reply_idx+")' class='delete'>삭제</a>";
             listhtml+=" </div>";
             <!--================ -->
 
             <!-- 부모댓글 추천 비추천 -->
             listhtml+="<div class='reply-eval' id='reply-eval-"+res.reply_idx+"'>";
-            listhtml+="<span><img src='/image/icon-up.png' alt=''>0</span>";
-            listhtml+="<span><img src='/image/icon-down.png' class='icon-down' alt=''>0</span>";
+            listhtml+="<span><i onclick='parentLike("+res.reply_idx+")' id='parent-like"+res.reply_idx+"' class='far fa-thumbs-up'></i>0</span>";
+            listhtml+="<span><i id='parent-hate"+res.reply_idx+"' class='far fa-thumbs-down'></i>0</span>";
             listhtml+="</div>";
             listhtml+="</div>";
             <!--================ -->
@@ -380,7 +397,9 @@
 
         const member_idx = $("#principalId").val();
         const writer = $("#principalNick").val();
-        const content = $("#child-content").val();
+        const content = $("#child-content-" +parent_idx).val();
+
+        let listhtml = "";
 
         let data = {
             parent_idx : parent_idx,
@@ -388,6 +407,7 @@
             writer : writer,
             content : content
         }
+        console.log(data);
 
         $.ajax({
             type:"post",
@@ -397,6 +417,28 @@
             dataType:"json"
         }).done(res=>{
             console.log("성공", res);
+
+            listhtml = "<div id='reply-total-container-"+res.reply_idx+"'>";
+
+            listhtml+="<div class='rereply-section' id='rereply-section'>";
+
+            listhtml += "<img src='/image/icon-rereply.png' alt='' class='rereply-img'>";
+            listhtml += "<span>"+res.content+"</span>";
+            listhtml += "<span>"+res.writer+"</span>";
+            listhtml += "<span class='reply-date'>"+res.create_time+"</span>";
+            listhtml += "<div class='rereply-btns'>";
+            listhtml += "<a href='javascript:void(0)' onclick='deleteChild("+res.reply_idx+")' class='delete'>삭제</a>";
+            listhtml += "</div>";
+
+            listhtml+="</div>";
+
+            listhtml += "</div>";
+
+            console.log(listhtml);
+            $('#rereply-container-'+res.parent_idx).append(listhtml);
+
+            $("#child-content-" +parent_idx).val("");
+
         }).fail(error =>{
             console.log("오류", error);
 
@@ -406,15 +448,86 @@
 
 
 
-    <!-- 부모댓글 수정 -->
-    <!-- 대댓글 수정 -->
     <!-- 부모댓글 삭제 (대댓글도 전부 삭제)-->
-    <!-- 대댓글 삭제 -->
+    function deleteParent(reply_idx){
+        $.ajax({
+           type:"get",
+            url:"/replies/"+reply_idx+"/deleteParent",
+            dataType:"json"
 
+        }).done(res=>{
+            console.log("성공",res);
+            let container = $("#reply-total-container-"+reply_idx);
+            container.css("display","none");
+        }).fail(error=>{
+            console.log("오류",error);
+        });
+
+    }
+
+    <!-- 대댓글 삭제 -->
+    function deleteChild(reply_idx){
+
+        $.ajax({
+            type:"get",
+            url:"/replies/"+reply_idx+"/deleteChild",
+            dataType:"json"
+
+        }).done(res=>{
+            console.log("성공",res);
+            let container = $("#reply-total-container-"+reply_idx);
+            container.css("display","none");
+        }).fail(error=>{
+            console.log("오류",error);
+        });
+
+    }
 
     <!-- 댓글 좋아요하기 -->
-    <!-- 댓글 좋아요취소 -->
+    function parentLike(reply_idx) {
+        let likeIcon = $(`#parent-like-`+reply_idx);
+
+        if(likeIcon.hasClass("far")) { //좋아요
+            $.ajax({
+                type:"post",
+                url:`/replies/`+reply_idx+`/likes`,
+                dataType:"json"
+            }).done(res=>{
+                let likeContStr = $("#likeCount").text();
+                let likeCount = Number(likeContStr) +1;
+
+                $("#likeCount").text(likeCount);
+
+                likeIcon.addClass("fas");
+                likeIcon.addClass("active");
+                likeIcon.removeClass("far");
+            }).fail(error=>{
+                console.log("오류", error);
+            });
+        } else { // 좋아요 취소
+            $.ajax({
+                type: "delete",
+                url: `/boards/` + free_idx + `/likes`,
+                dataType: "json"
+            }).done(res => {
+
+                let likeContStr = $("#likeCount").text();
+                let likeCount = Number(likeContStr) - 1;
+
+                $("#likeCount").text(likeCount);
+
+                likeIcon.removeClass("fas");
+                likeIcon.removeClass("active");
+                likeIcon.addClass("far");
+            }).fail(error => {
+                console.log("오류", error);
+            });
+        }
+    }
+
+
+
     <!-- 댓글 싫어요 -->
-    <!-- 댓글 싫어요 취소 -->
+
 </script>
 

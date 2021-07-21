@@ -1,6 +1,7 @@
 package com.spring.itjunior.service;
 
 import com.spring.itjunior.domain.Reply;
+import com.spring.itjunior.domain.ReplyLike;
 import com.spring.itjunior.mapper.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,20 @@ public class ReplyService {
     //댓글 갯수
     public int replycnt(int free_idx){
         return replyMapper.replycnt(free_idx);
+    }
+
+    //부모댓글 삭제하기
+    public int deleteParent(int reply_idx){
+        return replyMapper.deleteParent(reply_idx);
+    }
+
+    //대댓글 삭제하기
+    public int deleteChild(int reply_idx) {
+        return replyMapper.deleteChild(reply_idx);
+    }
+
+    //댓글 추천하기
+    public int likeParent(ReplyLike replyLike){
+        return 0;
     }
 }
