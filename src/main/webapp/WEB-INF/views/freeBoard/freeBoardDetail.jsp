@@ -68,7 +68,7 @@
                     <span id="bad" class="emoji">🙁</span>
                     <span id="anger" class="emoji">😡</span>
                 </div>
-                <input onclick="insertParent()" class="reply-submit" value="작성">
+                <input type="button" onclick="insertParent()" class="reply-submit" value="작성">
             </div>
         </form>
     </div>
@@ -208,8 +208,10 @@
                     listhtml+="<form class='rereply-form visible' id='rereply-form-"+reply_idx+"' action='' method='POST'>";
                     listhtml+="<img src='/image/icon-rereply.png' alt='' style='width:20px;'>";
                     listhtml+="<span>"+nickname+"</span>";
+
                     listhtml+="<textarea  id='child-content-"+reply_idx+"' name='rereply' class='rereply-input' placeholder='답글을 입력해주세요.'></textarea>";
-                    listhtml+="<input onclick='insertChild("+reply_idx+")' value='작성' class='btn1'>";
+                    listhtml+="<input type='button' onclick='insertChild("+reply_idx+")' value='작성' class='btn1'>";
+
                     listhtml+="</form>";
                     <!-- ======================= -->
 

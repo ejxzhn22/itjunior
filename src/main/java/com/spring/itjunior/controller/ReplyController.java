@@ -57,9 +57,13 @@ public class ReplyController {
         reply.setContent(replyDto.getContent());
         reply.setEmoji(replyDto.getEmoji());
         reply.setParent_idx(replyDto.getParent_idx());
-        reply.setReply_order(replyDto.getReply_order());
-        System.out.println("reply: " + reply);
 
+        reply.setReply_order(replyDto.getReply_order());
+
+        System.out.println("reply: " + reply);
+        Reply aa = replyService.insertChild(reply);
+
+        System.out.println("dpdldpdlsms?"+aa);
         return replyService.insertChild(reply);
     }
 

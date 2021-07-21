@@ -1,6 +1,5 @@
 package com.spring.itjunior.dto;
 
-import com.spring.itjunior.domain.Member;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -9,10 +8,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class JoinDto {
+public class UpdateMemberDto {
+
+    @NotNull(message = "유저 idx가 존재하지 않습니다.")
+    private int member_idx;
 
     @NotBlank(message = "유저 아이디를 입력하세요.")
     @Size(max = 20,message = "유저 아이디 길이(20)을 초과하였습니다.")
@@ -25,18 +26,15 @@ public class JoinDto {
     @Email(message = "이메일 형식이 아닙니다.")
     private String email;
 
-    @NotBlank(message = "유저 이름을 입력하세요.")
-    private String name;
-
     @NotBlank(message = "유저 닉네임을 입력하세요.")
     private String nickname;
 
     @Builder
-    public JoinDto(String userId, String password, String email, String name, String nickname) {
+    public UpdateMemberDto(int member_idx, String userId, String password, String email, String nickname) {
+        this.member_idx = member_idx;
         this.userId = userId;
         this.password = password;
         this.email = email;
-        this.name = name;
         this.nickname = nickname;
     }
 
