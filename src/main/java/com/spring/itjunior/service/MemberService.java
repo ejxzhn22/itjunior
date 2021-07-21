@@ -3,12 +3,13 @@ package com.spring.itjunior.service;
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.dto.JoinDto;
+import com.spring.itjunior.dto.UpdateMemberDto;
 
 public interface MemberService {
 
     public boolean saveMemberInfo(JoinDto joinDto);
 
-    public boolean updateMemberInfo(Member requestMember);
+    public boolean updateMemberInfo(UpdateMemberDto updateMemberDto);
 
     public Member findByIdx(int member_idx);
 
@@ -23,6 +24,12 @@ public interface MemberService {
     public boolean deleteByIdx(int member_idx);
 
     public boolean updateMemberPassword(Member member);
+
+    public String idCheckByUserId(String userId);
+
+    public String emailCheckByEmail(String email);
+
+    public String nickNameCheckByNickname(String nickname);
 
 }
 

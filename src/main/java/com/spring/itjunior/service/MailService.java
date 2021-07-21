@@ -43,8 +43,8 @@ public class MailService {
         message.setSubject(FROM_TITLE);
         message.setText(FROM_TEXT);
 
+        //yml파일 설정에서 해당 prop.put 인자값 설정이 제대로 되지 않는다. 그래서 properties객체를 생성하여 직접 설정을 넣어주었다.
         Properties prop = mailSender.getJavaMailProperties();
-
         prop.put("mail.smtp.auth", "true");
         prop.put("mail.smtp.starttls.enable", "true");
 
