@@ -21,9 +21,9 @@ public class ReplyController {
     // 댓글 가져오기
     @ResponseBody
     @GetMapping("/replies/{free_idx}")
-    public List<Reply> replies(@PathVariable int free_idx) {
+    public List<Reply> replies(@PathVariable int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        return replyService.replies(free_idx);
+        return replyService.replies(free_idx, principalDetails);
     }
 
     //부모댓글 추가
@@ -92,5 +92,42 @@ public class ReplyController {
 
 
         return replyService.likeParent(replyLike);
+    }
+
+    //댓글 좋아요 취소
+    @ResponseBody
+    @DeleteMapping("/replies/{reply_idx}/likes")
+    public int likeParentDelete(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ReplyLike replyLike = new ReplyLike();
+        replyLike.setReply_idx(reply_idx);
+        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
+
+
+        return replyService.likeParentDelete(replyLike);
+    }
+
+
+    //댓글 싫어요
+    @ResponseBody
+    @PostMapping("/replies/{reply_idx}/unlikes")
+    public int unlikeParent(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ReplyLike replyLike = new ReplyLike();
+        replyLike.setReply_idx(reply_idx);
+        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
+
+
+        return replyService.unlikeParent(replyLike);
+    }
+
+    //댓글 좋아요 취소
+    @ResponseBody
+    @DeleteMapping("/replies/{reply_idx}/unlikes")
+    public int unlikeParentDelete(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ReplyLike replyLike = new ReplyLike();
+        replyLike.setReply_idx(reply_idx);
+        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
+
+
+        return replyService.unlikeParentDelete(replyLike);
     }
 }

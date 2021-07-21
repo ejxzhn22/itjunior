@@ -49,6 +49,9 @@ public class FreeBoardController {
         // 댓글 갯수
         int replycnt = replyService.replycnt(free_idx);
 
+        //게시글에서 좋아요누른 댓글 가져오기
+
+
         //DTO에 담아서 보낸다.
         BoardDto boardDto = freeBoardService.selectBoard(free_idx);
         boardDto.setLikecnt(likecnt);

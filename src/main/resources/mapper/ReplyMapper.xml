@@ -117,4 +117,64 @@
         WHERE reply_idx = #{reply_idx}
     </delete>
 
+    <!-- 댓글 좋아요 -->
+    <insert id="likeParent" parameterType="ReplyLike">
+        INSERT INTO tbl_reply_like(
+            reply_idx,member_idx
+        ) VALUES (
+            #{reply_idx}, #{member_idx}
+        )
+    </insert>
+
+    <!-- 댓글 좋아요 취소하기 -->
+    <delete id="likeParentDelete" parameterType="ReplyLike">
+        DELETE
+        FROM tbl_reply_like
+        WHERE reply_idx = #{reply_idx} and member_idx = #{member_idx}
+    </delete>
+
+
+    <!-- 댓글 싫어요 -->
+    <insert id="unlikeParent" parameterType="ReplyLike">
+        INSERT INTO tbl_reply_unlike(
+            reply_idx,member_idx
+        ) VALUES (
+                     #{reply_idx}, #{member_idx}
+                 )
+    </insert>
+
+    <!-- 댓글 싫어요 취소하기 -->
+    <delete id="unlikeParentDelete" parameterType="ReplyLike">
+        DELETE
+        FROM tbl_reply_unlike
+        WHERE reply_idx = #{reply_idx} and member_idx = #{member_idx}
+    </delete>
+
+    <!--  내가 좋아요한 댓글 추천 목록 가져오기  -->
+    <select id="likeList" parameterType="int" resultType="int">
+        SELECT reply_idx
+        FROM tbl_reply_like
+        WHERE member_idx = #{member_idx}
+    </select>
+
+    <!--  내가 싫어요한 댓글 추천 목록 가져오기  -->
+    <select id="unlikeList" parameterType="int" resultType="int">
+        SELECT reply_idx
+        FROM tbl_reply_unlike
+        WHERE member_idx = #{member_idx}
+    </select>
+
+    <!--  댓글 좋아요 갯수 가져오기  -->
+    <select id="likeCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_reply_like
+        WHERE reply_idx=#{reply_idx}
+    </select>
+
+    <!--  댓글 싫어요 갯수 가져오기  -->
+    <select id="unlikeCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_reply_unlike
+        WHERE reply_idx=#{reply_idx}
+    </select>
 </mapper>

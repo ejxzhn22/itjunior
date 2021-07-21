@@ -29,4 +29,8 @@ public class Reply {
     private int parent_idx;
     private int depth;
     private int reply_order;
+    private int like_count;
+    private int unlike_count;
+    private boolean like_state;
+    private boolean unlike_state;
 }
