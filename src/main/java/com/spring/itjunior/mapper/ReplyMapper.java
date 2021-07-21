@@ -25,4 +25,10 @@ public interface ReplyMapper {
 
     //댓글 갯수
     public int replycnt(int free_idx);
+
+    //부모댓글 삭제
+    public int deleteParent(int reply_idx);
+
+    //대댓글 삭제
+    public int deleteChild(int reply_idx);
 }
