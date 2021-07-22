@@ -4,6 +4,8 @@ import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.domain.FreeLike;
 import com.spring.itjunior.dto.BoardDto;
+import com.spring.itjunior.dto.PageDto;
+import com.spring.itjunior.paging.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +14,10 @@ import java.util.List;
 public interface FreeBoardMapper {
 
     //프리게시판 게시글 모두 가져오기
-    public List<FreeBoard> selectAll();
+    public List<FreeBoard> selectAll(PageDto pageDto);
+
+    //게시글 갯수
+    public int selectBoardTotalCount();
 
     // 게시글 하나 가져오기
     public FreeBoard selectById(int free_idx);

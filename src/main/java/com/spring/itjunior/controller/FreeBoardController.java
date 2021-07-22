@@ -3,6 +3,9 @@ package com.spring.itjunior.controller;
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.*;
 import com.spring.itjunior.dto.BoardDto;
+import com.spring.itjunior.dto.PageDto;
+import com.spring.itjunior.paging.Criteria;
+import com.spring.itjunior.paging.PaginationInfo;
 import com.spring.itjunior.service.FreeBoardService;
 import com.spring.itjunior.service.MemberService;
 import com.spring.itjunior.service.ReplyService;
@@ -23,9 +26,20 @@ public class FreeBoardController {
 
     //자유게시판 이동
     @GetMapping("/boards")
-    public String boards(Model model) {
-        List<FreeBoard> boards = freeBoardService.boards();
+    public String boards(Model model, PageDto pageDto) {
+
+        int boardTotalCount = freeBoardService.selectBoardTotalCount();
+
+        PaginationInfo paginationInfo = new PaginationInfo(pageDto);
+        paginationInfo.setTotalRecordCount(boardTotalCount);
+        System.out.println("page"+paginationInfo);
+
+        pageDto.setPaginationInfo(paginationInfo);
+
+        List<FreeBoard> boards = freeBoardService.boards(pageDto);
+
         model.addAttribute("boards", boards);
+        model.addAttribute("page", pageDto);
 
         return "freeBoard/freeBoardList";
     }

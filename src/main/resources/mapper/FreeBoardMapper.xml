@@ -18,8 +18,19 @@
 
 
     <!-- 모든 게시글 가져오기 -->
-    <select id="selectAll" resultType="FreeBoard">
+    <select id="selectAll" resultType="FreeBoard" parameterType="PageDto">
         SELECT * FROM tbl_board_free WHERE delete_yn="N"
+        ORDER BY create_time DESC
+        LIMIT #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
+
+    <select id="selectBoardTotalCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_board_free
+        WHERE
+            delete_yn = 'N'
     </select>
 
     <!--  게시글 하나 가져오기  -->
