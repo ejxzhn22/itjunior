@@ -68,24 +68,24 @@
 
             <ul class="board-paging" style="display: flex">
                 <c:if test="${page.paginationInfo.hasPreviousPage}">
-                    <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(1)})" >
+                    <li onclick="movePage(<%=request.getRequestURI()%>,${page.makeQueryString(1)})" >
                         <a href="javascript:void(0)"> << </a>
                     </li>
-                    <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(page.paginationInfo.firstPage - 1)})" >
+                    <li onclick="movePage(<%=request.getRequestURI()%>,${page.makeQueryString(page.paginationInfo.firstPage - 1)})" >
                         <a href="javascript:void(0)"> < </a>
                     </li>
                 </c:if>
                 <c:forEach begin="${page.paginationInfo.firstPage}" end="${page.paginationInfo.lastPage}" var="num">
-                    <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(num)})" >
+                    <li onclick="movePage(<%=request.getRequestURI()%>,${page.makeQueryString(num)})" >
                         <a href="javascript:void(0)">${num}</a>
                     </li>
                 </c:forEach>
 
                 <c:if test="${page.paginationInfo.hasNextPage}">
-                <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(page.paginationInfo.lastPage + 1)})">
+                <li onclick="movePage(<%=request.getRequestURI()%>,${page.makeQueryString(page.paginationInfo.lastPage + 1)})">
                     <a href="javascript:void(0)"> > </a>
                 </li>
-                <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(page.paginationInfo.totalPageCount)})" >
+                <li onclick="movePage(<%=request.getRequestURI()%>,${page.makeQueryString(page.paginationInfo.totalPageCount)})" >
                     <a href="javascript:void(0)"> >> </a>
                 </li>
                 </c:if>
