@@ -5,11 +5,15 @@ import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.domain.FreeLike;
 import com.spring.itjunior.dto.BoardDto;
+import com.spring.itjunior.dto.PageDto;
 import com.spring.itjunior.mapper.FreeBoardMapper;
+import com.spring.itjunior.paging.Criteria;
+import com.spring.itjunior.paging.PaginationInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,8 +23,15 @@ public class FreeBoardService {
     private final FreeBoardMapper freeBoardMapper;
 
     //모든 게시글 가져오기 /
-    public List<FreeBoard> boards() {
-        return freeBoardMapper.selectAll();
+    public List<FreeBoard> boards(PageDto pageDto) {
+
+        return freeBoardMapper.selectAll(pageDto);
+
+    }
+
+    //게시글 개수 가져오기
+    public int selectBoardTotalCount() {
+        return freeBoardMapper.selectBoardTotalCount();
     }
 
     //게시글 하나 가져오기/

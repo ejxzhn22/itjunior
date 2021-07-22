@@ -62,20 +62,47 @@
 
         </table>
 
-        <div class="board-footer">
-            <div class="board-paging">
-                <a href="#"> < </a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#"> > </a>
-            </div>
+
+        <div class="board-footer" >
+        <c:if test="${page != null and page.paginationInfo.totalRecordCount > 0}">
+
+            <ul class="board-paging" style="display: flex">
+                <c:if test="${page.paginationInfo.hasPreviousPage}">
+                    <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(1)})" >
+                        <a href="javascript:void(0)"> << </a>
+                    </li>
+                    <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(page.paginationInfo.firstPage - 1)})" >
+                        <a href="javascript:void(0)"> < </a>
+                    </li>
+                </c:if>
+                <c:forEach begin="${page.paginationInfo.firstPage}" end="${page.paginationInfo.lastPage}" var="num">
+                    <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(num)})" >
+                        <a href="javascript:void(0)">${num}</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${page.paginationInfo.hasNextPage}">
+                <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(page.paginationInfo.lastPage + 1)})">
+                    <a href="javascript:void(0)"> > </a>
+                </li>
+                <li onclick="movePage(<%=request.getRequestURL()%>,${page.makeQueryString(page.paginationInfo.totalPageCount)})" >
+                    <a href="javascript:void(0)"> >> </a>
+                </li>
+                </c:if>
+            </ul>
+
+        </c:if>
             <a class="board-writing" href="/boards/new">글쓰기</a>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function movePage(uri, queryString) {
+        location.href = uri + queryString;
+    }
+</script>
+
 <%@include file="../layout/footer.jsp"%>
 
 

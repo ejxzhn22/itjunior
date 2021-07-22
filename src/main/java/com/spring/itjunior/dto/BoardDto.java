@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class BoardDto {
+public class BoardDto extends PageDto {
     private int free_idx;
     private int member_idx;
     private String title;

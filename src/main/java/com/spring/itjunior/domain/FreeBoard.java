@@ -1,5 +1,6 @@
 package com.spring.itjunior.domain;
 
+import com.spring.itjunior.dto.PageDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ member_idx int
  */
 
 @Data
-public class FreeBoard {
+public class FreeBoard  extends PageDto {
 
     private int free_idx;
     private String title;

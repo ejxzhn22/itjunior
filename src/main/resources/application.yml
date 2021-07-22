@@ -20,4 +20,4 @@ server:
 
 mybatis:
   mapper-locations: /mapper/**/*.xml
-  type-aliases-package: com.spring.itjunior.domain, com.spring.itjunior.dto
+  type-aliases-package: com.spring.itjunior.domain, com.spring.itjunior.dto, com.spring.itjunior.paging

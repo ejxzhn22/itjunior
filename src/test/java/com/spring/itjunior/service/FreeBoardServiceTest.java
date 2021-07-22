@@ -2,6 +2,8 @@ package com.spring.itjunior.service;
 
 import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.FreeBoard;
+import com.spring.itjunior.dto.BoardDto;
+import com.spring.itjunior.paging.Criteria;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +36,9 @@ class FreeBoardServiceTest {
     }
 
     @Test
-    public void 모든게시글가져오기() {
+    public void 모든게시글가져오기(BoardDto boardDto) {
 
-        List<FreeBoard> boards = freeBoardService.boards();
+        List<FreeBoard> boards = freeBoardService.boards(boardDto);
         Assertions.assertThat(boards.size()).isEqualTo(3);
 
     }
