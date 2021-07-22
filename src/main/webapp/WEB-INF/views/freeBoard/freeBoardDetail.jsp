@@ -507,91 +507,93 @@
 
     }
 
-    <!-- 댓글 좋아요하기 -->
-    function parentLike(reply_idx) {
-        let likeIcon = $(`#parent-like-`+reply_idx);
-        let unlikeIcon = $(`#parent-unlike-`+reply_idx);
 
-        if(likeIcon.hasClass("far")) { //댓글좋아요
-            if(unlikeIcon.has("fas")){
-                parentUnlike(reply_idx);
-            }else{
-                $.ajax({
-                    type:"post",
-                    url:`/replies/`+reply_idx+`/likes`,
-                    dataType:"json"
-                }).done(res=>{
-                    let likeCountStr = $("#parentLikeCount"+reply_idx).html();
-                    let likeCount = Number(likeCountStr) +1;
-
-                    console.log("좋아요", likeCountStr);
-
-                    $("#parentLikeCount"+reply_idx).text(likeCount);
-
-                    likeIcon.addClass("fas");
-                    likeIcon.addClass("active");
-                    likeIcon.removeClass("far");
-                }).fail(error=>{
-                    console.log("오류", error);
-                });
-            }
+    <!-- 좋아요 함수 -->
+   function replyLike(reply_idx) {
+       return new Promise(function (resolve, reject) {
+           let likeIcon = $(`#parent-like-` + reply_idx);
+           $.ajax({
+               type: "post",
+               url: `/replies/` + reply_idx + `/likes`,
+               dataType: "json"
+           }).done(res => {
+               let likeCountStr = $("#parentLikeCount" + reply_idx).html();
+               let likeCount = Number(likeCountStr) + 1;
 
 
-        } else { // 댓글좋아요 취소
+               $("#parentLikeCount" + reply_idx).text(likeCount);
+
+               likeIcon.addClass("fas");
+               likeIcon.addClass("active");
+               likeIcon.removeClass("far");
+
+               resolve(true);
+           }).fail(error => {
+               console.log("오류", error);
+               reject(false);
+           })
+       })
+    }
+
+    //좋아요 취소 함수
+    function replyLikeDel(reply_idx) {
+        return new Promise(function (resolve, reject) {
+            let likeIcon = $(`#parent-like-` + reply_idx);
             $.ajax({
                 type: "delete",
                 url: `/replies/` + reply_idx + `/likes`,
                 dataType: "json"
             }).done(res => {
 
-                let likeCountStr = $("#parentLikeCount"+reply_idx).text();
-                let likeCount = Number(likeCountStr) -1;
-                console.log("취소", likeCountStr);
+                let likeCountStr = $("#parentLikeCount" + reply_idx).text();
+                let likeCount = Number(likeCountStr) - 1;
 
-                $("#parentLikeCount"+reply_idx).text(likeCount);
+                $("#parentLikeCount" + reply_idx).text(likeCount);
 
                 likeIcon.removeClass("fas");
                 likeIcon.removeClass("active");
                 likeIcon.addClass("far");
+
+                resolve(true);
             }).fail(error => {
                 console.log("오류", error);
+                reject(false);
             });
-        }
+        })
     }
 
+    // 싫어요 함수
+    function replyUnlike(reply_idx) {
+        return new Promise(function (resolve, reject) {
+            let unlikeIcon = $(`#parent-unlike-` + reply_idx);
+            $.ajax({
+                type:"post",
+                url:`/replies/`+reply_idx+`/unlikes`,
+                dataType:"json"
+            }).done(res=>{
+                let unlikeCountStr = $("#parentUnlikeCount"+reply_idx).html();
+                let unlikeCount = Number(unlikeCountStr) +1;
 
 
-    <!-- 댓글 싫어요 -->
-    function parentUnlike(reply_idx) {
-        let unlikeIcon = $(`#parent-unlike-`+reply_idx);
-        let likeIcon = $(`#parent-like-`+reply_idx);
-        console.log("true?",unlikeIcon.hasClass("far"));
-        if(unlikeIcon.hasClass("far")) { //댓글 싫어요
-            if(likeIcon.has("fas")){
-                parentLike(reply_idx);
-            }else{
-                $.ajax({
-                    type:"post",
-                    url:`/replies/`+reply_idx+`/unlikes`,
-                    dataType:"json"
-                }).done(res=>{
-                    let unlikeCountStr = $("#parentUnlikeCount"+reply_idx).html();
-                    let unlikeCount = Number(unlikeCountStr) +1;
+                $("#parentUnlikeCount"+reply_idx).text(unlikeCount);
 
-                    console.log("좋아요", unlikeCountStr);
+                unlikeIcon.addClass("fas");
+                unlikeIcon.addClass("active");
+                unlikeIcon.removeClass("far");
 
-                    $("#parentUnlikeCount"+reply_idx).text(unlikeCount);
+                resolve(true);
+            }).fail(error=>{
+                console.log("오류", error);
+                reject(false);
+            })
+        })
 
-                    unlikeIcon.addClass("fas");
-                    unlikeIcon.addClass("active");
-                    unlikeIcon.removeClass("far");
-                }).fail(error=>{
-                    console.log("오류", error);
-                });
-            }
+    }
 
-
-        } else { // 댓글 싫어요 취소
+    // 싫어요 취소 함수
+    function replyUnlikeDel(reply_idx) {
+        return new Promise(function (resolve, reject) {
+            let unlikeIcon = $(`#parent-unlike-` + reply_idx);
             $.ajax({
                 type: "delete",
                 url: `/replies/` + reply_idx + `/unlikes`,
@@ -600,16 +602,61 @@
 
                 let unlikeCountStr = $("#parentUnlikeCount"+reply_idx).text();
                 let unlikeCount = Number(unlikeCountStr) -1;
-                console.log("취소", unlikeCountStr);
 
                 $("#parentUnlikeCount"+reply_idx).text(unlikeCount);
 
                 unlikeIcon.removeClass("fas");
                 unlikeIcon.removeClass("active");
                 unlikeIcon.addClass("far");
+
+                resolve(true);
             }).fail(error => {
                 console.log("오류", error);
+                reject(false);
             });
+        })
+
+    }
+
+    <!-- 댓글 좋아요하기 -->
+    async function parentLike(reply_idx) {
+        let likeIcon = $(`#parent-like-` + reply_idx);
+        let unlikeIcon = $(`#parent-unlike-` + reply_idx);
+
+        if (likeIcon.hasClass("far")) { //댓글좋아요
+
+            if (unlikeIcon.hasClass("fas")) {
+
+                await replyUnlikeDel(reply_idx);
+                await replyLike(reply_idx);
+            } else {
+
+                await replyLike(reply_idx);
+            }
+
+        } else { // 댓글좋아요 취소
+            await replyLikeDel(reply_idx);
+        }
+    }
+
+
+
+    <!-- 댓글 싫어요 하기 -->
+    async function parentUnlike(reply_idx) {
+        let unlikeIcon = $(`#parent-unlike-`+reply_idx);
+        let likeIcon = $(`#parent-like-`+reply_idx);
+
+        if(unlikeIcon.hasClass("far")) {//댓글 싫어요
+
+            if(likeIcon.hasClass("fas")) {
+                await replyLikeDel(reply_idx);
+                await replyUnlike(reply_idx);
+            }else{
+                await replyUnlike(reply_idx);
+            }
+
+        } else { // 댓글 싫어요 취소
+            await replyUnlikeDel(reply_idx)
         }
     }
 
