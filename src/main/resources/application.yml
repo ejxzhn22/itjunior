@@ -8,7 +8,7 @@ spring:
         enabled: true
     throw-exception-if-no-handler-found: true
   profiles:
-    include: datasource, googleinfo
+    include: datasource, googleinfo, oauth2
 
 server:
   port: 8000
