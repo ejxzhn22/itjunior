@@ -85,7 +85,7 @@ public class PaginationInfo {
         hasPreviousPage = (firstPage != 1);
 
         /* 다음 페이지 존재 여부 */
-        hasNextPage = (criteria.getCurrentPageNo() * criteria.getRecordsPerPage()) < totalRecordCount;
+        hasNextPage = (lastPage * criteria.getRecordsPerPage()) < totalRecordCount;
     }
 
 }
