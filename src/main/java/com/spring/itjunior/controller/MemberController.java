@@ -105,7 +105,7 @@ public class MemberController {
         log.info("uadateForm에서 받은 password >>> {}",member.toString());
         return "member/updateForm";
     }
-    @PutMapping("/member")
+    @PostMapping("/member")
     public String updateMember(@RequestParam("originPwd") String originPwd,@Valid UpdateMemberDto updateMemberDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         log.info("들어온 member >> {}",updateMemberDto.toString());
         log.info("수정 요청한 password >>> {}",updateMemberDto.getPassword());
