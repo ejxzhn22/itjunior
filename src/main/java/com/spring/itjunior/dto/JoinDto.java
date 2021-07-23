@@ -26,6 +26,7 @@ public class JoinDto {
     private String email;
 
     @NotBlank(message = "유저 이름을 입력하세요.")
+    @Size(max = 25, message = "유저 이름 길이(25)를 초과하였습니다.")
     private String name;
 
     @NotBlank(message = "유저 닉네임을 입력하세요.")

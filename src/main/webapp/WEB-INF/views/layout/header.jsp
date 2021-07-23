@@ -70,7 +70,7 @@
                 <a href="/auth/joinForm">회원가입</a>
             </c:when>
             <c:otherwise>
-                <a href="/auth/member/form">마이페이지</a>
+                <a href="/mypage">마이페이지</a>
                 <a href="/logout">로그아웃</a>
             </c:otherwise>
         </c:choose>

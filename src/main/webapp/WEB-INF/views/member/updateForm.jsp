@@ -8,7 +8,7 @@
     <div class="container">
         <form action="/member" method="post">
 <%--            <input type="hidden" name="_method" value="put">--%>
-            <input type="hidden" name="originPwd" value="${member.password}">
+            <input type="hidden" id="originPwd" name="originPwd" value="${member.password}">
             <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
             <div class="form-group">
                 <label>User Id</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" class="form-control" readonly="readonly" placeholder="Name" id="name" name="name" value="${principal.member.name}">
+                <input type="text" class="form-control" placeholder="Name" id="name" name="name" value="${principal.member.name}">
             </div>
             <div class="form-group">
                 <label>NickName</label>
@@ -34,4 +34,19 @@
         </form>
     </div>
 
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        let uuidVal = "${member.password}";
+        let originPwd = $("#originPwd");
+        let strUserName = $("#name").val();
+        console.log("member-password값"+originPwd.val());
+        console.log("문자열 길이 : " + strUserName.length);
+        console.log("uuid = "+uuidVal);
+        if(strUserName.length > 21){
+            alert("구글 아이디 최초 로그인 입니다. 회원수정 폼으로 이동하여 name(성명)과 nickname(활동이름)을 수정하여 주십시오.");
+        }
+
+    });
+</script>
 <%@include file="../layout/footer.jsp"%>

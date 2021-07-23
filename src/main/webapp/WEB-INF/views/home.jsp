@@ -5,18 +5,18 @@
 <%@include file="layout/header.jsp"%>
 
 <div class="content1-section">
-    <img src="image/itju-main-card.png" alt="메인이미지" class="main-card-img">
+    <img src="${pageContext.request.contextPath}/image/itju-main-card.png" alt="메인이미지" class="main-card-img">
     <span class="main-words">IT취업의 첫 걸음<br><p class="main-words-itju">잇주</p>가 함께합니다😀</span>
     <a href="#" class="main-join">JOIN 🙌</a>
-    <img src="image/icon-downarrow.png" alt="" class="down-arrow" onclick="scrollDown();">
+    <img src="${pageContext.request.contextPath}/image/icon-downarrow.png" alt="" class="down-arrow" onclick="scrollDown();">
 </div>
-<img src="image/main-o.svg" alt="" class="main-o">
-<img src="image/triangle.png" alt="" class="main-tri">
+<img src="${pageContext.request.contextPath}/image/main-o.svg" alt="" class="main-o">
+<img src="${pageContext.request.contextPath}/image/triangle.png" alt="" class="main-tri">
 <div class="content2-section">
     <div class="spelling-it-container">
         <div class="spelling-i">
             <div class="spelling-container1">
-                <img src="image/itjui.png" alt="I" class="itju-i spelling-img">
+                <img src="${pageContext.request.contextPath}/image/itjui.png" alt="I" class="itju-i spelling-img">
                 <span>nformation</span>
             </div>
             <div class="desc-container desc-container1">
@@ -27,7 +27,7 @@
         </div>
         <div class="spelling-t sa sa-right">
             <div class="spelling-container2">
-                <img src="image/itjut.png" alt="T" class="itju-t spelling-img">
+                <img src="${pageContext.request.contextPath}/image/itjut.png" alt="T" class="itju-t spelling-img">
                 <span>ruth</span>
             </div>
             <div class="desc-container">
@@ -40,7 +40,7 @@
     <div class="spelling-ju-container">
         <div class="spelling-j sa sa-right">
             <div class="spelling-container3">
-                <img src="image/itjuj.png" alt="J" class="itju-j spelling-img">
+                <img src="${pageContext.request.contextPath}/image/itjuj.png" alt="J" class="itju-j spelling-img">
                 <span>unior</span>
             </div>
             <div class="desc-container">
@@ -51,7 +51,7 @@
         </div>
         <div class="spelling-u sa sa-right">
             <div class="spelling-container4">
-                <img src="image/itjuu.png" alt="U" class="itju-u spelling-img">
+                <img src="${pageContext.request.contextPath}/image/itjuu.png" alt="U" class="itju-u spelling-img">
                 <span>seful</span>
             </div>
             <div class="desc-container">
@@ -63,7 +63,7 @@
     </div>
 </div>
 <div class="content3-section">
-    <img src="image/itju-sum.png" alt="" class="itju-sum">
+    <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-sum">
 </div>
 <%@include file="layout/footer.jsp"%>
 
