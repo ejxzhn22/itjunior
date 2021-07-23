@@ -95,13 +95,19 @@ public class MemberController {
     }
 
 
+    @GetMapping("/mypage")
+    public String mypageForm(Member member, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        member.setPassword("itjunior"+principalDetails.getMember().getUuid());
+        log.info("mypage >>>{}",member.toString());
+        return "mypage/mypage";
+    }
     //비밀번호 체크 페이지 >>>완료 후 회원수정 페이지.
     @GetMapping("/mypage/passwordCheck")
     public String passwordCheckForm() {
         return "mypage/passwordCheckForm";
     }
     @PostMapping("/member/updateForm")
-    public String updateForm(@ModelAttribute("member") Member member) {
+    public String updateForm(Member member) {
         log.info("uadateForm에서 받은 password >>> {}",member.toString());
         return "member/updateForm";
     }
@@ -110,15 +116,18 @@ public class MemberController {
         log.info("들어온 member >> {}",updateMemberDto.toString());
         log.info("수정 요청한 password >>> {}",updateMemberDto.getPassword());
         log.info("평문 비밀번호 >>> {}",originPwd);
-
         String updatedPwd = updateMemberDto.getPassword();
-        boolean resultUpdate = memberService.updateMemberInfo(updateMemberDto);
+        String userId = principalDetails.getUsername();
+
+
+        memberService.updateMemberInfo(updateMemberDto);
 
         if (StringUtils.isBlank(updatedPwd)) { //받아온 비밀번호가 null,"" 일때
             log.info("비밀번호를 수정하지 않았습니다. 평문 비밀번호를 가져오세요.");
-            forceLoginProc(updateMemberDto,originPwd);
+            log.info("평문 >>> {}",originPwd);
+            forceLoginProc(userId,originPwd);
         }else {
-            forceLoginProc(updateMemberDto,updatedPwd);
+            forceLoginProc(userId,updatedPwd);
         }
 
         log.info("수정된 세션 비밀번호 >>> {}",principalDetails.getPassword());
@@ -130,9 +139,9 @@ public class MemberController {
     //강제 로그인 처리(수정시 세션 업데이트 로직),,
     //update form에서 패스워드가 수정되는 값이 null이거나 ""공백 일때 기존회원 평문 비밀번호(패스워드 수정 안했을때)
     //update form에서 패스워드를 수정 하였다면 수정한 평문 비밀번호(패스워드 수정 했을때)
-    private void forceLoginProc(UpdateMemberDto updateMemberDto,String sessionPwd) {
+    private void forceLoginProc(String userId,String sessionPwd) {
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(updateMemberDto.getUserId(),sessionPwd));
+                .authenticate(new UsernamePasswordAuthenticationToken(userId,sessionPwd));
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

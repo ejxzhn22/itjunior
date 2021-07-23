@@ -47,9 +47,9 @@
             <img src="${pageContext.request.contextPath}/image/icon-naver.png" alt="">
             <span>네이버 로그인</span>
         </div>
-        <div class="google-login">
-            <img src="${pageContext.request.contextPath}/image/icon-google.png" alt="">
-            <span>구글 로그인</span>
+        <div class="google-login" onclick="location.href='/oauth2/authorization/google';">
+                <img src="${pageContext.request.contextPath}/image/icon-google.png" alt="">
+                <span>구글 로그인</span>
         </div>
     </div>
 </div>

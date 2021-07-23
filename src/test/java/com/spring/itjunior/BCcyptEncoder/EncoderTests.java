@@ -4,13 +4,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootTest
+import java.util.UUID;
+
 public class EncoderTests {
 
     @Test
     public void encodingTest() {
-        String encPassword = new BCryptPasswordEncoder().encode("1234");
+        String encPassword = new BCryptPasswordEncoder().encode("it");
         System.out.println("1234 해쉬 >>> "+encPassword);
+    }
+
+    @Test
+    public void uuidTest() {
+        UUID uuid = UUID.randomUUID();
+        System.out.println(uuid.toString().replace("-",""));
     }
 
     @Test

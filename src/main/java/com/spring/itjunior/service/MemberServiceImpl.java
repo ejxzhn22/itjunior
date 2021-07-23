@@ -39,20 +39,29 @@ public class MemberServiceImpl implements MemberService{
     @Transactional
     @Override
     public boolean saveMemberInfo(JoinDto joinDto) {
-        Member member = new Member();
-        member.setUserId(joinDto.getUserId());
-        member.setEmail(joinDto.getEmail());
-        member.setName(joinDto.getName());
-        member.setNickname(joinDto.getNickname());
-
-        if (member.getUserId().equals("root")) {
-            member.setRole(Role.ADMIN);
-        } else {
-            member.setRole(Role.USER);
-        }
         String encPassword = getEncPassword(joinDto.getPassword());
-        member.setPassword(encPassword);
-        member.setDelete_yn(DeleteYN.N);
+        Member member = Member.builder()
+                .userId(joinDto.getUserId())
+                .email(joinDto.getEmail())
+                .name(joinDto.getName())
+                .nickname(joinDto.getNickname())
+                .role((joinDto.getUserId().equals("root") ? Role.ADMIN : Role.USER))
+                .password(encPassword)
+                .delete_yn(DeleteYN.N)
+                .build();
+//        Member member = new Member();
+//        member.setUserId(joinDto.getUserId());
+//        member.setEmail(joinDto.getEmail());
+//        member.setName(joinDto.getName());
+//        member.setNickname(joinDto.getNickname());
+//
+//        if (member.getUserId().equals("root")) {
+//            member.setRole(Role.ADMIN);
+//        } else {
+//            member.setRole(Role.USER);
+//        }
+//        member.setPassword(encPassword);
+//        member.setDelete_yn(DeleteYN.N);
 
         int queryResult = memberMapper.insertOrUpdateMember(member);
         return (queryResult == 1) ? true : false;
@@ -73,14 +82,13 @@ public class MemberServiceImpl implements MemberService{
             String encPassword = getEncPassword(updateMemberDto.getPassword());
             memberInfo.setPassword(encPassword);
         }
-
+        memberInfo.setName(updateMemberDto.getName());
         memberInfo.setNickname(updateMemberDto.getNickname());
         memberInfo.setEmail(updateMemberDto.getEmail());
 
         log.info("기존 회원 >>> {}",updateMemberDto.toString());
         int queryResult = memberMapper.insertOrUpdateMember(memberInfo);
         log.info("수정된 회원 >>> "+memberInfo.toString());
-        log.info("수정 결과 = {}",queryResult);
 
         return (queryResult > 0) ? true : false;
     }

@@ -36,7 +36,6 @@ public class MemberTests {
     public void updateWithIdx() {
         UpdateMemberDto updateMemberDto = UpdateMemberDto.builder()
                 .member_idx(4)
-                .userId("dto죠링이")
                 .password("123123")
                 .nickname("병경조링")
                 .email("ufo@naver.com")
