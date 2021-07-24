@@ -35,7 +35,6 @@
                 <div class="find-btns-container">
                     <button type="button"  onclick="IdAndNameCheck()" class="btn btn-primary">비밀번호찾기</button>
                     <img src="${pageContext.request.contextPath}/image/right-arrow.png" alt="">
-                    <!-- <a href="#" type="button">뒤로가기</a> -->
                 </div>
                 <a class="go-back" href="javascript:history.go(-1)">뒤로가기</a>
             </form>
