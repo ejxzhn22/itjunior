@@ -25,17 +25,22 @@ public class FreeBoardController {
     private  final ReplyService replyService;
 
     //자유게시판 이동
-    @GetMapping("/boards")
+    @RequestMapping("/boards")
     public String boards(Model model, PageDto pageDto) {
 
-        int boardTotalCount = freeBoardService.selectBoardTotalCount();
+        // 글 카테고리 가져오기
+        List<Category> categories = freeBoardService.category();
 
+        int boardTotalCount = freeBoardService.selectBoardTotalCount(pageDto);
+        System.out.println("count : " +boardTotalCount);
         PaginationInfo paginationInfo = new PaginationInfo(pageDto);
         paginationInfo.setTotalRecordCount(boardTotalCount);
+
         System.out.println("page"+paginationInfo);
 
         pageDto.setPaginationInfo(paginationInfo);
 
+        System.out.println("pageDto"+pageDto);
         List<FreeBoard> boards = freeBoardService.boards(pageDto);
 
         model.addAttribute("boards", boards);

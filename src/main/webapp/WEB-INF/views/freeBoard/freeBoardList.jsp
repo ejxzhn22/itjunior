@@ -14,16 +14,16 @@
 </div>
 <div class="content-section">
     <div class="board-section">
-        <form method="post" class="board-search">
-            <select name="search-select" class="board-select">
-                <option value="제목">제목</option>
-                <option value="제목+내용">제목+내용</option>
-                <option value="글쓴이">글쓴이</option>
-                <option value="닉네임">닉네임</option>
-                <option value="카테고리">카테고리</option>
+        <form method="post" action="/boards" class="board-search">
+            <input type="hidden" name="currentPageNo" value="1">
+            <select name="searchType" class="board-select">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="all">제목+내용</option>
+                <option value="writer">작성자</option>
             </select>
-            <input type="text" name="board-search" class="board-input" autocomplete="off">
-            <input type="submit" value="🔍" class="board-submit">
+            <input type="text" name="searchKeyword" class="board-input" autocomplete="off">
+            <input type="submit"  value="🔍" class="board-submit">
         </form>
 
         <div class="board-search2">
@@ -53,7 +53,7 @@
             <c:forEach var="board" items="${boards}">
                 <tr>
                     <td>${board.free_idx}</td>
-                    <td><a href="/boards/${board.free_idx}">${board.title}</a></td>
+                    <td><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
                     <td>${board.writer}</td>
                     <td>${board.viewcnt}</td>
                     <td>${board.create_time}</td>
