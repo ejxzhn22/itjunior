@@ -51,36 +51,45 @@ public class MemberApiController {
 
     @PostMapping("/auth/join/idCheck")
     public ResponseEntity<String> idCheck(@RequestBody Member member) {
-        log.info("userId 중복 체크 Member >>> {}",member.toString());
+        log.info("userId 중복 체크 Member >>> {}",member.getUserId());
         String resultCheck = memberService.idCheckByUserId(member.getUserId());
         if (resultCheck.equals("same")) {
-            //아이디가 중복이면 "same"을 리턴, 중복이 아니면 notSame
-            return new ResponseEntity<String>("same",HttpStatus.BAD_REQUEST);
+            //아이디가 중복이면 "same"을 리턴.
+            return new ResponseEntity<String>("same",HttpStatus.OK);
+        }else if(resultCheck.equals("notSame")){
+            //닉네임이 중복이 아니면 "notSame"을 리턴.
+            return new ResponseEntity<String>("notSame", HttpStatus.OK);
         }
-        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
-        return new ResponseEntity<String>("notSame",HttpStatus.OK);
+        log.info("아이디 체크 서버호출 에러....");
+        return new ResponseEntity<String>("notSame",HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @PostMapping("/auth/join/emailCheck")
     public ResponseEntity<String> emailCheck(@RequestBody Member member) {
         log.info("email 중복 체크 Member >>> {}",member.toString());
         String resultCheck = memberService.emailCheckByEmail(member.getEmail());
         if (resultCheck.equals("same")) {
-            //email이 중복이면 "same"을 리턴, 중복이 아니면 notSame
-            return new ResponseEntity<String>("same",HttpStatus.BAD_REQUEST);
+            //닉네임이 중복이면 "same"을 리턴.
+            return new ResponseEntity<String>("same",HttpStatus.OK);
+        }else if(resultCheck.equals("notSame")){
+            //닉네임이 중복이 아니면 "notSame"을 리턴.
+            return new ResponseEntity<String>("notSame", HttpStatus.OK);
         }
-        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
-        return new ResponseEntity<String>("notSame",HttpStatus.OK);
+        log.info("이메일 체크 서버호출 에러....");
+        return new ResponseEntity<String>("notSame",HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @PostMapping("/auth/join/nickNameCheck")
     public ResponseEntity<String> nickNameCheck(@RequestBody Member member) {
         log.info("nickname 중복체크 Member >>> {}",member.toString());
         String resultCheck = memberService.nickNameCheckByNickname(member.getNickname());
         if (resultCheck.equals("same")) {
-            //닉네임이 중복이면 "same"을 리턴, 중복이 아니면 notSame
-            return new ResponseEntity<String>("same",HttpStatus.BAD_REQUEST);
+            //닉네임이 중복이면 "same"을 리턴.
+            return new ResponseEntity<String>("same",HttpStatus.OK);
+        }else if(resultCheck.equals("notSame")){
+            //닉네임이 중복이 아니면 "notSame"을 리턴.
+            return new ResponseEntity<String>("notSame", HttpStatus.OK);
         }
-        log.info("비밀번호 변경 PUT Controller >>> 수정 완료!");
-        return new ResponseEntity<String>("notSame",HttpStatus.OK);
+        log.info("닉네임 체크 서버호출 에러....");
+        return new ResponseEntity<String>("notSame",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -98,4 +107,6 @@ public class MemberApiController {
         }
         return "fail";
     }
+
+
 }
