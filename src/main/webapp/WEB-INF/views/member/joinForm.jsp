@@ -50,7 +50,7 @@
 
         <div class="join join-pw">
             <span>이름</span>
-            <input type="text" class="join-pw-input" id="name" name="name" autocomplete="off" required>
+            <input type="text" class="join-pw-input" id="name" name="name" autocomplete="off" autofocus="on" required>
         </div>
 
         <div class="join join-id">
@@ -124,13 +124,13 @@
 
         $("#userId").keyup(function() {
             $.ajax({
-                url : "join.html",
+                url : "/auth/join/idCheck",
                 type : "POST",
                 data : {
                     id : $("#id").val()
                 },
                 success : function(result) {
-                    if (result == 1) {
+                    if (result === "same") {
                         $("#id-check").html("중복된 아이디가 있습니다.");
                         $("#join-btn").attr("disabled", "disabled");
                     } else {
@@ -143,32 +143,34 @@
 
         $("#email").keyup(function(){
             $.ajax({
-                url : "join.html",
+                url : "/auth/join/emailCheck",
                 type : "POST",
                 data : {
                     email : $("#email").val()
                 },
                 success : function(result) {
-                    if (result == 1) {
+                    console.log(result);
+                    if (result === "same") {
                         $("#email-check").html("중복된 이메일이 있습니다.");
                     } else {
-                        $("#email-check").html("");
+                        $("#email-check").html("사용가능한 이메일입니다.");
                     }
                 },
             })
         });
         $("#nickname").keyup(function(){
             $.ajax({
-                url : "join.html",
+                url : "/auth/join/nickNameCheck",
                 type : "POST",
                 data : {
                     email : $("#nickname").val()
                 },
                 success : function(result) {
-                    if (result == 1) {
-                        $("#nickname-check").html("중복된 이메일이 있습니다.");
+                    console.log(result);
+                    if (result == "same") {
+                        $("#nickname-check").html("중복된 닉네임이 있습니다.");
                     } else {
-                        $("#nickname-check").html("");
+                        $("#nickname-check").html("사용가능한 닉네임입니다.");
                     }
                 },
             })

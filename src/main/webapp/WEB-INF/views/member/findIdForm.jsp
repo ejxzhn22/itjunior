@@ -17,7 +17,12 @@
 
 <div class="content-section">
     <div class="login-section">
-        <h1>아이디찾기</h1>
+        <div class="liquid">
+            <h1>FIND ID</h1>
+            <h1>FIND ID</h1>
+            <h1>FIND ID</h1>
+            <h1>FIND ID</h1>
+        </div>
         <div class="container" id="findId">
             <form id="passForm" method="post" action="/member/updateForm">
                 <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
@@ -27,8 +32,8 @@
                 <div class="find-btns-container">
                     <button type="button" onclick="nameAndEmailCheck()" class="btn btn-primary">아이디찾기</button>
                     <img src="${pageContext.request.contextPath}/image/right-arrow.png" alt="">
-                    <!-- <a href="#" type="button">뒤로가기</a> -->
                 </div>
+                <a class="go-back" href="javascript:history.go(-1)">뒤로가기</a>
             </form>
         </div>
     </div>
