@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //favicon.ico, resources, error 페이지는 로그인을 성공하여 나타나야할 페이지의 정적 리소스를 찾지 못하여 에러 999현상이 나오므로 ignore에 추가해주자
-        web.ignoring().antMatchers("/js/**","/css/**","/image/**","/font/**","/favicon.ico", "/resources/**", "/error");
+        web.ignoring().antMatchers("/js/**","/css/**","/image/**","/font/**","/favicon.ico", "/resources/**", "/error/");
     }
 
     //1.코드받기(인증), 2.엑세스토큰(권한),
@@ -49,8 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() //csrf토큰 비활성 (테스트시 걸어두는게 좋음)
                 .authorizeRequests()
                     .antMatchers("/member/**","/mypage/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-                    .antMatchers("/auth/**","/boards/**","/qnaboards/**","/","/oauth2/**")
-                    .permitAll()  // /auth로 시작하는 모든 매핑에 대하여 허용한다.
+                    .antMatchers("/auth/**","/boards/**","/qnaboards/**","/","/oauth2/**").permitAll()  // /auth로 시작하는 모든 매핑에 대하여 허용한다.
                     .anyRequest()
                     .authenticated() //허용을 제외한 나머지 모든 매핑은 인증(로그인)을 받아야 진입 가능하다.
                 .and()

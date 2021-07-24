@@ -47,6 +47,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         }
 
+        boolean isFirstOauthLogin = false;
         String provider = oAuth2UserInfo.getProvider(); //google
         String providerId = oAuth2UserInfo.getProviderId(); //110073601230259037362
         String userId = provider +"_"+ providerId; //google_110073601230259037362
@@ -55,6 +56,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         if (idCheckMember == null) { //DB에 검색된 회원이 존재하지 않는다면, 구글 최초 로그인
             log.info("ITJunior 최초 로그인 입니다. 회원가입을 진행하겠습니다.");
+            isFirstOauthLogin = true;
             String uuidValue = oauthDefaultUUIDPassword();
             String password = oauthDefaultEncodingPassword(uuidValue); //itjunior암호화 + uuid생성 값
             String nickname = oAuth2UserInfo.getNickname();
@@ -85,7 +87,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             log.info("이미 회원등록이 되있습니다. 로그인을 진행합니다.");
         }
 
-        return new PrincipalDetails(idCheckMember,oAuth2User.getAttributes()); //이때 authentication 객체에 들어가면서 시큐리티 세션에 저장이 된다.
+        return new PrincipalDetails(idCheckMember,oAuth2User.getAttributes(),isFirstOauthLogin); //이때 authentication 객체에 들어가면서 시큐리티 세션에 저장이 된다.
     }
 
     public String oauthDefaultUUIDPassword(){

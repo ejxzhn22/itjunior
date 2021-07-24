@@ -99,20 +99,20 @@
             userId=#{userId}
     </update>
 
-    <select id="idCheck" parameterType="String">
-        SELECT COUNT (*)
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
         FROM tbl_member
         WHERE userId=#{userId} AND delete_yn='N'
     </select>
 
-    <select id="emailCheck" parameterType="String">
-        SELECT COUNT (*)
+    <select id="emailCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
         FROM tbl_member
         WHERE email=#{email} AND delete_yn='N'
     </select>
 
-    <select id="nickNameCheck" parameterType="String">
-        SELECT COUNT (*)
+    <select id="nickNameCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
         FROM tbl_member
         WHERE nickname=#{nickname} AND delete_yn='N'
     </select>

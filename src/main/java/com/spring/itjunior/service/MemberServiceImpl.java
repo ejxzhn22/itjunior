@@ -64,13 +64,10 @@ public class MemberServiceImpl implements MemberService{
             String encPassword = getEncPassword(updateMemberDto.getPassword());
             memberInfo.setPassword(encPassword);
         }
-        log.info("회원 수정 이름 값 >>> {}",updateMemberDto.getName());
         memberInfo.setName(updateMemberDto.getName());
-        log.info("회원 수정된 이름 값 >> {}",memberInfo.getName());
         memberInfo.setNickname(updateMemberDto.getNickname());
         memberInfo.setEmail(updateMemberDto.getEmail());
 
-        log.info("기존 회원 >>> {}",updateMemberDto.toString());
         int queryResult = memberMapper.insertOrUpdateMember(memberInfo);
         log.info("수정된 회원 >>> "+memberInfo.toString());
 

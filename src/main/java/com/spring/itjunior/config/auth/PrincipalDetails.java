@@ -15,15 +15,17 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private Member member; //콤포지션 : 객체를 품고 있는 것
     private Map<String, Object> attributes;
+    private boolean isFirstOauthLogin;
 
     //일반 로그인
     public PrincipalDetails(Member member) {
         this.member = member;
     }
     //Oauth로그인
-    public PrincipalDetails(Member member, Map<String,Object> attributes) {
+    public PrincipalDetails(Member member, Map<String,Object> attributes, boolean isFirstOauthLogin) {
         this.member = member;
         this.attributes = attributes;
+        this.isFirstOauthLogin = isFirstOauthLogin;
     }
 
     @Override

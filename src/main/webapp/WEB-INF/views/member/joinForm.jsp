@@ -55,12 +55,12 @@
 
         <div class="join join-id">
             <span>아이디</span>
-            <input type="text" class="join-id-input" id="userId" name="userId" autocomplete="off" required>
+            <input type="text" class="join-id-input" id="userId" name="userId" placeholder="아이디 입력(4~50자)" autocomplete="off" required>
             <span id="id-check"></span>
         </div>
         <div class="join join-pw">
             <span>비밀번호</span>
-            <input type="password" class="join-pw-input" id="password" name="password" autocomplete="off" maxlength="12" required placeholder="8~12자 비밀번호를 사용해주세요.">
+            <input type="password" class="join-pw-input" id="password" name="password" autocomplete="off" maxlength="12" required placeholder="영문대/소문자, 숫자, 특수문자 중 2가지 이상조합. 8자이상 16이하.">
         </div>
         <div class="join join-pw-check">
             <span>비밀번호 확인</span>
@@ -123,21 +123,33 @@
         })
 
         $("#userId").keyup(function() {
+            let idRegexp = RegExp(/^[a-z0-9_]{4,50}$/);
+            let userIdTest = idRegexp.test($("#userId").val());
+            // let userIdVal = $("#userId").val();
+            console.log($("#userId").val());
             $.ajax({
-                url : "/auth/join/idCheck",
-                type : "POST",
-                data : {
-                    id : $("#id").val()
-                },
-                success : function(result) {
+                url: "/auth/join/idCheck",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    userId : $("#userId").val()
+                }),
+                success: function(result) {
                     if (result === "same") {
                         $("#id-check").html("중복된 아이디가 있습니다.");
                         $("#join-btn").attr("disabled", "disabled");
+                    } else if (!userIdTest) {
+                        $("#id-check").html("영문소문자,숫자,특수기호(_)만 사용 가능. 4자이상 50자이하.");
+                        $("#join-btn").attr("disabled", "disabled");
                     } else {
-                        $("#id-check").html("");
+                        $("#id-check").html("사용 가능합니다.");
                         $("#join-btn").removeAttr("disabled");
                     }
                 },
+                error: function (error) {
+                    console.log(error.status);
+                    console.log("서버호출 에러.");
+                }
             })
         });
 
@@ -163,7 +175,7 @@
                 url : "/auth/join/nickNameCheck",
                 type : "POST",
                 data : {
-                    email : $("#nickname").val()
+                    nickname : $("#nickname").val()
                 },
                 success : function(result) {
                     console.log(result);
