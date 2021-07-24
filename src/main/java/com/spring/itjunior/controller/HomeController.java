@@ -25,8 +25,8 @@ public class HomeController {
         log.info("**********Welcome to ITJunoir HomeController**********");
         log.info("oauth로 로그인된 회원정보 >>> {}",principalDetails.getMember().toString());
         log.info("member로 넘어온 정보 >>> {}",member.toString());
-        if (principalDetails.getMember().getName().length() > 20) {
-            log.info("구글 아이디 최초 로그인 입니다. 회원수정 폼으로 이동하여 name(성명)과 nickname(활동이름)을 수정하여 주십시오.");
+        if (principalDetails.getMember().getName().length() > 21) {
+            log.info("oauth 아이디 최초 로그인 입니다. 회원수정 폼으로 이동하여 name(성명)과 nickname(활동이름)을 수정하여 주십시오.");
 
             String fixedPwd = "itjunior"+principalDetails.getMember().getUuid();
             log.info("고정 평문 비밀번호 >>> {}",fixedPwd);
