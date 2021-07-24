@@ -19,18 +19,22 @@
 
     <!-- 모든 게시글 가져오기 -->
     <select id="selectAll" resultType="FreeBoard" parameterType="PageDto">
-        SELECT * FROM tbl_board_free WHERE delete_yn="N"
-        ORDER BY create_time DESC
+        SELECT * FROM tbl_board_free
+        where
+        delete_yn="N"
+        <include refid="search" />
+        ORDER BY create_time DESC, free_idx DESC
         LIMIT #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
     </select>
 
-    <select id="selectBoardTotalCount" resultType="int">
+    <select id="selectBoardTotalCount" resultType="int" parameterType="pageDto">
         SELECT
             COUNT(*)
         FROM
             tbl_board_free
-        WHERE
-            delete_yn = 'N'
+        where
+            delete_yn="N"
+        <include refid="search" />
     </select>
 
     <!--  게시글 하나 가져오기  -->
@@ -125,4 +129,30 @@
         WHERE free_idx=#{free_idx} and member_idx=#{member_idx}
     </select>
 
+
+    <sql id="search">
+            <if test="searchType != null and searchType != ''">
+                    <!-- 제목 + 내용 -->
+                    <if test="searchType == 'all' ">
+
+                        and
+                        content LIKE CONCAT('%', #{searchKeyword}, '%')
+                        or title LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </if>
+
+                    <!-- 나머지 -->
+                    <if test="searchType == 'content' ">
+                        and content LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </if>
+                    <if test="searchType == 'title' ">
+                        and title LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </if>
+                    <if test="searchType == 'writer' ">
+                        and writer LIKE CONCAT('%', #{searchKeyword}, '%')
+                    </if>
+
+            </if>
+
+
+    </sql>
 </mapper>

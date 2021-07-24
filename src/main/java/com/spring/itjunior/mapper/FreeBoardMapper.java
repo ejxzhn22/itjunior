@@ -17,7 +17,7 @@ public interface FreeBoardMapper {
     public List<FreeBoard> selectAll(PageDto pageDto);
 
     //게시글 갯수
-    public int selectBoardTotalCount();
+    public int selectBoardTotalCount(PageDto pageDto);
 
     // 게시글 하나 가져오기
     public FreeBoard selectById(int free_idx);

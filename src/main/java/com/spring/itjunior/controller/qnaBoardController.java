@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @Controller
 public class qnaBoardController {
+
     //이름 변경 부탁드립니다.
     @GetMapping("/qnaboards")
     public String boards(Model model) {
