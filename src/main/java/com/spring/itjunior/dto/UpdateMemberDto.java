@@ -31,7 +31,7 @@ public class UpdateMemberDto {
     private String nickname;
 
     @Builder
-    public UpdateMemberDto(int member_idx, String password, String email,String name, String nickname) {
+    public UpdateMemberDto(int member_idx, String password, String email, String name, String nickname) {
         this.member_idx = member_idx;
         this.password = password;
         this.email = email;

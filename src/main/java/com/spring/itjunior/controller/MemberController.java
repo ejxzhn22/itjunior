@@ -116,12 +116,12 @@ public class MemberController {
         log.info("들어온 member >> {}",updateMemberDto.toString());
         log.info("수정 요청한 password >>> {}",updateMemberDto.getPassword());
         log.info("평문 비밀번호 >>> {}",originPwd);
-        String updatedPwd = updateMemberDto.getPassword();
-        String userId = principalDetails.getUsername();
-
+        log.info("넘어온 수정 이름값 >>> {}",updateMemberDto.getName());
 
         memberService.updateMemberInfo(updateMemberDto);
 
+        String updatedPwd = updateMemberDto.getPassword();
+        String userId = principalDetails.getUsername();
         if (StringUtils.isBlank(updatedPwd)) { //받아온 비밀번호가 null,"" 일때
             log.info("비밀번호를 수정하지 않았습니다. 평문 비밀번호를 가져오세요.");
             log.info("평문 >>> {}",originPwd);

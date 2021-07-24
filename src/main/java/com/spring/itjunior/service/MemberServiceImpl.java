@@ -1,21 +1,15 @@
 package com.spring.itjunior.service;
 
-import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
 import com.spring.itjunior.dto.JoinDto;
 import com.spring.itjunior.dto.UpdateMemberDto;
 import com.spring.itjunior.mapper.MemberMapper;
-import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,19 +43,6 @@ public class MemberServiceImpl implements MemberService{
                 .password(encPassword)
                 .delete_yn(DeleteYN.N)
                 .build();
-//        Member member = new Member();
-//        member.setUserId(joinDto.getUserId());
-//        member.setEmail(joinDto.getEmail());
-//        member.setName(joinDto.getName());
-//        member.setNickname(joinDto.getNickname());
-//
-//        if (member.getUserId().equals("root")) {
-//            member.setRole(Role.ADMIN);
-//        } else {
-//            member.setRole(Role.USER);
-//        }
-//        member.setPassword(encPassword);
-//        member.setDelete_yn(DeleteYN.N);
 
         int queryResult = memberMapper.insertOrUpdateMember(member);
         return (queryResult == 1) ? true : false;
@@ -76,13 +57,16 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean updateMemberInfo(UpdateMemberDto updateMemberDto) {
         Member memberInfo = memberMapper.selectMemberByIdx(updateMemberDto.getMember_idx());
-
+        log.info("updateMemberDto >>> {}",updateMemberDto.toString());
+        log.info("memberInfo >>> {}",memberInfo.toString());
         if (StringUtils.isNotBlank(updateMemberDto.getPassword())) {
             log.info("null,공백이 아닌 정상적인 패스워드. 암호화 실행.");
             String encPassword = getEncPassword(updateMemberDto.getPassword());
             memberInfo.setPassword(encPassword);
         }
+        log.info("회원 수정 이름 값 >>> {}",updateMemberDto.getName());
         memberInfo.setName(updateMemberDto.getName());
+        log.info("회원 수정된 이름 값 >> {}",memberInfo.getName());
         memberInfo.setNickname(updateMemberDto.getNickname());
         memberInfo.setEmail(updateMemberDto.getEmail());
 

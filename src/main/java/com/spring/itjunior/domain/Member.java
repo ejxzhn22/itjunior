@@ -1,5 +1,6 @@
 package com.spring.itjunior.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +27,7 @@ public class Member {
     private String providerId;
 
     @Builder
-    public Member(int member_idx, String userId, String email, String password, String nickname, String name, DeleteYN delete_yn, LocalDateTime create_time, LocalDateTime last_login_time, Role role, String uuid, String provider, String providerId) {
-        this.member_idx = member_idx;
+    public Member(String userId, String email, String password, String nickname, String name, DeleteYN delete_yn, LocalDateTime create_time, LocalDateTime last_login_time, Role role, String uuid, String provider, String providerId) {
         this.userId = userId;
         this.email = email;
         this.password = password;

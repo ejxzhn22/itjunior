@@ -43,13 +43,13 @@
             <img src="${pageContext.request.contextPath}/image/icon-kakao.png" alt="">
             <span>카카오 로그인</span>
         </div>
-        <div class="naver-login">
+        <div class="naver-login" onclick="location.href='/oauth2/authorization/naver';">
             <img src="${pageContext.request.contextPath}/image/icon-naver.png" alt="">
             <span>네이버 로그인</span>
         </div>
         <div class="google-login" onclick="location.href='/oauth2/authorization/google';">
-                <img src="${pageContext.request.contextPath}/image/icon-google.png" alt="">
-                <span>구글 로그인</span>
+            <img src="${pageContext.request.contextPath}/image/icon-google.png" alt="">
+            <span>구글 로그인</span>
         </div>
     </div>
 </div>

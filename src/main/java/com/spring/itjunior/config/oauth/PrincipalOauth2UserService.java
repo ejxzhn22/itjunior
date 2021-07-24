@@ -1,6 +1,9 @@
 package com.spring.itjunior.config.oauth;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
+import com.spring.itjunior.config.oauth.provider.GoogleUserInfo;
+import com.spring.itjunior.config.oauth.provider.NaverUserInfo;
+import com.spring.itjunior.config.oauth.provider.OAuth2UserInfo;
 import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.Member;
 import com.spring.itjunior.domain.Role;
@@ -14,6 +17,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.UUID;
 
 @Log4j2
@@ -33,29 +37,37 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         OAuth2User oAuth2User = super.loadUser(userRequest);
         log.info("getAttributes() >>> {}",oAuth2User.getAttributes());
 
-        String provider = userRequest.getClientRegistration().getRegistrationId(); //google
-        String providerId = oAuth2User.getAttribute("sub");
+        OAuth2UserInfo oAuth2UserInfo = null;
+        if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
+            log.info("구글 로그인 요청");
+            oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
+        } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+            log.info("네이버 로그인 요청");
+            oAuth2UserInfo = new NaverUserInfo((Map<String, Object>) oAuth2User.getAttributes().get("response"));
+
+        }
+
+        String provider = oAuth2UserInfo.getProvider(); //google
+        String providerId = oAuth2UserInfo.getProviderId(); //110073601230259037362
         String userId = provider +"_"+ providerId; //google_110073601230259037362
 
-        Member member = memberMapper.selectMemberByUserId(userId);
+        Member idCheckMember = memberMapper.selectMemberByUserId(userId);
 
-        if (member == null) { //DB에 검색된 회원이 존재하지 않는다면, 구글 최초 로그인
-            log.info("ITJunior 최초 구글 로그인 입니다. 회원가입을 진행하겠습니다.");
+        if (idCheckMember == null) { //DB에 검색된 회원이 존재하지 않는다면, 구글 최초 로그인
+            log.info("ITJunior 최초 로그인 입니다. 회원가입을 진행하겠습니다.");
             String uuidValue = oauthDefaultUUIDPassword();
             String password = oauthDefaultEncodingPassword(uuidValue); //itjunior암호화 + uuid생성 값
-            log.info("google로그인 회원가입 비밀번호 >>> ",password);
-            String nickname = oAuth2User.getAttribute("name").toString().replace("-","");
+            String nickname = oAuth2UserInfo.getNickname();
 
             //DB member테이블의 name varchar(50)으로 설정해 주었으며, name의 max valid는 20이다. providerId의 값을 고려하여 varchar(50)으로 설정.
             //WelcomeToITJuniorUser의 문구는 글자수 최소 21자 이기때문에 구글 최초 로그인 후 HomeController에서 분기를 신청하여 로그인 시 자동으로 회원수정폼으로 이동하게 되며
             //이동 후 회원은 name(WelcomeToITJuniorUser~~)값을 고치지 않고는 수정 할 수가 없다. 그러므로 회원 이름 수정을 강제시킬 수 있다.
-            String name = "WelcomeToITJuniorUser" + providerId;
-
-            String email = oAuth2User.getAttribute("email");
+            String name = oAuth2UserInfo.getName();
+            String email = oAuth2UserInfo.getEmail();
             Role role = Role.USER;
             DeleteYN deleteYN = DeleteYN.N;
 
-            member = Member.builder()
+            idCheckMember = Member.builder()
                     .userId(userId)
                     .password(password)
                     .nickname(nickname)
@@ -67,12 +79,13 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .provider(provider)
                     .providerId(providerId)
                     .build();
-            memberMapper.insertOrUpdateMember(member);
+            memberMapper.insertOrUpdateMember(idCheckMember);
+            log.info("회원가입된 member >>> {}",idCheckMember.toString());
         }else {
             log.info("이미 회원등록이 되있습니다. 로그인을 진행합니다.");
         }
 
-        return new PrincipalDetails(member,oAuth2User.getAttributes()); //이때 authentication 객체에 들어가면서 시큐리티 세션에 저장이 된다.
+        return new PrincipalDetails(idCheckMember,oAuth2User.getAttributes()); //이때 authentication 객체에 들어가면서 시큐리티 세션에 저장이 된다.
     }
 
     public String oauthDefaultUUIDPassword(){

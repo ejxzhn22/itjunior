@@ -21,6 +21,9 @@
     </sql>
 
     <insert id="insertOrUpdateMember" parameterType="Member">
+        <selectKey keyProperty="member_idx" order="AFTER" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
         INSERT INTO tbl_member (
             <include refid="memberColumns" />
         ) VALUES (
