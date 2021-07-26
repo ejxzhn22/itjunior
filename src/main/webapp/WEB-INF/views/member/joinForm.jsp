@@ -126,7 +126,6 @@
             let idRegexp = RegExp(/^[a-z0-9_]{4,50}$/);
             let userIdTest = idRegexp.test($("#userId").val());
             // let userIdVal = $("#userId").val();
-            console.log($("#userId").val());
             $.ajax({
                 url: "/auth/join/idCheck",
                 type: "POST",
@@ -156,16 +155,19 @@
         $("#email").keyup(function(){
             $.ajax({
                 url : "/auth/join/emailCheck",
-                type : "POST",
-                data : {
-                    email : $("#email").val()
-                },
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify({
+                    email : $("#email-sum").val()
+                }),
                 success : function(result) {
                     console.log(result);
                     if (result === "same") {
                         $("#email-check").html("중복된 이메일이 있습니다.");
+                        $("#join-btn").attr("disabled", "disabled");
                     } else {
                         $("#email-check").html("사용가능한 이메일입니다.");
+                        $("#join-btn").removeAttr("disabled");
                     }
                 },
             })
@@ -174,9 +176,9 @@
             $.ajax({
                 url : "/auth/join/nickNameCheck",
                 type : "POST",
-                data : {
-                    nickname : $("#nickname").val()
-                },
+                data : JSON.stringify({
+                    email : $("#nickname").val()
+                }),
                 success : function(result) {
                     console.log(result);
                     if (result == "same") {

@@ -55,7 +55,7 @@
     <div class="nav-div">
         <ul>
             <li><a href="#">채용공고</a></li>
-            <li><a href="#">관련학원</a></li>
+            <li><a href="#">IT News</a></li>
             <li><a href="/boards">취업토론</a></li>
             <li><a href="/qnaboards">Q&A</a></li>
         </ul>

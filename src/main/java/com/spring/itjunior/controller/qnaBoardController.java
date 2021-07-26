@@ -28,4 +28,10 @@ public class qnaBoardController {
 
         return "qnaBoard/qnaBoardForm";
     }
+    //자유게시판 이동
+    @GetMapping("/qnaboards/detail")
+    public String boardsdetail(Model model) {
+
+        return "qnaBoard/qnaBoardDetail";
+    }
 }

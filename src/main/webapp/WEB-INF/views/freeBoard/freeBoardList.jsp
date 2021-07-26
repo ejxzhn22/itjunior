@@ -121,8 +121,6 @@
         let form = document.getElementById("pagenum_form");
         form.submit();
 
-    }
-
     function changeValue() {
 
         let cate = document.getElementById("select-cate").value;
