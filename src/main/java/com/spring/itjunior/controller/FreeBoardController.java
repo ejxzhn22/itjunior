@@ -25,11 +25,13 @@ public class FreeBoardController {
     private  final ReplyService replyService;
 
     //자유게시판 이동
+
     @RequestMapping("/boards")
-    public String boards(Model model, PageDto pageDto) {
+    public String boards(Model model ,PageDto pageDto) {
 
         // 글 카테고리 가져오기
         List<Category> categories = freeBoardService.category();
+        System.out.println("key: "+pageDto.getSearchKeyword());
 
         int boardTotalCount = freeBoardService.selectBoardTotalCount(pageDto);
         System.out.println("count : " +boardTotalCount);

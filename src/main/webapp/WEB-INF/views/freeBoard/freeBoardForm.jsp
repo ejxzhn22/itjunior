@@ -18,14 +18,14 @@
     <form action="/boards/new" method="POST" class="write-form">
 
         <div class="write-content">
-            <select id="select" name="category" class="board-category-select" onchange="changeSelect()">
+            <select id="select" name="category" class="board-category-select" onchange="changeSelect()" required>
                 <option selected disabled>카테고리</option>
                 <c:forEach var="category" items="${categories}">
                     <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name} </option>
                 </c:forEach>
             </select>
             <input type="text" class="cate-input" id="cate_name"  name="cate_name" readonly>
-            <input type="text" class="write-input" id="title" placeholder="Enter title" name="title">
+            <input type="text" class="write-input" id="title" placeholder="Enter title" name="title" required>
         </div>
 
         <textarea id="summernote" placeholder="Enter content" name="content"></textarea>
