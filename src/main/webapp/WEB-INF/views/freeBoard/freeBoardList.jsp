@@ -16,7 +16,7 @@
     <div class="board-section">
         <form method="post" action="/boards" class="board-search">
             <input type="hidden" name="currentPageNo" value="1">
-            <select name="searchType" class="board-select">
+            <select name="searchType" class="board-select" >
                 <option value="title">제목</option>
                 <option value="content">내용</option>
                 <option value="all">제목+내용</option>
@@ -27,7 +27,8 @@
         </form>
 
         <div class="board-search2">
-            <select name="board-category" class="board-category-select">
+            <select id="select" name="board-category" class="board-category-select" onchange="changeSelect(this.value)">
+
                 <option value="전체보기">전체보기</option>
                 <option value="면접후기">면접후기</option>
                 <option value="취업후기">취업후기</option>
@@ -101,8 +102,23 @@
     function movePage(queryString) {
         location.href = "/boards" + queryString;
     }
+
+    function changeSelect(searchKeyword) {
+        console.log("key",searchKeyword)
+        $.ajax({
+            type:"post",
+            url:'/boards',
+            data:searchKeyword
+
+        }).done(res=>{
+            console.log("성공", res);
+        }).fail(fail=>{
+            console.log("실패", fail);
+
+        })
+
+    }
 </script>
 
 <%@include file="../layout/footer.jsp"%>
-
 
