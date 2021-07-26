@@ -47,4 +47,20 @@ public class Criteria {
         return uriComponents.toUriString();
     }
 
+    public String makeQueryStringSearch(String searchKeyword) {
+
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .queryParam("currentPageNo", 1)
+                .queryParam("recordsPerPage", recordsPerPage)
+                .queryParam("pageSize", pageSize)
+                .queryParam("searchType", searchType)
+                .queryParam("searchKeyword", searchKeyword)
+                .build()
+                .encode();
+
+        return uriComponents.toUriString();
+    }
+
+
+
 }

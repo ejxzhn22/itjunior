@@ -33,6 +33,7 @@ public class FreeBoardController {
 
         int boardTotalCount = freeBoardService.selectBoardTotalCount(pageDto);
         System.out.println("count : " +boardTotalCount);
+
         PaginationInfo paginationInfo = new PaginationInfo(pageDto);
         paginationInfo.setTotalRecordCount(boardTotalCount);
 
