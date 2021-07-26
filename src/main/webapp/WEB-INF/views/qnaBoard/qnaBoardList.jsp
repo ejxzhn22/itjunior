@@ -91,7 +91,7 @@
         <h2>작성 시 입력하신 비밀번호를 입력하세요.</h2>
         <input type="password" value="" class="modal-pw" maxlength="4" autofocus/>
         <div class="btns-container">
-            <input type="submit" value="확인">
+            <input type="submit" value="확인"
             <a href="#" class="close">닫기</a>
         </div>
     </div>
@@ -122,6 +122,9 @@
     function openMask(num){
         // e.preventDefault();
         wrapWindowByMask();
+        // 서브밋 클릭시 그냥 이동되게 테스트했습니다
+        location.href="qnaboards/detail";
+
         //console.log(e);
         console.log(num );
 
