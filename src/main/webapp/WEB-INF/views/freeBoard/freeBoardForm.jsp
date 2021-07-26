@@ -25,7 +25,7 @@
                 </c:forEach>
             </select>
             <input type="text" class="cate-input" id="cate_name"  name="cate_name" readonly>
-            <input type="text" class="write-input" id="title" placeholder="Enter title" name="title">
+            <input type="text" class="write-input" id="title" placeholder="Enter title" name="title" required>
         </div>
 
         <textarea id="summernote" placeholder="Enter content" name="content"></textarea>

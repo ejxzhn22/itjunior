@@ -16,6 +16,7 @@
     <div class="board-section">
         <form method="post" action="/boards" class="board-search">
             <input type="hidden" name="currentPageNo" value="1">
+            <input type="hidden" name="recordsPerPage" value="10">
             <select name="searchType" class="board-select" >
                 <option value="title">제목</option>
                 <option value="content">내용</option>
@@ -27,19 +28,26 @@
         </form>
 
         <div class="board-search2">
-            <select id="select" name="board-category" class="board-category-select" onchange="changeSelect(this.value)">
-
-                <option value="전체보기">전체보기</option>
-                <option value="면접후기">면접후기</option>
-                <option value="취업후기">취업후기</option>
-                <option value="잡담">잡담</option>
-                <option value="질문">질문</option>
-            </select>
-            <select name="board-filter" class="board-filter">
-                <option value="10">10개씩 보기</option>
-                <option value="25">25개씩 보기</option>
-                <option value="50">50개씩 보기</option>
-            </select>
+            <form action="/boards" method="post" id="cate_form">
+                <input type="hidden" name="currentPageNo" value="1">
+                <input type="hidden" name="searchType" value="title">
+                <select id="select-cate" name="searchKeyword" class="board-category-select" value="${page.searchKeyword}" onchange="changeSelect(this.value)" >
+                    <option value="">전체보기</option>
+                    <option value="면접후기" >[면접후기]</option>
+                    <option value="취업후기" >[취업후기]</option>
+                    <option value="잡담" >[잡담]</option>
+                    <option value="질문" >[질문]</option>
+                    <option value="공부법" >[공부법]</option>
+                </select>
+            </form>
+            <form action="/boards" method="post" id="pagenum_form">
+                <input type="hidden" name="currentPageNo" value="1">
+                <select id="select-page" name="recordsPerPage" class="board-filter" value="${page.recordsPerPage}" onchange="changePage(this.value)">
+                    <option value="10">10개씩 보기</option>
+                    <option value="25">25개씩 보기</option>
+                    <option value="50">50개씩 보기</option>
+                </select>
+            </form>
         </div>
 
         <table class="board-table">
@@ -103,23 +111,31 @@
         location.href = "/boards" + queryString;
     }
 
-    function changeSelect(searchKeyword) {
-        console.log("key",searchKeyword)
-        $.ajax({
-            type:"post",
-            url:'/boards',
-            data:searchKeyword
-
-        }).done(res=>{
-            console.log(searchKeyword);
-            console.log("성공", res);
-            $(html).html(res);
-        }).fail(fail=>{
-            console.log("실패", fail);
-
-        })
+    function changeSelect(cate) {
+        let form = document.getElementById("cate_form");
+        form.submit();
 
     }
+
+    function changePage(recordsPerPage) {
+        let form = document.getElementById("pagenum_form");
+        form.submit();
+
+    function changeValue() {
+
+        let cate = document.getElementById("select-cate").value;
+        $("#select-cate").val(cate).attr("selected");
+
+        let page = document.getElementById("select-page").value;
+        $("#select-page").val(page).prop("selected",true);
+
+        console.log(page)
+        console.log("실행됨?");
+
+    }
+
+    changeValue();
+
 </script>
 
 <%@include file="../layout/footer.jsp"%>

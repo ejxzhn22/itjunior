@@ -7,7 +7,7 @@
 </sec:authorize>
 
 <!DOCTYPE html>
-<html>
+<html id="html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Spring Boot Application with JSP</title>

@@ -144,7 +144,7 @@
                     <if test="searchType == 'content' ">
                         and content LIKE CONCAT('%', #{searchKeyword}, '%')
                     </if>
-                    <if test="searchType == 'title' ">
+                    <if test="searchType == 'title'">
                         and title LIKE CONCAT('%', #{searchKeyword}, '%')
                     </if>
                     <if test="searchType == 'writer' ">
