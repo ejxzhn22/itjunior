@@ -18,7 +18,7 @@
     <form action="/boards/new" method="POST" class="write-form">
 
         <div class="write-content">
-            <select id="select" name="category" class="board-category-select" onchange="changeSelect()">
+            <select id="select" name="category" class="board-category-select" onchange="changeSelect()" required>
                 <option selected disabled>카테고리</option>
                 <c:forEach var="category" items="${categories}">
                     <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name} </option>

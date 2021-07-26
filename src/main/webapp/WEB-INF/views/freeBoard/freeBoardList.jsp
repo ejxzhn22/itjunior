@@ -111,7 +111,9 @@
             data:searchKeyword
 
         }).done(res=>{
+            console.log(searchKeyword);
             console.log("성공", res);
+            $(html).html(res);
         }).fail(fail=>{
             console.log("실패", fail);
 
