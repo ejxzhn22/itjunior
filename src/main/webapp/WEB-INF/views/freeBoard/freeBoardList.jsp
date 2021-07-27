@@ -120,16 +120,18 @@
     function changePage(recordsPerPage) {
         let form = document.getElementById("pagenum_form");
         form.submit();
+    }
 
     function changeValue() {
 
         let cate = document.getElementById("select-cate").value;
-        $("#select-cate").val(cate).attr("selected");
+        $("#select-cate").val(cate).attr("selected",true);
 
         let page = document.getElementById("select-page").value;
         $("#select-page").val(page).prop("selected",true);
 
         console.log(page)
+        console.log(cate)
         console.log("실행됨?");
 
     }

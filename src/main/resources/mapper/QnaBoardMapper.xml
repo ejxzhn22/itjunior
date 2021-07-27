@@ -10,10 +10,83 @@
         ,writer
         ,create_time
         ,delete_yn
-        ,category
-        ,viewcnt
-        ,replycnt
+        ,secret_yn
+        ,secret_pwd
+        ,reply_yn
         ,member_idx
     </sql>
 
+    <!-- 모든 게시글 가져오기 -->
+    <select id="selectAll" resultType="QnaBoard" parameterType="PageDto">
+        SELECT * FROM tbl_board_qna
+        where
+        delete_yn="N"
+        <include refid="search" />
+        ORDER BY create_time DESC, qna_idx DESC
+        LIMIT #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
+    </select>
+
+    <!-- 게시글 추가 -->
+    <insert id="insertQna" parameterType="QnaBoard">
+        INSERT INTO tbl_board_qna (
+        <include refid="qnaBoardColumns"/>
+        ) VALUES (
+        #{title}
+        ,#{content}
+        ,#{writer}
+        ,NOW()
+        ,#{delete_yn}
+        ,#{secret_yn}
+        ,#{secret_pwd}
+        ,#{reply_yn}
+        ,#{member_idx}
+        )
+    </insert>
+
+    <!-- 게시글 하나 가져오기 -->
+    <select id="selectOne" parameterType="int" resultType="QnaBoard">
+        SELECT * FROM tbl_board_qna
+        WHERE qna_idx = #{qna_idx}
+    </select>
+
+    <!-- 답변 가져오기 -->
+    <select id="selectAnswer" parameterType="int" resultType="Answer">
+        SELECT * FROM tbl_board_answer
+        WHERE qna_idx = #{qna_idx}
+    </select>
+
+    <select id="selectBoardTotalCount" resultType="int" parameterType="pageDto">
+        SELECT
+        COUNT(*)
+        FROM
+        tbl_board_qna
+        where
+        delete_yn="N"
+        <include refid="search" />
+    </select>
+
+    <sql id="search">
+        <if test="searchType != null and searchType != ''">
+            <!-- 제목 + 내용 -->
+            <if test="searchType == 'all' ">
+
+                and
+                content LIKE CONCAT('%', #{searchKeyword}, '%')
+                or title LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+
+            <!-- 나머지 -->
+            <if test="searchType == 'content' ">
+                and content LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            <if test="searchType == 'title'">
+                and title LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+            <if test="searchType == 'writer' ">
+                and writer LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+
+        </if>
+
+    </sql>
 </mapper>

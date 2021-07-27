@@ -15,83 +15,103 @@
 
 <div class="content-section">
     <div class="board-section">
-        <form method="post" class="board-search">
-            <select name="search-select" class="board-select">
-                <option value="전체">전체</option>
-                <option value="작성자">작성자</option>
-                <option value="질문">질문</option>
+        <form action="/qnaboards" method="post" class="board-search">
+            <input type="hidden" name="currentPageNo" value="1">
+            <input type="hidden" name="recordsPerPage" value="10">
+            <select name="searchType" class="board-select">
+                <option value="all">전체</option>
+                <option value="writer">작성자</option>
+                <option value="title">질문</option>
             </select>
-            <input type="text" name="board-search" class="board-input" autocomplete="off">
+            <input type="text" name="searchKeyword" class="board-input" autocomplete="off">
             <input type="submit" value="🔍" class="board-submit">
         </form>
 
         <ul class="board-table2">
-            <li>
-                <a href="#" onclick="openMask(1);" class="qna-a openMask">
-                    <div class="qna-div1">
-                        <div class="title">
-                            <span class="qna-q">Q.</span>
-                            요건 어떡하죠
+
+            <c:forEach var="qna" items="${qnas}">
+                <li>
+                    <c:choose>
+                        <c:when test="${qna.secret_yn == 'Y'}">
+                            <a href="#" onclick="openMask(${qna.qna_idx});" class="qna-a openMask">
+                        </c:when>
+                        <c:otherwise>
+                            <a href="#" onclick="goDetail(${qna.qna_idx},'${page.makeQueryString(page.currentPageNo)}');" class="qna-a openMask">
+                        </c:otherwise>
+                    </c:choose>
+
+                        <div class="qna-div1">
+                            <div class="title">
+                                <c:choose>
+                                    <c:when test="${qna.secret_yn == 'Y'}">
+                                        <span class="qna-q"><i class="fas fa-lock"></i></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="qna-q"><i class="fas fa-lock-open"></i></span>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <span class="qna-q">Q.</span>
+                                ${qna.title}
+                            </div>
+                            <div class="">${qna.writer} | ${qna.create_time}</div>
                         </div>
-                        <div class="">김수진 | 2021.07.08</div>
-                    </div>
-                    <div class="qna-div2">
-                        <span class="success-badge badge">답변완료</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" onclick="openMask(2);" class="qna-a openMask" value="2">
-                    <div class="qna-div1">
-                        <div class="title">
-                            <span class="qna-q">Q.</span>
-                            요건 어떡하죠
+                        <div class="qna-div2">
+                            <c:if test="${qna.reply_yn == 'Y'}">
+                                <span class="success-badge badge">답변완료</span>
+                            </c:if>
+                            <c:if test="${qna.reply_yn == 'N'}">
+                                <span class="success-badge badge">답변대기</span>
+                            </c:if>
                         </div>
-                        <div class="">김수진 | 2021.07.08</div>
-                    </div>
-                    <div class="qna-div2">
-                        <span class="wait-badge badge">답변대기</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" onclick="openMask(3);" class="qna-a openMask">
-                    <div class="qna-div1">
-                        <div class="title">
-                            <span class="qna-q">Q.</span>
-                            요건 어떡하죠
-                        </div>
-                        <div class="">김수진 | 2021.07.08</div>
-                    </div>
-                    <div class="qna-div2">
-                        <span class="success-badge badge">답변완료</span>
-                    </div>
-                </a>
-            </li>
+                    </a>
+                </li>
+            </c:forEach>
+
         </ul>
-        </div>
+    </div>
     <div class="board-footer">
-        <div class="board-paging">
-            <a href="#"> < </a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#"> > </a>
-        </div>
+        <c:if test="${page != null and page.paginationInfo.totalRecordCount > 0}">
+
+            <ul class="board-paging" style="display: flex">
+                <c:if test="${page.paginationInfo.hasPreviousPage}">
+                    <li onclick="movePage('${page.makeQueryString(1)}')" >
+                        <a href="javascript:void(0)"> << </a>
+                    </li>
+                    <li onclick="movePage('${page.makeQueryString(page.paginationInfo.firstPage - 1)}')" >
+                        <a href="javascript:void(0)"> < </a>
+                    </li>
+                </c:if>
+                <c:forEach begin="${page.paginationInfo.firstPage}" end="${page.paginationInfo.lastPage}" var="num">
+                    <li onclick="movePage('${page.makeQueryString(num)}')" >
+                        <a href="javascript:void(0)">${num}</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${page.paginationInfo.hasNextPage}">
+                    <li onclick="movePage('${page.makeQueryString(page.paginationInfo.lastPage + 1)}')">
+                        <a href="javascript:void(0)"> > </a>
+                    </li>
+                    <li onclick="movePage('${page.makeQueryString(page.paginationInfo.totalPageCount)}')" >
+                        <a href="javascript:void(0)"> >> </a>
+                    </li>
+                </c:if>
+            </ul>
+
+        </c:if>
         <a class="board-writing" href="/qnaboards/form">질문하기</a>
     </div>
 </div>
 <!-- modal -->
 <div id="mask"></div>
-<form action="post" class="window">
+<form action="" method="post" class="window">
     <div class="modal-container">
+        <input type="hidden" value="">
         <img src="image/icon-lock.png" alt="" class="icon-lock">
         <h2>작성 시 입력하신 비밀번호를 입력하세요.</h2>
-        <input type="password" value="" class="modal-pw" maxlength="4" autofocus/>
+        <input type="password" id="modal-pwd" name="secret_pwd" value="" class="modal-pw" maxlength="4" autofocus/>
         <div class="btns-container">
-            <input type="submit" value="확인"
+            <input id="modal-btn" onclick="pwdCheck(this.name,'${page.makeQueryString(page.currentPageNo)}')" type="button" value="확인">
             <a href="#" class="close">닫기</a>
         </div>
     </div>
@@ -119,17 +139,50 @@
 
     }
 
-    function openMask(num){
+    function openMask(qna_idx){
         // e.preventDefault();
         wrapWindowByMask();
+
         // 서브밋 클릭시 그냥 이동되게 테스트했습니다
-        location.href="qnaboards/detail";
+        //location.href="qnaboards/"+qna_idx+"/detail";
 
         //console.log(e);
-        console.log(num );
+        console.log(qna_idx );
 
+        $("#modal-btn").attr("name", qna_idx);
         $(".modal-pw").val("");
         $(".modal-pw").focus();
+    }
+
+    function pwdCheck(qna_idx, queryString) {
+
+        console.log("qna",qna_idx);
+        let data = {
+            "pwd": $("#modal-pwd").val()
+        }
+
+        $.ajax({
+            type:"post",
+            url:"/qnaboards/pwdCheck/"+qna_idx,
+            data:JSON.stringify(data),
+            contentType:"application/json; utf-8",
+            dataType:"json"
+        }).done(res=>{
+            console.log("성공", res);
+            if(res){
+                location.href="qnaboards/"+qna_idx+"/detail";
+            }else{
+                alert("비밀번호가 틀렸습니다.");
+                $(".modal-pw").val("");
+                $(".modal-pw").focus();
+            }
+        }).fail(fail=>{
+            console.log("실패", fail);
+        });
+    }
+
+    function goDetail(qna_idx, queryString){
+        location.href="qnaboards/"+qna_idx+"/detail";
     }
     $(document).ready(function(){
         // //검은 막 띄우기
@@ -154,6 +207,10 @@
         });
 
     });
+
+    function movePage(queryString) {
+        location.href = "/boards" + queryString;
+    }
 
 </script>
 
