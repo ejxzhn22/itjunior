@@ -31,6 +31,7 @@ public class FreeBoardController {
 
         // 글 카테고리 가져오기
         List<Category> categories = freeBoardService.category();
+
         System.out.println("key: "+pageDto.getSearchKeyword());
 
         int boardTotalCount = freeBoardService.selectBoardTotalCount(pageDto);

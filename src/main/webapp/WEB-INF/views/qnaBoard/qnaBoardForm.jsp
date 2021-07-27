@@ -13,14 +13,21 @@
     </div>
 </div>
 <div class="content-section">
-    <form action="#" method="POST" class="write-form">
+    <form action="/qnaboards/form" method="POST" class="write-form">
 
         <div class="write-content">
-            <input type="text" class="write-input2" placeholder="잇주에 대해 모두 물어보세요 🤔">
+            <input type="text" name="title" class="write-input2" placeholder="잇주에 대해 모두 물어보세요 🤔">
+
         </div>
 
-        <div id="summernote"></div>
+        <div>
+            <textarea id="summernote" name="content"></textarea>
+        </div>
 
+        <div>
+            <input type="checkbox" name="secret_yn" >비밀글
+            <input type="password" name="secret_pwd" placeholder="비밀번호를 입력하세요">
+        </div>
         <div class="btns-box">
             <input type="submit" value="작성하기" class="write-submit">
             <a href="/qnaboards" class="btn1">목록</a>
@@ -31,6 +38,7 @@
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({
+            name: "content",
             height: 300,                 // 에디터 높이
             minHeight: null,             // 최소 높이
             maxHeight: null,             // 최대 높이
