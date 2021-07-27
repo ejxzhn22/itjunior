@@ -28,7 +28,7 @@
                 <input type="password" class="pw-input" id="password" name="password">
             </div>
             <div class="member-bottom-section">
-                <p><input type="checkbox" value="" id="check"><label for="check">정보 기억하기</label></p>
+                <p><input type="checkbox" value="" id="check" name="saveId"><label for="check">정보 기억하기</label></p>
                 <div>
                     <a href="/auth/member/find-id">ID 찾기</a>
                     &nbsp;&nbsp; / &nbsp;
@@ -39,7 +39,7 @@
         </form>
     </div>
     <div class="another-login-section">
-        <div class="kakao-login">
+        <div class="kakao-login" onclick="location.href='/oauth2/authorization/kakao';">
             <img src="${pageContext.request.contextPath}/image/icon-kakao.png" alt="">
             <span>카카오 로그인</span>
         </div>

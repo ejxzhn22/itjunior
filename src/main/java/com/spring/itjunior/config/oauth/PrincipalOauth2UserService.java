@@ -2,6 +2,7 @@ package com.spring.itjunior.config.oauth;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.config.oauth.provider.GoogleUserInfo;
+import com.spring.itjunior.config.oauth.provider.KakaoUserInfo;
 import com.spring.itjunior.config.oauth.provider.NaverUserInfo;
 import com.spring.itjunior.config.oauth.provider.OAuth2UserInfo;
 import com.spring.itjunior.domain.DeleteYN;
@@ -44,7 +45,11 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         } else if (userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
             log.info("네이버 로그인 요청");
             oAuth2UserInfo = new NaverUserInfo((Map<String, Object>) oAuth2User.getAttributes().get("response"));
-
+        } else{
+            log.info("카카오 로그인 요청");
+            Map<String, Object> kakao_account = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
+            Map<String, Object> profile = (Map<String, Object>) kakao_account.get("profile");
+            oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes(),kakao_account,profile);
         }
 
         boolean isFirstOauthLogin = false;

@@ -144,9 +144,15 @@ public class MemberServiceImpl implements MemberService{
 
 
     @Override
-    public boolean deleteByIdx(int member_idx) {
-        int queryResult = memberMapper.deleteMemberByIdx(member_idx);
-        return (queryResult==1) ? true : false;
+    public boolean deleteByIdx(Member member) {
+        int queryResult = memberMapper.deleteMemberByIdx(member);
+        return (queryResult>0) ? true : false;
+    }
+
+    @Override
+    public boolean deleteMemberByIdxForOauth(int member_idx) {
+        int queryResult = memberMapper.deleteMemberByIdxForOauth(member_idx);
+        return (queryResult>0) ? true : false;
     }
 
     @Override

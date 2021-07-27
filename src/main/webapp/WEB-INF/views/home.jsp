@@ -95,6 +95,19 @@
 <%@include file="layout/footer.jsp"%>
 <script src="${pageContext.request.contextPath}/css/vanilla-tilt.min.js"></script>
 <script>
+    function memberSuccessAlert() {
+        let updateMemberResult = '${updateMsg}';
+        let insertMemberResult = '${insertMsg}';
+        if (updateMemberResult === 'success') {
+            alert("회원 수정을 성공하였습니다.");
+        }
+        if (insertMemberResult === 'success') {
+            alert("회원 가입을 축하드립니다!!");
+        }
+    }
+    memberSuccessAlert();
+
+
     // Scroll Animation (sa, 스크롤 애니메이션)
     const saTriggerMargin = 300;
     const saElementList = document.querySelectorAll('.sa');

@@ -19,19 +19,16 @@ public class HomeController {
     }
 
     @GetMapping("/oauth/")
-    public String notNamehome(@AuthenticationPrincipal PrincipalDetails principalDetails, Member member) {
+    public String notNamehome(@AuthenticationPrincipal PrincipalDetails principalDetails, Member member, Model model) {
         log.info("**********Welcome to ITJunoir HomeController**********");
         log.info("oauth로 로그인된 회원정보 >>> {}",principalDetails.getMember().toString());
         log.info("member로 넘어온 정보 >>> {}",member.toString());
         log.info("첫번째 로그인 인가요? >>> {}",principalDetails.isFirstOauthLogin());
         if (principalDetails.isFirstOauthLogin()) {
             log.info("oauth 아이디 최초 로그인 입니다. 회원수정 폼으로 이동하여 name(성명)과 nickname(활동이름)을 수정하여 주십시오.");
-
-            String fixedPwd = "itjunior"+principalDetails.getMember().getUuid();
-            log.info("고정 평문 비밀번호 >>> {}",fixedPwd);
-            member.setPassword(fixedPwd);
-
-            return "member/updateForm";
+            model.addAttribute("msg","oauth 아이디 최초 로그인 입니다. 회원수정 폼으로 이동하여 name(성명)과 nickname(활동이름)을 수정하여 주십시오.");
+            model.addAttribute("url","/member/updateForm");
+            return "alert";
         }
         return "home";
     }
