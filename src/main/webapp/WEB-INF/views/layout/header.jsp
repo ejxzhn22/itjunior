@@ -71,7 +71,14 @@
             </c:when>
             <c:otherwise>
                 <a href="/mypage">마이페이지</a>
-                <a href="/logout">로그아웃</a>
+                <c:choose>
+                    <c:when test="${principal.member.provider == 'kakao'}">
+                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://localhost:8000/logout">로그아웃</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/logout">로그아웃</a>
+                    </c:otherwise>
+                </c:choose>
             </c:otherwise>
         </c:choose>
 

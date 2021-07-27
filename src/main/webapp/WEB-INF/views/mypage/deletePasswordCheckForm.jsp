@@ -8,7 +8,7 @@ ${principal.attributes}
     <c:when test="${principal.member.provider eq null}">
         <h1>회원님의 안전한 정보를 위해 비밀번호를 확인 해주세요.</h1>
         <div class="container">
-            <form id="passForm" method="post" action="/member/updateForm">
+            <form>
                 <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
                 <div class="form-group">
                     <label>User Id</label>
@@ -62,7 +62,6 @@ ${principal.attributes}
 <script type="text/javascript">
 
     function passwordCheck() {
-        let passForm = $("#passForm");
         let pass = {password: $("#password").val()};
 
         $.ajax({
@@ -73,7 +72,7 @@ ${principal.attributes}
             success: function (result){
                 console.log(result);
                 if (result === "checkSuccess") {
-                    passForm.submit();
+                    location.href="/mypage/isDelete";
                 }else if (result === "fail"){
                     $("#check-yn").text("비밀번호를 정확하게 입력해주세요.");
                     return false;

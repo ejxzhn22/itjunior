@@ -21,7 +21,9 @@ public interface MemberService {
 
     public String partialEncEmail(String rawEmail);
 
-    public boolean deleteByIdx(int member_idx);
+    public boolean deleteByIdx(Member member);
+
+    public boolean deleteMemberByIdxForOauth(int member_idx);
 
     public boolean updateMemberPassword(Member member);
 

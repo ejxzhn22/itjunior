@@ -9,7 +9,9 @@
         <c:choose>
             <c:when test="${principal.member.provider eq null}">
                 <a href="/mypage/passwordCheck">회원 정보 수정</a>
+                <a href="/mypage/deletePasswordCheck"> 회원탈퇴 </a>
             </c:when>
+<%--            <c:when test=""></c:when>--%>
             <c:otherwise>
                 <form id="" action="/member/updateForm" method="post">
                     <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
@@ -17,9 +19,10 @@
                     <input type="hidden" name="password" value="${member.password}">
                     <button type="submit">oauth 회원 정보 수정</button>
                 </form>
+                <a href="/mypage/isDelete"> 회원탈퇴 </a>
             </c:otherwise>
-
         </c:choose>
+<%--        <a href="/mypage/passwordCheck">oauth회원정보수정인증</a>--%>
     </div>
 
 <script type="text/javascript">

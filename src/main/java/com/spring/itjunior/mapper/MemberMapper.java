@@ -15,7 +15,8 @@ public interface MemberMapper {
 
     public Member selectMemberByUserId(String UserId);
 
-    public int deleteMemberByIdx(int member_idx);
+    public int deleteMemberByIdx(Member member);
+    public int deleteMemberByIdxForOauth(int member_idx);
 
     public String findNameAndEmail(Member member);
 

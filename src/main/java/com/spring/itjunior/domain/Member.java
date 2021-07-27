@@ -17,12 +17,11 @@ public class Member {
     private String password;
     private String nickname;
     private String name;
-    private DeleteYN delete_yn;
+    private DeleteYN delete_yn; //이용 중단
     private LocalDateTime create_time;
     private LocalDateTime last_login_time;
     private Role role;
     private String uuid;
-
     private String provider;
     private String providerId;
 

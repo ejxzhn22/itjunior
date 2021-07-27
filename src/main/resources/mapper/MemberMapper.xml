@@ -52,26 +52,26 @@
     <select id="selectMemberByIdx" resultType="Member" parameterType="int">
         SELECT <include refid="memberColumns" />
         FROM tbl_member
-        WHERE delete_yn='N' AND member_idx=#{member_idx}
+        WHERE member_idx=#{member_idx}
     </select>
 
     <!-- userId(Unique key)로 회원 상세정보 조회-->
     <select id="selectMemberByUserId" resultType="Member" parameterType="String">
         SELECT <include refid="memberColumns" />
         FROM tbl_member
-        WHERE delete_yn='N' AND userId=#{userId}
+        WHERE userId=#{userId}
     </select>
 
     <select id="findNameAndEmail" resultType="String" parameterType="Member">
         SELECT userId
         FROM tbl_member
-        WHERE name=#{name} AND email=#{email} AND delete_yn='N'
+        WHERE name=#{name} AND email=#{email}
     </select>
 
     <select id="findUserIdAndName" resultType="int" parameterType="Member">
         SELECT member_idx
         FROM tbl_member
-        WHERE userId=#{userId} AND name=#{name} AND delete_yn='N'
+        WHERE userId=#{userId} AND name=#{name}
     </select>
 
     <update id="changePasswordByIdx" parameterType="Member">
@@ -80,14 +80,18 @@
         WHERE member_idx=#{member_idx}
     </update>
 
-    <update id="deleteMemberByIdx" parameterType="int">
-        UPDATE
-            tbl_member
-        SET
-            delete_yn='Y'
+    <delete id="deleteMemberByIdxForOauth" parameterType="int">
+        DELETE FROM tbl_member
         WHERE
             member_idx=#{member_idx}
-    </update>
+    </delete>
+    <delete id="deleteMemberByIdx" parameterType="Member">
+        DELETE FROM tbl_member
+        WHERE
+            member_idx=#{member_idx}
+        AND
+            password=#{password}
+    </delete>
     
 
     <update id="updateLoginTime" parameterType="Member">
@@ -102,19 +106,19 @@
     <select id="idCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM tbl_member
-        WHERE userId=#{userId} AND delete_yn='N'
+        WHERE userId=#{userId}
     </select>
 
     <select id="emailCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM tbl_member
-        WHERE email=#{email} AND delete_yn='N'
+        WHERE email=#{email}
     </select>
 
     <select id="nickNameCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM tbl_member
-        WHERE nickname=#{nickname} AND delete_yn='N'
+        WHERE nickname=#{nickname}
     </select>
 </mapper>
 

@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //favicon.ico, resources, error 페이지는 로그인을 성공하여 나타나야할 페이지의 정적 리소스를 찾지 못하여 에러 999현상이 나오므로 ignore에 추가해주자
-        web.ignoring().antMatchers("/js/**","/css/**","/image/**","/font/**","/favicon.ico", "/resources/**", "/error/");
+        web.ignoring().antMatchers("/js/**","/css/**","/image/**","/font/**","/favicon.ico", "/resources/**", "/error");
     }
 
     //1.코드받기(인증), 2.엑세스토큰(권한),
