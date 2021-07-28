@@ -24,4 +24,10 @@ public interface QnaBoardMapper {
 
     //답변 가져오기
     public Answer selectAnswer(int qna_idx);
+
+    //답변 추가
+    public int insertAnswer(Answer answer);
+
+    //게시글 답변 업데이트
+    public int updateQna(int qna_idx);
 }

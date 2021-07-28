@@ -74,11 +74,13 @@ public class QnaBoardController {
 
         if(qnaBoard.getReply_yn().equals(DeleteYN.Y)){
             Answer answer = qnaBoardService.answer(qna_idx);
+            System.out.println("answer : " +answer);
             dto.setAnswer_title(answer.getTitle());
             dto.setAnswer_content(answer.getContent());
             dto.setAnswer_writer(answer.getWriter());
             dto.setAnswer_create_time(answer.getCreate_time());
         }
+        System.out.println("dto : " + dto);
 
         model.addAttribute("board",dto);
 
@@ -123,6 +125,22 @@ public class QnaBoardController {
        }else{
         return false;
        }
+
+    }
+
+    //답변 등록
+    @PostMapping("/qnaboards/{qna_idx}/answer")
+    public String answer(@PathVariable int qna_idx, QnaDto qnaDto){
+        Answer answer = new Answer();
+        answer.setTitle(qnaDto.getAnswer_title());
+        answer.setContent(qnaDto.getAnswer_content());
+        answer.setQna_idx(qna_idx);
+
+        int result = qnaBoardService.newAnswer(answer);
+        int result2 = qnaBoardService.updateQna(qna_idx);
+        System.out.println(result+"  " +result2);
+
+        return "redirect:/qnaboards";
 
     }
 }

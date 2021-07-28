@@ -39,4 +39,14 @@ public class QnaBoardService {
     public Answer answer(int qna_idx){
         return qnaBoardMapper.selectAnswer(qna_idx);
     }
+
+    //답변 추가
+    public int newAnswer(Answer answer){
+        return qnaBoardMapper.insertAnswer(answer);
+    }
+
+    //게시글 답변 업데이트
+    public int updateQna(int qna_idx){
+        return qnaBoardMapper.updateQna(qna_idx);
+    }
 }

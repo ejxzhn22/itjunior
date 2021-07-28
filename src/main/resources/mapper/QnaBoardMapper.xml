@@ -55,6 +55,19 @@
         WHERE qna_idx = #{qna_idx}
     </select>
 
+    <!-- 답변 추가 -->
+    <insert id="insertAnswer" parameterType="Answer">
+        INSERT INTO tbl_board_answer(qna_idx, title, content)
+        VALUES (#{qna_idx}, #{title}, #{content})
+    </insert>
+
+    <!-- 게시글 답변 업데이트 -->
+    <update id="updateQna" parameterType="int">
+        UPDATE tbl_board_qna
+        SET reply_yn = 'Y'
+        WHERE qna_idx = #{qna_idx}
+    </update>
+
     <select id="selectBoardTotalCount" resultType="int" parameterType="pageDto">
         SELECT
         COUNT(*)

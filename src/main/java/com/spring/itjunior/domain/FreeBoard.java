@@ -36,5 +36,6 @@ public class FreeBoard  extends PageDto {
     private int viewcnt;
     private int replycnt;
     private int member_idx;
+    private int notice_pin;
 
 }
