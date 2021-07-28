@@ -21,7 +21,7 @@
 
         <div class="join join-id">
             <span>아이디</span>
-            <input type="text" class="join-id-input" id="userId" name="userId" placeholder="아이디 입력(4~50자)" maxlength="50" autocomplete="off" required>
+            <input type="text" class="join-id-input" id="userId" name="userId" placeholder="아이디 입력(4~50자)" maxlength="50" autocomplete="off" autofocus="on" required>
             <span id="id-check"></span>
         </div>
         <div class="join join-pw">
@@ -36,7 +36,7 @@
         </div>
         <div class="join join-pw">
             <span>이름</span>
-            <input type="text" class="join-pw-input" id="name" name="name" autocomplete="off" placeholder="사용자 성함을 기재해 주세요." maxlength="20" autofocus="on" required>
+            <input type="text" class="join-pw-input" id="name" name="name" autocomplete="off" placeholder="사용자 성함을 기재해 주세요." maxlength="20" required>
             <span id="name-check"></span>
         </div>
         <div class="join join-pw">
@@ -110,7 +110,7 @@
                 $("#join-btn").attr("disabled", "disabled");
                 return false;
             }else {
-                $("#password-check2").html("사용 가능합니다.");
+                $("#password-check2").html("비밀번호가 일치합니다.");
                 $("#join-btn").removeAttr("disabled");
             }
 
@@ -160,12 +160,49 @@
             })
         });
 
-        $("#email").keyup(function(){
+        //email 옵션을 선택할 때
+        $("#select-mail").change(function (){
             let email1 = $("#email").val();
             let email2 = $("#select-mail").val();
-            $("#email-sum").val(email1+email2);
 
-            console.log("email : "+email1+email2)
+            if (email2 != "") {
+                console.log("직접입력 아닐때로 넘어옴")
+                $("#email").val(email1+email2);
+                $("#email").attr("disabled",true);
+            }else if (email2 == "") {
+                $("#email").attr("disabled", false);
+            }
+            console.log("옵션 체크 했을때 ajax로 넘어갈 email1 값 >>> "+$("#email").val());
+
+            $.ajax({
+                url : "/auth/email/direct/"+$("#email").val(),
+                type: "GET",
+                success : function(result) {
+                    console.log("ajax호출 후 중복 결과 >>> " + result["result"]);
+                    console.log("ajax호출 후 split 된 값 >>> " + result["email"]);
+                    $("#email").val(result["email"]+email2);
+                    $("#email-sum").val(result["email"]+email2);
+                    if (result["result"] === "same") {
+                        $("#email-check").html("중복된 이메일이 있습니다.");
+                        $("#join-btn").attr("disabled", "disabled");
+                    }else {
+                        $("#email-check").html("사용가능한 이메일입니다.");
+                        $("#join-btn").removeAttr("disabled");
+                    }
+                    console.log("최종 email 합한 값 >>> "+$("#email").val());
+                },
+                error: function (error) {
+                    console.log(error.status);
+                    console.log("서버호출 에러.");
+                }
+            });
+        });
+
+        $("#email").keyup(function(){
+            let email1 = $("#email").val();
+            $("#email-sum").val(email1);
+
+            console.log("email : "+$("#email-sum").val());
             let emailRegexp = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/);
             let emailTest = emailRegexp.test($("#email-sum").val());
             $.ajax({
@@ -182,9 +219,6 @@
                         $("#join-btn").attr("disabled", "disabled");
                     } else if (!emailTest) {
                         $("#email-check").html("올바른 이메일 형식이 아닙니다.");
-                        $("#join-btn").attr("disabled", "disabled");
-                    } else if (!$("#email").val()) {
-                        $("#email-check").html("이메일 정보는 필수 입니다.");
                         $("#join-btn").attr("disabled", "disabled");
                     } else {
                         $("#email-check").html("사용가능한 이메일입니다.");
@@ -205,7 +239,7 @@
                 type : "POST",
                 contentType: "application/json; charset=utf-8",
                 data : JSON.stringify({
-                    email : $("#nickname").val()
+                    nickname : $("#nickname").val()
                 }),
                 success : function(result) {
                     console.log(result);
@@ -245,22 +279,6 @@
             }
         });
 
-        $("#select-mail").change(function (){
-            let email1 = $("#email").val();
-            let email2 = $("#select-mail").val();
-            let emailVal = email1 + email2;
-            $.ajax({
-                url : "/auth/email/direct/"+email1,
-                type: "GET",
-                success : function(result) {
-                    console.log(result);
-                    $("#email").val(result+email2);
-                },
-                error: function (error) {
-                    console.log(error.status);
-                    console.log("서버호출 에러.");
-                }
-            })
-        })
+
     })
 </script>

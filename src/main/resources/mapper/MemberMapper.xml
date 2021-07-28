@@ -121,8 +121,3 @@
         WHERE nickname=#{nickname}
     </select>
 </mapper>
-
-    <!--<select id="findByUseridAndPassword" parameterType="String" resultType="Member">
-        SELECT * FROM tbl_member
-        WHERE userId=#{userId} AND password=#{password}
-    </select>-->
