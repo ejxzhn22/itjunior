@@ -13,6 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Log4j2
 @RestController
 @RequiredArgsConstructor
@@ -139,9 +142,20 @@ public class MemberApiController {
 
     /****** 회원가입 및 수정 Email부분 select option값 매치 로직 *******/
     @GetMapping("/auth/email/direct/{emailVal}")
-    public String directSelectEmail(@PathVariable String emailVal) {
+    public Map<String, String> directSelectEmail(@PathVariable String emailVal) {
         String[] emailArray = getEmailArray(emailVal);
-        return emailArray[0];
+        String duplicationCheck = "";
+        if (emailArray.length == 2) {
+            log.info("split email >>> {},{}",emailArray[0],emailArray[1]);
+            duplicationCheck = memberService.emailCheckByEmail(emailVal);
+        } else if(emailArray.length == 3){
+            log.info("split email >>> {},{},{}",emailArray[0],emailArray[1],emailArray[2]);
+            duplicationCheck = memberService.emailCheckByEmail(emailArray[0]+emailArray[2]);
+        }
+        Map<String, String> resultSet = new HashMap<>();
+        resultSet.put("result", duplicationCheck);
+        resultSet.put("email", emailArray[0]);
+        return resultSet;
     }
     private String[] getEmailArray(String emailProc) {
         String[] emailArray = emailProc.split("@");

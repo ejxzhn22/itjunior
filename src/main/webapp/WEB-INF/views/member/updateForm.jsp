@@ -128,7 +128,7 @@
             let email1 = $("#email").val();
             $("#email-sum").val(email1);
 
-            console.log("email : "+email1)
+            console.log("email : "+$("#email-sum").val());
             let emailRegexp = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/);
             let emailTest = emailRegexp.test($("#email-sum").val());
             $.ajax({
@@ -161,21 +161,42 @@
             })
         });
 
+        //email 옵션을 선택할 때
         $("#select-mail").change(function (){
             let email1 = $("#email").val();
             let email2 = $("#select-mail").val();
+
+            if (email2 != "") {
+                console.log("직접입력 아닐때로 넘어옴")
+                $("#email").val(email1+email2);
+                $("#email").attr("disabled",true);
+            }else if (email2 == "") {
+                $("#email").attr("disabled", false);
+            }
+            console.log("옵션 체크 했을때 ajax로 넘어갈 email1 값 >>> "+$("#email").val());
+
             $.ajax({
-                url : "/auth/email/direct/"+email1,
+                url : "/auth/email/direct/"+$("#email").val(),
                 type: "GET",
                 success : function(result) {
-                    console.log("change result >>> "+result);
-                    $("#email").val(result+email2);
+                    console.log("ajax호출 후 중복 결과 >>> " + result["result"]);
+                    console.log("ajax호출 후 split 된 값 >>> " + result["email"]);
+                    $("#email").val(result["email"]+email2);
+                    $("#email-sum").val(result["email"]+email2);
+                    if (result["result"] === "same") {
+                        $("#email-check").html("중복된 이메일이 있습니다.");
+                        $("#join-btn").attr("disabled", "disabled");
+                    }else {
+                        $("#email-check").html("사용가능한 이메일입니다.");
+                        $("#join-btn").removeAttr("disabled");
+                    }
+                    console.log("최종 email 합한 값 >>> "+$("#email").val());
                 },
                 error: function (error) {
                     console.log(error.status);
                     console.log("서버호출 에러.");
                 }
-            })
+            });
         });
 
         $("#nickname").keyup(function(){

@@ -45,8 +45,14 @@ public class MemberController {
     @PostMapping("/auth/join")
     public String join(@Valid JoinDto joinDto, BindingResult bindingResult,Model model, RedirectAttributes rttr) {
         boolean resultJoin = memberService.saveMemberInfo(joinDto);
-        rttr.addFlashAttribute("insertMsg","success");
-        return "redirect:/";
+
+        log.info("회원 등록 성공/실패 >>> {}",resultJoin);
+
+        if (resultJoin) {
+            rttr.addFlashAttribute("insertMsg","success");
+            return "redirect:/";
+        }
+        return "redirect:/auth/joinForm";
     }
 
     /****** 회원 ID찾기 Form *******/
