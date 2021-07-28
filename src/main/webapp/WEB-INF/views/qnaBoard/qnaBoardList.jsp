@@ -32,7 +32,7 @@
             <c:forEach var="qna" items="${qnas}">
                 <li>
                     <c:choose>
-                        <c:when test="${qna.secret_yn == 'Y'}">
+                        <c:when test="${qna.secret_yn == 'Y' and principal.member.nickname != 'root'}">
                             <a href="#" onclick="openMask(${qna.qna_idx});" class="qna-a openMask">
                         </c:when>
                         <c:otherwise>

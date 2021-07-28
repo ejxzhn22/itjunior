@@ -23,6 +23,9 @@
                 <c:forEach var="category" items="${categories}">
                     <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name} </option>
                 </c:forEach>
+                <c:if test="${principal.member.nickname == 'root'}">
+                    <option id="301" name="category" value="301">공지사항</option>
+                </c:if>
             </select>
             <input type="text" class="cate-input" id="cate_name"  name="cate_name" readonly>
             <input type="text" class="write-input" id="title" placeholder="Enter title" name="title" required>

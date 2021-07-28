@@ -112,6 +112,9 @@ public class FreeBoardController {
         freeBoard.setTitle(boardDto.getCate_name()+" "+boardDto.getTitle());
         freeBoard.setContent(boardDto.getContent());
         freeBoard.setDelete_yn(DeleteYN.N);
+        if(freeBoard.getCategory() == 301){
+            freeBoard.setNotice_pin(1);
+        }
 
         int result = freeBoardService.newBoard(freeBoard);
 
