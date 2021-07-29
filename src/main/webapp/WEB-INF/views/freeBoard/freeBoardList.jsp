@@ -60,13 +60,27 @@
 
             </tr>
             <c:forEach var="board" items="${boards}">
-                <tr>
-                    <td>${board.free_idx}</td>
-                    <td><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
-                    <td>${board.writer}</td>
-                    <td>${board.viewcnt}</td>
-                    <td>${board.create_time}</td>
-                </tr>
+                <c:choose>
+                    <c:when test="${board.category == 301}">
+                        <tr class="notice">
+                            <td>${board.free_idx}</td>
+                            <td><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
+                            <td>${board.writer}</td>
+                            <td>${board.viewcnt}</td>
+                            <td>${board.create_time}</td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td>${board.free_idx}</td>
+                            <td class="board-title"><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
+                            <td>${board.writer}</td>
+                            <td>${board.viewcnt}</td>
+                            <td>${board.create_time}</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+
             </c:forEach>
 
         </table>
@@ -138,6 +152,12 @@
 
     changeValue();
 
+    $(document).ready(function(){
+        for(let i=0; i<`${boards}`.length; i++) {
+            let str = document.getElementsByClassName('board-title')[i].firstChild;
+            console.log(str.innerText);
+        }
+    });
 </script>
 
 <%@include file="../layout/footer.jsp"%>

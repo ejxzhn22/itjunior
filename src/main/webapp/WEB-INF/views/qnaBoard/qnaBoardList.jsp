@@ -61,7 +61,7 @@
                                 <span class="success-badge badge">답변완료</span>
                             </c:if>
                             <c:if test="${qna.reply_yn == 'N'}">
-                                <span class="success-badge badge">답변대기</span>
+                                <span class="wait-badge badge">답변대기</span>
                             </c:if>
                         </div>
                     </a>

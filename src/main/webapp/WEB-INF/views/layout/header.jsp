@@ -17,34 +17,15 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/job.css">
     <script src="${pageContext.request.contextPath}/js/summernote/summernote-lite.js"></script>
     <script src="${pageContext.request.contextPath}/js/summernote/lang/summernote-ko-KR.js"></script>
     <!-- 아이콘 -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/summernote/summernote-lite.css">
 
 </head>
 <body>
-<%--<h3>header</h3>--%>
-<%--<c:choose>--%>
-<%--    <c:when test="${empty principal}">--%>
-<%--        <h2>로그인 정보 없음</h2>--%>
-<%--        <li>--%>
-<%--            <a href="/auth/loginForm">로그인</a>--%>
-<%--            <a href="/auth/joinForm">회원가입</a>--%>
-<%--        </li>--%>
-<%--    </c:when>--%>
-<%--    <c:otherwise>--%>
-<%--        <h1>로그인 되었습니다..!</h1>--%>
-<%--        ${principal}<br>--%>
-<%--        <a href="/auth/member/form">마이페이지</a>--%>
-<%--        <a href="/logout">로그아웃</a>--%>
-<%--        <a href="/auth/updateForm">회원수정</a>--%>
-<%--        <a href="/boards">게시판</a>--%>
-<%--    </c:otherwise>--%>
-<%--</c:choose>--%>
-
 <!-- 헤더 -->
 <div class="header-section" id="header">
     <div class="logo-div">
@@ -54,10 +35,33 @@
     </div>
     <div class="nav-div">
         <ul>
-            <li><a href="#">채용공고</a></li>
-            <li><a href="#">IT News</a></li>
-            <li><a href="/boards">취업토론</a></li>
-            <li><a href="/qnaboards">Q&A</a></li>
+            <c:set var="uri" value="${requestScope['javax.servlet.forward.request_uri']}"/>
+            <c:choose>
+                <c:when test = "${uri eq '/jobs'}">
+                    <li class="select-menu"><a href="/recruit/api/list">채용공고</a></li>
+                    <li><a href="#">IT News</a></li>
+                    <li><a href="/boards">취업토론</a></li>
+                    <li><a href="/qnaboards">Q&A</a></li>
+                </c:when>
+                <c:when test = "${uri eq '/boards'}">
+                    <li><a href="/jobs">채용공고</a></li>
+                    <li><a href="#">IT News</a></li>
+                    <li class="select-menu"><a href="/boards">취업토론</a></li>
+                    <li><a href="/qnaboards">Q&A</a></li>
+                </c:when>
+                <c:when test = "${uri eq '/qnaboards'}">
+                    <li><a href="/jobs">채용공고</a></li>
+                    <li><a href="#">IT News</a></li>
+                    <li><a href="/boards">취업토론</a></li>
+                    <li class="select-menu"><a href="/qnaboards">Q&A</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="/jobs">채용공고</a></li>
+                    <li><a href="#">IT News</a></li>
+                    <li><a href="/boards">취업토론</a></li>
+                    <li><a href="/qnaboards">Q&A</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 
