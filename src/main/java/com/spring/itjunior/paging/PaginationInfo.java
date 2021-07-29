@@ -47,6 +47,15 @@ public class PaginationInfo {
             criteria.setPageSize(10);
         }
 
+        if(criteria.getSearchCategory() == null || criteria.getSearchCategory().equals("")){
+            criteria.setSearchCategory("전체보기");
+        }
+
+        if(criteria.getSearchType() == null || criteria.getSearchType().equals("")){
+            criteria.setSearchType("title");
+        }
+
+
         this.criteria = criteria;
     }
 
@@ -59,6 +68,8 @@ public class PaginationInfo {
     }
 
     private void calculation() {
+
+
 
         /* 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장) */
         totalPageCount = ((totalRecordCount - 1) / criteria.getRecordsPerPage()) + 1;

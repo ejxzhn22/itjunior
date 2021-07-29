@@ -17,13 +17,14 @@
         <form method="get" action="/boards" class="board-search">
             <input type="hidden" name="currentPageNo" value="1">
             <input type="hidden" name="recordsPerPage" value="10">
-            <select name="searchType" class="board-select" >
+            <input type="hidden" name="searchCategory" value="${page.searchCategory}">
+            <select id="select-type" name="searchType" class="board-select" value="${page.searchType}">
                 <option value="title">제목</option>
                 <option value="content">내용</option>
                 <option value="all">제목+내용</option>
                 <option value="writer">작성자</option>
             </select>
-            <input type="text" name="searchKeyword" class="board-input" autocomplete="off">
+            <input type="text" name="searchKeyword" class="board-input" autocomplete="off" value="${page.searchKeyword}">
             <input type="submit"  value="🔍" class="board-submit">
         </form>
 
@@ -31,8 +32,9 @@
             <form action="/boards" method="get" id="cate_form">
                 <input type="hidden" name="currentPageNo" value="1">
                 <input type="hidden" name="searchType" value="title">
+                <input type="hidden" name="searchKeyword" value="${page.searchKeyword}">
                 <select id="select-cate" name="searchCategory" class="board-category-select" value="${page.searchCategory}" onchange="changeSelect(this.value)" >
-                    <option value="">전체보기</option>
+                    <option value="전체보기">전체보기</option>
                     <option value="면접후기" >[면접후기]</option>
                     <option value="취업후기" >[취업후기]</option>
                     <option value="잡담" >[잡담]</option>
@@ -44,6 +46,7 @@
                 <input type="hidden" name="currentPageNo" value="1">
                 <input type="hidden" name="searchKeyword" value="${page.searchKeyword}">
                 <input type="hidden" name="searchType" value="${page.searchType}">
+                <input type="hidden" name="searchCategory" value="${page.searchCategory}">
 
                 <select id="select-page" name="recordsPerPage" class="board-filter" value="${page.recordsPerPage}" onchange="changePage(this.value)">
                     <option value="10">10개씩 보기</option>
@@ -147,11 +150,16 @@
 
         let page = ${page.recordsPerPage};
         $("#select-page").val(page).prop("selected",true);
+
+        let type = "${page.searchType}";
+        $("#select-type").val(type).prop("selected",true);
+
         // let val = $("#select-page:selected").val();
         // console.log("val",val);
 
         console.log(page);
         console.log(cate);
+        console.log(type);
 
 
     }
@@ -160,12 +168,12 @@ $(document).ready(function () {
     changeValue();
 })
 
-    $(document).ready(function(){
-        for(let i=0; i<`${boards}`.length; i++) {
-            let str = document.getElementsByClassName('board-title')[i].firstChild;
-            console.log(str.innerText);
-        }
-    });
+    <%--$(document).ready(function(){--%>
+    <%--    for(let i=0; i<`${boards}`.length; i++) {--%>
+    <%--        let str = document.getElementsByClassName('board-title')[i].firstChild;--%>
+    <%--        console.log(str.innerText);--%>
+    <%--    }--%>
+    <%--});--%>
 </script>
 
 <%@include file="../layout/footer.jsp"%>

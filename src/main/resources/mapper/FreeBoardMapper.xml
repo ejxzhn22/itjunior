@@ -23,8 +23,8 @@
         SELECT * FROM tbl_board_free
         where
         delete_yn="N"
-        <include refid="search" />
         <include refid="category" />
+        <include refid="search" />
         ORDER BY notice_pin DESC,create_time DESC, free_idx DESC
         LIMIT #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
     </select>
@@ -36,8 +36,8 @@
             tbl_board_free
         where
             delete_yn="N"
-        <include refid="search" />
         <include refid="category" />
+        <include refid="search" />
     </select>
 
     <!--  게시글 하나 가져오기  -->
@@ -135,24 +135,24 @@
 
 
     <sql id="search">
-            <if test="searchType != null and searchType != ''">
+            <if test="searchKeyword != null and searchKeyword != ''">
 
                     <!-- 제목 + 내용 -->
                     <if test="searchType == 'all' ">
                         and
-                        content LIKE CONCAT('%', #{searchType}, '%')
-                        or title LIKE CONCAT('%', #{searchType}, '%')
+                        content LIKE CONCAT('%', #{searchKeyword}, '%')
+                        or title LIKE CONCAT('%', #{searchKeyword}, '%')
                     </if>
 
                     <!-- 나머지 -->
                     <if test="searchType == 'content' ">
-                        and content LIKE CONCAT('%', #{searchType}, '%')
+                        and content LIKE CONCAT('%', #{searchKeyword}, '%')
                     </if>
                     <if test="searchType == 'title'">
-                        and title LIKE CONCAT('%', #{searchType}, '%')
+                        and title LIKE CONCAT('%', #{searchKeyword}, '%')
                     </if>
                     <if test="searchType == 'writer' ">
-                        and writer LIKE CONCAT('%', #{searchType}, '%')
+                        and writer LIKE CONCAT('%', #{searchKeyword}, '%')
                     </if>
 
             </if>
@@ -164,8 +164,10 @@
     <sql id="category">
         <if test="searchCategory != null and searchCategory != ''">
 
-            <!-- 제목 + 내용 -->
 
+            <if test="searchCategory == '전체보기' ">
+                and title LIKE CONCAT('%', '', '%')
+            </if>
             <if test="searchCategory == '면접후기' ">
 
                 and title LIKE CONCAT('%', #{searchCategory}, '%')
