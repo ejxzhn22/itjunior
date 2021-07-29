@@ -157,9 +157,9 @@
         // let val = $("#select-page:selected").val();
         // console.log("val",val);
 
-        console.log(page);
-        console.log(cate);
-        console.log(type);
+        // console.log(page);
+        // console.log(cate);
+        // console.log(type);
 
 
     }
@@ -168,12 +168,43 @@ $(document).ready(function () {
     changeValue();
 })
 
-    <%--$(document).ready(function(){--%>
-    <%--    for(let i=0; i<`${boards}`.length; i++) {--%>
-    <%--        let str = document.getElementsByClassName('board-title')[i].firstChild;--%>
-    <%--        console.log(str.innerText);--%>
-    <%--    }--%>
-    <%--});--%>
+    $(document).ready(function(){
+        for(let i=0; i<`${boards}`.length; i++) {
+
+            //innertext로 텍스트추출
+            let str = document.getElementsByClassName('board-title')[i].firstChild;
+            //console.log(str.innerText);
+            //공백으로 앞에만 자르기
+            let cutStr = str.innerText.split(' ');
+            console.log(cutStr[0]);
+
+
+            //span을 만들고 []안의 글자만 span안에 넣기
+            let makeSpan = document.createElement('span');
+            let inText = document.createTextNode(cutStr[0]);
+            makeSpan.appendChild(inText);
+
+            if(cutStr[0]==="[잡답]"){
+                makeSpan.classList.add('cate1');
+            } else if(cutStr[0]==="[공부법]"){
+                makeSpan.classList.add('cate2');
+            } else if(cutStr[0]==="[질문]"){
+                makeSpan.classList.add('cate3');
+            } else if(cutStr[0]==="[면접후기]"){
+                makeSpan.classList.add('cate4');
+            } else if(cutStr[0]==="[합격후기]"){
+                makeSpan.classList.add('cate5');
+            }
+            //str.appendChild(makeSpan); 얘는 뒤에 추가가됨
+
+            document.getElementsByClassName('board-title')[i].insertBefore(makeSpan,str);
+
+            let a = str.innerText.replace(cutStr[0],"");
+
+            str.innerText=a;
+
+        }
+    });
 </script>
 
 <%@include file="../layout/footer.jsp"%>
