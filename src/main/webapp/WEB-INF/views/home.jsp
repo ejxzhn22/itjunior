@@ -10,6 +10,12 @@
     <a href="#" class="main-join">JOIN 🙌</a>
     <img src="${pageContext.request.contextPath}/image/icon-downarrow.png" alt="" class="down-arrow" onclick="scrollDown();">
 </div>
+<section>
+    <span class="curve">
+        <img src="${pageContext.request.contextPath}/image/curve.png">
+    </span>
+</section>
+
 <img src="${pageContext.request.contextPath}/image/main-o.svg" alt="" class="main-o">
 <img src="${pageContext.request.contextPath}/image/triangle.png" alt="" class="main-tri">
 <%--<div class="content2-section">--%>
@@ -89,9 +95,9 @@
         </ul>
     </section>
 </div>
-<div class="content3-section">
-    <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-sum">
-</div>
+<%--<div class="content3-section">--%>
+<%--    <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-sum">--%>
+<%--</div>--%>
 <%@include file="layout/footer.jsp"%>
 <script src="${pageContext.request.contextPath}/css/vanilla-tilt.min.js"></script>
 <script>
@@ -123,7 +129,7 @@
     }
 
     window.addEventListener('load', saFunc);
-    window.addEventListener('scroll', saFunc);
+    // window.addEventListener('scroll', saFunc);
 
     function scrollDown(){
         console.log(window.innerHeight);
@@ -141,5 +147,17 @@
         glare:true,
         "max-glare":1,
     });
+
+
+    window.addEventListener('scroll',function(){
+        const scroll1 = document.querySelector('.curve');
+
+        const value = 1 + window.scrollY/-500;
+        $('.curve').css("transform",`scaleY(${value})`);
+    })
+
+    $("li[data-text='Information']").click(function(){
+        $(".desc-container1").css("display", "none");
+    })
 </script>
 
