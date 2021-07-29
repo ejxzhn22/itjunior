@@ -26,7 +26,7 @@ public class FreeBoardController {
 
     //자유게시판 이동
 
-    @RequestMapping("/boards")
+    @GetMapping("/boards")
     public String boards(Model model ,PageDto pageDto) {
 
         // 글 카테고리 가져오기
@@ -55,7 +55,9 @@ public class FreeBoardController {
 
     //글 상세 페이지 이동
     @GetMapping("/boards/{free_idx}")
-    public String boardDetail(@PathVariable int free_idx, Model model,@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String boardDetail(@ModelAttribute PageDto pageDto,@PathVariable int free_idx, Model model,@AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        System.out.println("상세: " +pageDto);
 
         // 조회수 올리기
         freeBoardService.viewUpdate(free_idx);
