@@ -35,7 +35,6 @@
     </div>
     <div class="nav-div">
         <ul>
-
             <c:set var="uri" value="${requestScope['javax.servlet.forward.request_uri']}"/>
             <c:choose>
                 <c:when test = "${uri eq '/jobs'}">

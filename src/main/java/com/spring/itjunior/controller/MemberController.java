@@ -138,6 +138,14 @@ public class MemberController {
         log.info("passwordCheckForm 에서 받은 password >>> {}",member.toString());
         log.info("isFirstLogin >>> {}",principalDetails.isFirstOauthLogin());
 
+        //oauth로그인 유저가 아닌 일반 유저면,,
+        if (StringUtils.isBlank(principalDetails.getMember().getProvider())) {
+            String fixedPwd = member.getPassword();
+            log.info("고정 평문 비밀번호 >>> {}",fixedPwd);
+            member.setPassword(fixedPwd);
+            return "member/updateForm";
+        }
+
         String fixedPwd = "itjunior"+principalDetails.getMember().getUuid();
         log.info("고정 평문 비밀번호 >>> {}",fixedPwd);
         member.setPassword(fixedPwd);
@@ -163,9 +171,8 @@ public class MemberController {
         }else {
             forceLoginProc(userId,updatedPwd);
         }
+
         log.info("수정된 세션 비밀번호 >>> {}",principalDetails.getPassword());
-//        model.addAttribute("msg","회원수정을 성공하였습니다.");
-//        model.addAttribute("url","redirect:/");
         rttr.addFlashAttribute("udateMsg","success");
         return "redirect:/";
     }

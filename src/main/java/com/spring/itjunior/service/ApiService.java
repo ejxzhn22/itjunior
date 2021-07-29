@@ -1,6 +1,8 @@
 package com.spring.itjunior.service;
 
 import lombok.extern.log4j.Log4j2;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -16,8 +18,9 @@ public class ApiService {
     private final String requestUrl = "https://oapi.saramin.co.kr/job-search";
     private final String serviceKey = "9YSJckDyEdi9WJqaVoAauyXIYC09YbzvtjiWkkc2qI8JTPuheTi";
 
-    public String recruitApiList() {
+    public JSONObject recruitApiList() {
         StringBuffer result = new StringBuffer();
+        JSONObject jsonObject = new JSONObject();
         try {
             StringBuilder urlBuilder = new StringBuilder(requestUrl);
 
@@ -49,10 +52,12 @@ public class ApiService {
             br.close();
             urlConnection.disconnect();
 
+            JSONParser jsonParser = new JSONParser();
+            jsonObject = (JSONObject) jsonParser.parse(result.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result.toString();
+        return jsonObject;
     }
 
 

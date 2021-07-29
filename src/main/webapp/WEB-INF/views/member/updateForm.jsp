@@ -11,19 +11,30 @@
             <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
             <div class="join join-id">
                 <span>아이디</span>
-                <input type="text" class="join-id-input" id="userId" name="userId" value="${principal.member.userId}" autocomplete="off" disabled>
+                <input type="text" class="join-id-input" id="userId" name="userId" value="${principal.member.userId}" autocomplete="off" autofocus="on" disabled>
                 <span id="id-check"></span>
             </div>
             <div class="join join-pw">
                 <span>비밀번호</span>
-                <input type="password" class="join-pw-input" id="password" name="password" autocomplete="off" maxlength="16" disabled required placeholder="영문대/소문자, 숫자, 특수문자 중 2가지 이상조합. 8자이상 16이하.">
                 <button type="button" id="passwordChange">변경</button>
             </div>
-<%--            <div class="join join-pw-check">--%>
-<%--                <span>비밀번호 확인<button type="button" id="publicPw2">눈깔</button></span>--%>
-<%--                <input type="password" class="join-pw-check-input" id="password2" maxlength="16" autocomplete="off" required>--%>
-<%--                <span id="password-check2"></span>--%>
-<%--            </div>--%>
+            <div id="total-password">
+                <div class="join join-pw" id="nowPassword">
+                    <span>현재 비밀번호<button type="button" id="publicPw">눈깔</button></span>
+                    <input type="password" class="join-pw-input" id="password" autocomplete="off" maxlength="16" required placeholder="현재 비밀번호를 입력해주세요.">
+                    <span id="password-check"></span>
+                </div>
+                <div class="join join-pw-check" id="new-Password">
+                    <span>새 비밀번호<button type="button" id="publicPw1">눈깔</button></span>
+                    <input type="password" class="join-pw-input" id="password1" name="password" autocomplete="off" maxlength="16" required placeholder="영문대/소문자, 숫자, 특수문자 중 2가지 이상조합. 8자이상 16이하.">
+                    <span id="password-check1"></span>
+                </div>
+                <div class="join join-pw-check" id="new-Password2">
+                    <span>새 비밀번호 확인<button type="button" id="publicPw2">눈깔</button></span>
+                    <input type="password" class="join-pw-check-input" id="password2" maxlength="16" autocomplete="off" required>
+                    <span id="password-check2"></span>
+                </div>
+            </div>
             <div class="join join-pw">
                 <span>이름</span>
                 <input type="text" class="join-pw-input" id="name" name="name" value="${principal.member.name}" autocomplete="off" placeholder="사용자 성함을 기재해 주세요." maxlength="20" autofocus="on" required>
@@ -32,7 +43,7 @@
             <div class="join join-pw">
                 <span>이메일</span>
                 <div class="join-box">
-                    <input type="text" class="join-pw-input" id="email" value="${principal.member.email}" autocomplete="off" required>
+                    <input type="email" class="join-pw-input" id="email" value="${principal.member.email}" autocomplete="off" required>
                     <select id="select-mail">
                         <option value="">직접입력</option>
                         <option value="@naver.com">@naver.com</option>
@@ -63,6 +74,7 @@
     <%--console.log("isfirst = "+${principal.isFirstOauthLogin});--%>
 
     $(document).ready(function () {
+        $("#total-password").hide();
 
         $("#join-form").submit(function(){
             if($.trim($("#password").val()) !== $("#password").val() || $.trim($("#email").val()) !== $("#email").val() || $.trim($("#userId").val()) !== $("#userId").val()){
@@ -73,32 +85,47 @@
             }
         });
 
-        $("#password").keyup(function() {
+        $("#passwordChange").click(function (){
+            $("#total-password").slideToggle();
+        });
+
+        $("#password").keyup(function (){
+            let nowPwd = "${member.password}";
+            if ($("#password").val() === nowPwd) {
+                $("#password-check").html("사용 가능합니다.");
+                $("#join-btn").removeAttr("disabled");
+            }else {
+                $("#password-check").html("현재 비밀번호와 다릅니다.");
+                $("#join-btn").attr("disabled", "disabled");
+            }
+        });
+
+        $("#password1").keyup(function() {
             let pwdRegexp = RegExp(/^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9~!@#$%^&*()_+=|?/,.<>;:'"{}]).{8,16}$/);
-            let passwordVal = $("#password").val();
+            let passwordVal = $("#password1").val();
 
             let speTest = pwdRegexp.test(passwordVal);
 
             if (passwordVal.length < 8 || passwordVal.length > 16) {
-                $("#password-check").html("비밀번호 8 ~ 16 자리를 입력해 주세요.");
+                $("#password-check1").html("비밀번호 8 ~ 16 자리를 입력해 주세요.");
                 $("#join-btn").attr("disabled", "disabled");
                 return false;
             }else if (!speTest) {
-                $("#password-check").html("영문 대/소문자, 숫자, 특수기호 중 2가지 이상을 사용해 주세요.");
+                $("#password-check1").html("영문 대/소문자, 숫자, 특수기호 중 2가지 이상을 사용해 주세요.");
                 $("#join-btn").attr("disabled", "disabled");
                 return false;
             }else if(/(\w)\1\1\1/.test(passwordVal)){
-                $("#password-check").html("같은 문자나 숫자를 네번이상 사용하실 수 없습니다.");
+                $("#password-check1").html("같은 문자나 숫자를 네번이상 사용하실 수 없습니다.");
                 $("#join-btn").attr("disabled", "disabled");
                 return false;
             }else {
-                $("#password-check").html("사용 가능합니다.");
+                $("#password-check1").html("사용 가능합니다.");
                 $("#join-btn").removeAttr("disabled");
             }
         });
 
         $("#password2").keyup(function() {
-            if($("#password").val() !== $("#password2").val()){
+            if($("#password1").val() !== $("#password2").val()){
                 $("#password-check2").html("비밀번호가 다릅니다.");
                 $("#join-btn").attr("disabled", "disabled");
                 return false;
