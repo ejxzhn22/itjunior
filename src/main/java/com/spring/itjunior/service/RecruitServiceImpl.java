@@ -3,6 +3,7 @@ package com.spring.itjunior.service;
 import com.spring.itjunior.domain.RecruitDTO;
 import com.spring.itjunior.mapper.RecruitMapper;
 import lombok.extern.log4j.Log4j2;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class RecruitServiceImpl implements RecruitService{
     }
 
     @Override
-    public String getApiList() {
-        String apiResult = apiService.recruitApiList();
+    public JSONObject getApiList() {
+        JSONObject apiResult = apiService.recruitApiList();
 
         return apiResult;
 

@@ -16,7 +16,7 @@ ${principal.attributes}
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="PASSWORD" id="password" name="password">
+                    <input type="password" class="form-control" placeholder="PASSWORD" autofocus="on" autocomplete="off" id="password" name="password">
                 </div>
                 <div class="check-yn" id="check-yn"></div>
                 <a href="#" type="button">뒤로가기</a>

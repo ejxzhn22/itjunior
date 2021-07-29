@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>api list 호출부</h1>
+    <span>${result.jobs.job[0].url}</span>
 </body>
 
 </html>
