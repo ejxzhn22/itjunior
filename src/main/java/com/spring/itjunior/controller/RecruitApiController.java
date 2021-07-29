@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
+
 public class RecruitApiController {
 
     private RecruitService recruitService;
@@ -17,6 +18,7 @@ public class RecruitApiController {
     public RecruitApiController(RecruitService recruitService) {
         this.recruitService = recruitService;
     }
+
 
 
 //    @PostMapping("/newInfo")
@@ -28,4 +30,5 @@ public class RecruitApiController {
 //
 //        return (isRegistered == true) ? "채용정보 등록 성공" : "채용정보 등록 실패..";
 //    }
+
 }

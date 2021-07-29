@@ -14,7 +14,7 @@
 </div>
 <div class="content-section">
     <div class="board-section">
-        <form method="post" action="/boards" class="board-search">
+        <form method="get" action="/boards" class="board-search">
             <input type="hidden" name="currentPageNo" value="1">
             <input type="hidden" name="recordsPerPage" value="10">
             <select name="searchType" class="board-select" >
@@ -28,10 +28,10 @@
         </form>
 
         <div class="board-search2">
-            <form action="/boards" method="post" id="cate_form">
+            <form action="/boards" method="get" id="cate_form">
                 <input type="hidden" name="currentPageNo" value="1">
                 <input type="hidden" name="searchType" value="title">
-                <select id="select-cate" name="searchKeyword" class="board-category-select" value="${page.searchKeyword}" onchange="changeSelect(this.value)" >
+                <select id="select-cate" name="searchCategory" class="board-category-select" value="${page.searchCategory}" onchange="changeSelect(this.value)" >
                     <option value="">전체보기</option>
                     <option value="면접후기" >[면접후기]</option>
                     <option value="취업후기" >[취업후기]</option>
@@ -40,8 +40,11 @@
                     <option value="공부법" >[공부법]</option>
                 </select>
             </form>
-            <form action="/boards" method="post" id="pagenum_form">
+            <form action="/boards" method="get" id="pagenum_form">
                 <input type="hidden" name="currentPageNo" value="1">
+                <input type="hidden" name="searchKeyword" value="${page.searchKeyword}">
+                <input type="hidden" name="searchType" value="${page.searchType}">
+
                 <select id="select-page" name="recordsPerPage" class="board-filter" value="${page.recordsPerPage}" onchange="changePage(this.value)">
                     <option value="10">10개씩 보기</option>
                     <option value="25">25개씩 보기</option>
@@ -60,13 +63,28 @@
 
             </tr>
             <c:forEach var="board" items="${boards}">
-                <tr>
-                    <td>${board.free_idx}</td>
-                    <td><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
-                    <td>${board.writer}</td>
-                    <td>${board.viewcnt}</td>
-                    <td>${board.create_time}</td>
-                </tr>
+
+                <c:choose>
+                    <c:when test="${board.category == 301}">
+                        <tr class="notice">
+                            <td>${board.free_idx}</td>
+                            <td><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
+                            <td>${board.writer}</td>
+                            <td>${board.viewcnt}</td>
+                            <td>${board.create_time}</td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td>${board.free_idx}</td>
+                            <td class="board-title"><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
+                            <td>${board.writer}</td>
+                            <td>${board.viewcnt}</td>
+                            <td>${board.create_time}</td>
+                        </tr>
+                    </c:otherwise>
+                </c:choose>
+
             </c:forEach>
 
         </table>
@@ -124,20 +142,30 @@
 
     function changeValue() {
 
-        let cate = document.getElementById("select-cate").value;
+        let cate ="${page.searchCategory}";
         $("#select-cate").val(cate).attr("selected",true);
 
-        let page = document.getElementById("select-page").value;
+        let page = ${page.recordsPerPage};
         $("#select-page").val(page).prop("selected",true);
+        // let val = $("#select-page:selected").val();
+        // console.log("val",val);
 
-        console.log(page)
-        console.log(cate)
-        console.log("실행됨?");
+        console.log(page);
+        console.log(cate);
+
 
     }
+$(document).ready(function () {
 
     changeValue();
+})
 
+    $(document).ready(function(){
+        for(let i=0; i<`${boards}`.length; i++) {
+            let str = document.getElementsByClassName('board-title')[i].firstChild;
+            console.log(str.innerText);
+        }
+    });
 </script>
 
 <%@include file="../layout/footer.jsp"%>
