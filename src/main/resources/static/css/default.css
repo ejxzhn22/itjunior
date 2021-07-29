@@ -128,3 +128,12 @@ body{
     border-radius: 10px;
     cursor: pointer;
 }
+.nav-div ul .select-menu{
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    border-bottom:3px solid #787878;
+    transition: 1s linear;
+}
