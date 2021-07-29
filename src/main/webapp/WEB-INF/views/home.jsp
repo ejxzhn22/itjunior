@@ -98,6 +98,11 @@
 <%--<div class="content3-section">--%>
 <%--    <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-sum">--%>
 <%--</div>--%>
+<style>
+    .footer-section{
+        margin-top:0px !important;
+    }
+</style>
 <%@include file="layout/footer.jsp"%>
 <script src="${pageContext.request.contextPath}/css/vanilla-tilt.min.js"></script>
 <script>

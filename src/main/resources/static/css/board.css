@@ -746,3 +746,26 @@
 .board-table .notice td:nth-child(2) {
     font-weight: 700;
 }
+.cate4 {
+    color: #2904f8;
+    font-weight: 700;
+}
+.cate1{
+    color:#228b22;
+    letter-spacing: 10.5px;
+    font-weight: 700;
+}
+.cate5{
+    color:#008080;
+    font-weight: 700;
+}
+.cate2{
+    color:#800080;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+.cate3 {
+    letter-spacing: 10.5px;
+    color: #222926;
+    font-weight: 700;
+}

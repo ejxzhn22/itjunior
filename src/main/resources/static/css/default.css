@@ -32,7 +32,7 @@ a{
     text-decoration: none;
     color:#000;
 }
-li a:visited, .member-div a:visited{
+li a:visited{
     color:#000;
 }
 body{
@@ -77,22 +77,68 @@ body{
     padding:10px 35px;
     transition:1s linear;
 }
-.member-div a{
-    border: 1px solid #000;
-    border-radius: 20px;
-    padding: 10px 40px;
-    transition:.2s linear;
+.login-btn{
+    background: #196af3;
+    border: 1px solid #196af3;
+    color: #fff;
+    border-radius: 25px;
+    padding:6px 20px;
 }
-.member-div a:hover{
+.join-btn{
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #666;
+    border-radius: 25px;
+    padding:6px 20px;
+}
+.mypage-btn{
     color:#fff;
-    background-color:#2904f8;
-    border:1px solid #2904f8;
-    box-shadow: 0 0 3px black;
+    background: #3ab0e7;
+    border-radius: 25px;
+    padding:6px 20px;
+    border:1px solid #3ab0e7;
 }
+.logout-btn{
+    background: #d2d2d2;
+    color:#787878;
+    border: 1px solid #ddd;
+    color: #666;
+    border-radius: 25px;
+    padding:6px 20px;
+}
+.member-div a:active{
+    border: 1px dotted #d2d2d2;
+}
+
 .content-section{
     min-height:90vh;
 }
-
+.nav-div ul li a{
+    color: #333;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 0;
+    position: relative;
+}
+.nav-div ul li a:after{
+    background: none repeat scroll 0 0 transparent;
+    bottom: -2px;
+    content: "";
+    display: block;
+    height: 3px;
+    left: 50%;
+    position: absolute;
+    background: #3ab0e7;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+.nav-div ul li a:hover:after{
+    width: 100%;
+    left: 0;
+}
+.select-a{
+    border-bottom:3px solid #3ab0e7;
+}
 
 /* 푸터 */
 .footer-section{
@@ -100,16 +146,77 @@ body{
     height:250px;
     background-color: #f1f0f0;
     display:flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: nanumgothic;
     color:#5c5c5c;
     margin-top: 200px;
 }
+.footer-logo{
+    width:25%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.footer-logo span{
+    color: #949292;
+    letter-spacing: -2px;
+    margin: -50px -40px 50px 0;
+}
+.footer-team{
+    position: relative;
+    width:300px;
+    height:100%;
+}
 .itju-footer-logo{
-    width:250px;
-    margin:-30px auto;
+    width:350px;
+}
+.profile {
+    border-radius: 350px;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 200px;
+    height: 70%;
+    background: #ffff;
+}
+.profile-desc{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: -1px;
+    padding: 10px 30px;
+    background: #03131b;
+}
+.profile-img{
+    width:100%;
+    border-radius: 300px;
+}
+.profile-link{
+    position: relative;
+    background: #00090a;
+    border-radius: .4em;
+    margin-top:5px;
+}
+.profile-link:after{
+    content: '';
+    position: absolute;
+    top: -29px;
+    left: -88%;
+    width: 0;
+    height: 0;
+    border: 18px solid transparent;
+    border-bottom-color: #00090a;
+    border-top: 0;
+    margin-left: -30px;
+    margin-top: -18px;
 }
 .git-icon{
     width:16px;
