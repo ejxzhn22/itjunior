@@ -45,7 +45,9 @@ public class FreeBoardController {
         pageDto.setPaginationInfo(paginationInfo);
 
         System.out.println("pageDto"+pageDto);
+
         List<FreeBoard> boards = freeBoardService.boards(pageDto);
+        System.out.println("boards size: "+boards.size());
 
         model.addAttribute("boards", boards);
         model.addAttribute("page", pageDto);
