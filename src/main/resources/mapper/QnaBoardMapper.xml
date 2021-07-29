@@ -79,13 +79,14 @@
     </select>
 
     <sql id="search">
-        <if test="searchType != null and searchType != ''">
+        <if test="searchKeyword != null and searchKeyword != ''">
             <!-- 제목 + 내용 -->
             <if test="searchType == 'all' ">
 
                 and
                 content LIKE CONCAT('%', #{searchKeyword}, '%')
                 or title LIKE CONCAT('%', #{searchKeyword}, '%')
+                or writer LIKE CONCAT('%', #{searchKeyword}, '%')
             </if>
 
             <!-- 나머지 -->
