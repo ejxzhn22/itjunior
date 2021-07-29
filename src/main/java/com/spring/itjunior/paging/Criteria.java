@@ -27,10 +27,14 @@ public class Criteria {
     /** 검색 유형 */
     private String searchType;
 
+    /** 검색 카테고리 */
+    private String searchCategory;
+
     public Criteria() {
         this.currentPageNo = 1;
         //this.recordsPerPage = 10;
         this.pageSize = 5;
+
     }
 
     public String makeQueryString(int pageNo) {
@@ -41,6 +45,7 @@ public class Criteria {
                 .queryParam("pageSize", pageSize)
                 .queryParam("searchType", searchType)
                 .queryParam("searchKeyword", searchKeyword)
+                .queryParam("searchCategory", searchCategory)
                 .build()
                 .encode();
 
@@ -55,6 +60,7 @@ public class Criteria {
                 .queryParam("pageSize", pageSize)
                 .queryParam("searchType", searchType)
                 .queryParam("searchKeyword", searchKeyword)
+                .queryParam("searchCategory", searchCategory)
                 .build()
                 .encode();
 

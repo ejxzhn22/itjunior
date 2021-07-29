@@ -56,7 +56,7 @@
         <ul>
             <li><a href="#">채용공고</a></li>
             <li><a href="#">IT News</a></li>
-            <li><a href="/boards">취업토론</a></li>
+            <li><a href="/boards" >취업토론</a></li>
             <li><a href="/qnaboards">Q&A</a></li>
         </ul>
     </div>
@@ -64,6 +64,7 @@
     <div class="member-div">
         <input type="hidden" id ="principalId" value="${principal.member.member_idx}"/>
         <input type="hidden" id ="principalNick" value="${principal.member.nickname}"/>
+
         <c:choose>
             <c:when test="${empty principal}">
                 <a href="/auth/loginForm">로그인</a>

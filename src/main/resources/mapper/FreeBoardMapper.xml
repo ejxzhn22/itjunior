@@ -24,6 +24,7 @@
         where
         delete_yn="N"
         <include refid="search" />
+        <include refid="category" />
         ORDER BY notice_pin DESC,create_time DESC, free_idx DESC
         LIMIT #{paginationInfo.firstRecordIndex}, #{recordsPerPage}
     </select>
@@ -36,6 +37,7 @@
         where
             delete_yn="N"
         <include refid="search" />
+        <include refid="category" />
     </select>
 
     <!--  게시글 하나 가져오기  -->
@@ -134,26 +136,60 @@
 
     <sql id="search">
             <if test="searchType != null and searchType != ''">
+
                     <!-- 제목 + 내용 -->
                     <if test="searchType == 'all' ">
-
                         and
-                        content LIKE CONCAT('%', #{searchKeyword}, '%')
-                        or title LIKE CONCAT('%', #{searchKeyword}, '%')
+                        content LIKE CONCAT('%', #{searchType}, '%')
+                        or title LIKE CONCAT('%', #{searchType}, '%')
                     </if>
 
                     <!-- 나머지 -->
                     <if test="searchType == 'content' ">
-                        and content LIKE CONCAT('%', #{searchKeyword}, '%')
+                        and content LIKE CONCAT('%', #{searchType}, '%')
                     </if>
                     <if test="searchType == 'title'">
-                        and title LIKE CONCAT('%', #{searchKeyword}, '%')
+                        and title LIKE CONCAT('%', #{searchType}, '%')
                     </if>
                     <if test="searchType == 'writer' ">
-                        and writer LIKE CONCAT('%', #{searchKeyword}, '%')
+                        and writer LIKE CONCAT('%', #{searchType}, '%')
                     </if>
 
             </if>
+
+
+    </sql>
+
+
+    <sql id="category">
+        <if test="searchCategory != null and searchCategory != ''">
+
+            <!-- 제목 + 내용 -->
+
+            <if test="searchCategory == '면접후기' ">
+
+                and title LIKE CONCAT('%', #{searchCategory}, '%')
+            </if>
+            <if test="searchCategory == '취업후기' ">
+
+                and title LIKE CONCAT('%', #{searchCategory}, '%')
+            </if>
+            <if test="searchCategory == '잡담' ">
+
+                and title LIKE CONCAT('%', #{searchCategory}, '%')
+            </if>
+            <if test="searchCategory == '질문' ">
+
+                and title LIKE CONCAT('%', #{searchCategory}, '%')
+            </if>
+            <if test="searchCategory == '공부법' ">
+
+                and title LIKE CONCAT('%', #{searchCategory}, '%')
+            </if>
+
+
+
+        </if>
 
 
     </sql>
