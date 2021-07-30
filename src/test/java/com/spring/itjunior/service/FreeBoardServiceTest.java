@@ -19,21 +19,21 @@ class FreeBoardServiceTest {
 
     @Autowired private FreeBoardService freeBoardService;
 
-    @Test
-    public void 게시글추가하기() {
-        FreeBoard freeBoard = new FreeBoard();
-        freeBoard.setFree_idx(1);
-        freeBoard.setTitle("질문합니다");
-        freeBoard.setContent("닭발은 맛잇나용?");
-        freeBoard.setWriter("수진");
-        freeBoard.setCategory(103);
-        freeBoard.setMember_idx(1);
-        freeBoard.setDelete_yn(DeleteYN.N);
-
-        int result = freeBoardService.newBoard(freeBoard);
-
-        Assertions.assertThat(result).isEqualTo(1);
-    }
+//    @Test
+//    public void 게시글추가하기() {
+//        FreeBoard freeBoard = new FreeBoard();
+//        freeBoard.setFree_idx(1);
+//        freeBoard.setTitle("질문합니다");
+//        freeBoard.setContent("닭발은 맛잇나용?");
+//        freeBoard.setWriter("수진");
+//        freeBoard.setCategory(103);
+//        freeBoard.setMember_idx(1);
+//        freeBoard.setDelete_yn(DeleteYN.N);
+//
+//        int result = freeBoardService.newBoard(freeBoard);
+//
+//        Assertions.assertThat(result).isEqualTo(1);
+//    }
 
     @Test
     public void 모든게시글가져오기(BoardDto boardDto) {
@@ -43,22 +43,22 @@ class FreeBoardServiceTest {
 
     }
 
-    @Test
-    public void 게시글수정하기() {
-        FreeBoard freeBoard = new FreeBoard();
-
-        //게시글 하나 가져오기
-        freeBoard = freeBoardService.board(1);
-        freeBoard.setContent("수정2번째");
-
-        int result = freeBoardService.updateBaord(freeBoard);
-
-        FreeBoard freeBoard2 = freeBoardService.board(1);
-        Assertions.assertThat(result).isEqualTo(1);
-        Assertions.assertThat(freeBoard2.getContent()).isEqualTo("수정2번째");
-
-
-    }
+   // @Test
+//    public void 게시글수정하기() {
+//        FreeBoard freeBoard = new FreeBoard();
+//
+//        //게시글 하나 가져오기
+//        freeBoard = freeBoardService.board(1);
+//        freeBoard.setContent("수정2번째");
+//
+//        int result = freeBoardService.updateBaord(freeBoard);
+//
+//        FreeBoard freeBoard2 = freeBoardService.board(1);
+//        Assertions.assertThat(result).isEqualTo(1);
+//        Assertions.assertThat(freeBoard2.getContent()).isEqualTo("수정2번째");
+//
+//
+//    }
 
     @Test
     public void 게시글삭제하기(){

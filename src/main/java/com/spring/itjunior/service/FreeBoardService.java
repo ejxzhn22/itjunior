@@ -7,6 +7,7 @@ import com.spring.itjunior.domain.FreeLike;
 import com.spring.itjunior.dto.BoardDto;
 import com.spring.itjunior.dto.PageDto;
 import com.spring.itjunior.mapper.FreeBoardMapper;
+import com.spring.itjunior.mapper.ReplyMapper;
 import com.spring.itjunior.paging.Criteria;
 import com.spring.itjunior.paging.PaginationInfo;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.List;
 public class FreeBoardService {
 
     private final FreeBoardMapper freeBoardMapper;
+    private  final ReplyMapper replyMapper;
 
     //모든 게시글 가져오기 /
     public List<FreeBoard> boards(PageDto pageDto) {
@@ -41,7 +43,16 @@ public class FreeBoardService {
 
     //게시글 하나 가져오기 -> 카테고리 이름 포함
     public BoardDto selectBoard(int free_idx){
-        return freeBoardMapper.selectOne(free_idx);
+        //글 추천수
+        int likecnt = freeBoardMapper.viewcnt(free_idx);
+        //댓글 갯수
+        int replycnt = replyMapper.replycnt(free_idx);
+
+        BoardDto boardDto = freeBoardMapper.selectOne(free_idx);
+        boardDto.setLikecnt(likecnt);
+        boardDto.setReplycnt(replycnt);
+
+        return boardDto;
     }
 
     //게시글 추가/

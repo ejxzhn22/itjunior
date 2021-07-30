@@ -1,5 +1,7 @@
 package com.spring.itjunior.domain;
 
+import com.spring.itjunior.dto.QnaDto;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ secret_yn varchar(10)
 reply_yn varchar(10)
 member_idx int
 * */
+
 @Data
 public class QnaBoard {
 
@@ -29,4 +32,21 @@ public class QnaBoard {
     private DeleteYN reply_yn;
     private int member_idx;
 
+
+    public static QnaBoard setQnaBoard(QnaBoard qnaBoard,QnaDto qnaDto, String writer, int member_idx) {
+
+        qnaBoard.setTitle(qnaDto.getTitle());
+        qnaBoard.setContent(qnaDto.getContent());
+        qnaBoard.setWriter(writer);
+        qnaBoard.setDelete_yn(DeleteYN.N);
+        qnaBoard.setReply_yn(DeleteYN.N);
+        if(qnaDto.isSecret_yn()){
+            qnaBoard.setSecret_yn(DeleteYN.Y);
+        }else{
+            qnaBoard.setSecret_yn(DeleteYN.N);
+        }
+        qnaBoard.setSecret_pwd(qnaDto.getSecret_pwd());
+        qnaBoard.setMember_idx(member_idx);
+        return qnaBoard;
+    }
 }
