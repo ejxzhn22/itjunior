@@ -4,24 +4,37 @@
 
 <%@include file="../layout/header.jsp"%>
 ${principal.attributes}
+
+<div class="banner-section2">
+    <div class="banner-write2">
+        <span class="banner-title2">잇주멤버</span>
+        <span class="banner-desc2">잇주멤버가 되어 <br>많은 정보를 얻어보세요😎</span>
+    </div>
+    <div class="banner-img2">
+        <img src="${pageContext.request.contextPath}/image/banner-member.png" alt="banner img" class="banner-img2">
+        <img src="${pageContext.request.contextPath}/image/icon-link.png" alt="" class="banner-link-img2">
+    </div>
+</div>
+
 <c:choose>
     <c:when test="${principal.member.provider eq null}">
-        <h1>회원님의 안전한 정보를 위해 비밀번호를 확인 해주세요.</h1>
+        <div class="liquid">
+            <h1>회원탈퇴</h1>
+            <h1>회원탈퇴</h1>
+            <h1>회원탈퇴</h1>
+            <h1>회원탈퇴</h1>
+        </div>
         <div class="container">
             <form>
                 <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
-                <div class="form-group">
-                    <label>User Id</label>
-                    <input type="text" class="form-control" readonly="readonly" id="userId" name="userId" value="${principal.member.userId}">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="PASSWORD" id="password" name="password">
-                </div>
+                <input type="text" class="find-input1" readonly="readonly" id="userId" name="userId" value="${principal.member.userId}">
+                <input type="password" class="find-input2" placeholder="PASSWORD" id="password" name="password">
                 <div class="check-yn" id="check-yn"></div>
-                <a href="#" type="button">뒤로가기</a>
-                <button type="button" onclick="passwordCheck()" class="btn btn-primary">인증하기</button>
+                <div class="find-btns-container">
+                    <button type="button" onclick="passwordCheck()" class="btn btn-primary">인증하기</button>
+                </div>
             </form>
+            <a href="javascript:history.go(-1)" class="go-back">뒤로가기</a>
         </div>
     </c:when>
 <%--    <c:otherwise>--%>

@@ -46,14 +46,14 @@
                 <c:when test = "${uri eq '/boards'}">
                     <li><a href="/jobs">채용공고</a></li>
                     <li><a href="#">IT News</a></li>
-                    <li class="select-menu"><a href="/boards">취업토론</a></li>
+                    <li><a href="/boards" class="select-a">취업토론</a></li>
                     <li><a href="/qnaboards">Q&A</a></li>
                 </c:when>
                 <c:when test = "${uri eq '/qnaboards'}">
                     <li><a href="/jobs">채용공고</a></li>
                     <li><a href="#">IT News</a></li>
                     <li><a href="/boards">취업토론</a></li>
-                    <li class="select-menu"><a href="/qnaboards">Q&A</a></li>
+                    <li><a href="/qnaboards" class="select-a">Q&A</a></li>
                 </c:when>
                 <c:otherwise>
                     <li><a href="/jobs">채용공고</a></li>
@@ -71,17 +71,17 @@
 
         <c:choose>
             <c:when test="${empty principal}">
-                <a href="/auth/loginForm">로그인</a>
-                <a href="/auth/joinForm">회원가입</a>
+                <a href="/auth/loginForm" class="login-btn">로그인</a>
+                <a href="/auth/joinForm" class="join-btn">회원가입</a>
             </c:when>
             <c:otherwise>
-                <a href="/mypage">마이페이지</a>
+                <a href="/mypage" class="mypage-btn">마이페이지</a>
                 <c:choose>
                     <c:when test="${principal.member.provider == 'kakao'}">
                         <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://localhost:8000/logout">로그아웃</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="/logout">로그아웃</a>
+                        <a href="/logout" class="logout-btn">로그아웃</a>
                     </c:otherwise>
                 </c:choose>
             </c:otherwise>

@@ -362,4 +362,39 @@ h1{
     text-align: center;
     margin-top: 15px;
     font-size: 13px;
+    color:#787878;
+}
+.mypage-section{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.mypage-update-btns{
+    display:flex;
+    flex-direction:column;
+}
+.mypage-update{
+    background-color: #787878;
+    color: #fbf7f7;
+    margin: 20px 0;
+    padding: 14px 110px;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.mypage-delete {
+    color: #d01212;
+    text-align: center;
+    padding: 0px 110px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+.container{
+    width: 480px;
+    margin: 35px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: nanumGothic;
+    letter-spacing: -2px;
 }

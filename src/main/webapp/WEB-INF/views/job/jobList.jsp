@@ -8,7 +8,7 @@
         <span class="banner-desc3">IT 신입을 위한 <br>공고만 보여드립니다✍️</span>
     </div>
     <div class="banner-img3">
-        <img src="${pageContext.request.contextPath}/image/job-img.png" alt="banner img" class="banner-img">
+        <img src="${pageContext.request.contextPath}/image/job-img.png" alt="banner img" class="banner-img3">
         <img src="${pageContext.request.contextPath}/image/banner-top.png" alt="" class="banner-o-img">
     </div>
 </div>
