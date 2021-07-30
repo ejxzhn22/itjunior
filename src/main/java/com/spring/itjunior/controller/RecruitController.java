@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
-@RequestMapping("/recruit/*")
+@RequestMapping("/job/*")
 public class RecruitController {
 
     private RecruitService recruitService;
@@ -24,13 +24,13 @@ public class RecruitController {
         this.recruitService = recruitService;
     }
 
-    @GetMapping("/api/list")
+    @GetMapping("/list")
     public String recruitApiList(Model model) {
 
         JSONObject resultInfo = recruitService.getApiList();
         model.addAttribute("result",resultInfo);
 
-        return "recruit/apiList";
+        return "job/jobList";
     }
 
 
