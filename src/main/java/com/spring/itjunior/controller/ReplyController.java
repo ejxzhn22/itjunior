@@ -61,9 +61,7 @@ public class ReplyController {
         reply.setReply_order(replyDto.getReply_order());
 
         System.out.println("reply: " + reply);
-        Reply aa = replyService.insertChild(reply);
 
-        System.out.println("dpdldpdlsms?"+aa);
         return replyService.insertChild(reply);
     }
 
