@@ -35,6 +35,7 @@ public class RecruitServiceImpl implements RecruitService{
     @Override
     public JSONObject getApiList() {
         JSONObject apiResult = apiService.recruitApiList();
+        log.info("api 호출 json 값 >>> {}",apiResult.get("jobs"));
 
         return apiResult;
 

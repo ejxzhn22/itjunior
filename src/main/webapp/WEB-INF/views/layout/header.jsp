@@ -38,7 +38,7 @@
             <c:set var="uri" value="${requestScope['javax.servlet.forward.request_uri']}"/>
             <c:choose>
                 <c:when test = "${uri eq '/jobs'}">
-                    <li><a href="/recruit/api/list" class="select-a">채용공고</a></li>
+                    <li class="select-menu"><a href="/job/list">채용공고</a></li>
                     <li><a href="#">IT News</a></li>
                     <li><a href="/boards">취업토론</a></li>
                     <li><a href="/qnaboards">Q&A</a></li>

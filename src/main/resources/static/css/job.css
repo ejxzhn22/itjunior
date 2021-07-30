@@ -122,7 +122,7 @@ button.slick-next.slick-arrow::after {
     align-items: center;
     cursor:pointer;
 }
-.job-title{
+.job-name{
     font-size:23px;
     font-weight: 700;
     display: block;

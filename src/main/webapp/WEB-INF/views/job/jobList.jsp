@@ -36,36 +36,41 @@
                 <a href="#">통합망구축</a>
             </div>
         </div>
+
         <div class="job-list">
+            <c:forEach var="item" items="${result.jobs.job}">
             <div class="job-card">
                 <div class="job-card-box">
                     <div class="job-card1">
-                        <span class="job-title">[프론트엔드]신입개발자 모집</span>
+                        <span class="job-name">${item.company.detail.name}</span>
+                        <div class="job-title">
+                            <span>${item.position.title}</span>
+                        </div>
                         <div class="job-cop">
-                            <span>(주)잇주</span>
-                            &nbsp;|&nbsp;
-                            <span>서울 > 강남구</span>
+                            <span>${item.position.location.name}</span>
                         </div>
                     </div>
                     <div class="job-card2">
                         <div class="card2-box1">
-                            <span>기간</span>
-                            <span>09.25 마감</span>
+                            <span>기한</span>
+                            <span>${item.expiration-date} 마감</span>
+                            <span>${item.expiration-timestamp} 마감2</span>
                         </div>
                         <div class="card2-box2">
                             <span>근무형태</span>
-                            <span>정규직</span>
+                            <span>${item.position.job-type.name}</span>
                         </div>
                     </div>
                     <div class="job-card3">
                         <img src="${pageContext.request.contextPath}/image/down-arrow.png" alt="" id="slide">
                     </div>
-
                 </div>
+
                 <div id="job-desc-box">
                     API로 뿌려줄 정보들 여기에 작성하면됩니다
                 </div>
             </div>
+            </c:forEach>
         </div>
         <div class="board-footer">
             <div class="board-paging">
@@ -85,7 +90,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
     $(document).ready(function() {
-        $("#job-desc-box").slideUp();
+        $("#job-desc-box").hide();
     });
     $('.category-class').slick({
         slidesToShow: 4,
