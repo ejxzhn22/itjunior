@@ -1,6 +1,9 @@
 package com.spring.itjunior.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +19,9 @@ depth int
 order int
 emoji varchar(45)
  */
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(builderMethodName = "replyBuild")
 @Data
 public class Reply {
     private int reply_idx;
@@ -33,4 +38,16 @@ public class Reply {
     private int unlike_count;
     private boolean like_state;
     private boolean unlike_state;
+
+    public static ReplyBuilder builder(int free_idx, int member_idx, String writer, String content,
+                                       String emoji, int parent_idx, int reply_order){
+        return replyBuild()
+                .free_idx(free_idx)
+                .member_idx(member_idx)
+                .writer(writer)
+                .content(content)
+                .emoji(emoji)
+                .parent_idx(parent_idx)
+                .reply_order(reply_order);
+    }
 }

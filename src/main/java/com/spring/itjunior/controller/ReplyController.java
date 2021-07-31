@@ -31,16 +31,7 @@ public class ReplyController {
     @PostMapping("/replies/{free_idx}/insertParent")
     public Reply insertParent(@PathVariable int free_idx, @RequestBody ReplyDto replyDto){
 
-        Reply reply = new Reply();
-        reply.setFree_idx(free_idx);
-        reply.setMember_idx(replyDto.getMember_idx());
-        reply.setWriter(replyDto.getWriter());
-        reply.setContent(replyDto.getContent());
-        reply.setEmoji(replyDto.getEmoji());
-        System.out.println("reply: " + reply);
-
-        int reply_id = replyService.insertParent(reply);
-        System.out.println("replyid : " + reply_id);
+        int reply_id = replyService.insertParent(free_idx, replyDto);
 
         return replyService.reply(reply_id);
     }
@@ -50,19 +41,7 @@ public class ReplyController {
     @PostMapping("/replies/{free_idx}/insertChild")
     public Reply insertChild(@PathVariable int free_idx, @RequestBody ReplyDto replyDto){
 
-        Reply reply = new Reply();
-        reply.setFree_idx(free_idx);
-        reply.setMember_idx(replyDto.getMember_idx());
-        reply.setWriter(replyDto.getWriter());
-        reply.setContent(replyDto.getContent());
-        reply.setEmoji(replyDto.getEmoji());
-        reply.setParent_idx(replyDto.getParent_idx());
-
-        reply.setReply_order(replyDto.getReply_order());
-
-        System.out.println("reply: " + reply);
-
-        return replyService.insertChild(reply);
+        return replyService.insertChild(free_idx, replyDto);
     }
 
 
@@ -84,24 +63,16 @@ public class ReplyController {
     @ResponseBody
     @PostMapping("/replies/{reply_idx}/likes")
     public int likeParent(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ReplyLike replyLike = new ReplyLike();
-        replyLike.setReply_idx(reply_idx);
-        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
 
-
-        return replyService.likeParent(replyLike);
+        return replyService.likeParent(reply_idx,principalDetails);
     }
 
     //댓글 좋아요 취소
     @ResponseBody
     @DeleteMapping("/replies/{reply_idx}/likes")
     public int likeParentDelete(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ReplyLike replyLike = new ReplyLike();
-        replyLike.setReply_idx(reply_idx);
-        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
 
-
-        return replyService.likeParentDelete(replyLike);
+        return replyService.likeParentDelete(reply_idx,principalDetails);
     }
 
 
@@ -109,23 +80,15 @@ public class ReplyController {
     @ResponseBody
     @PostMapping("/replies/{reply_idx}/unlikes")
     public int unlikeParent(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ReplyLike replyLike = new ReplyLike();
-        replyLike.setReply_idx(reply_idx);
-        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
 
-
-        return replyService.unlikeParent(replyLike);
+        return replyService.unlikeParent(reply_idx,principalDetails);
     }
 
     //댓글 좋아요 취소
     @ResponseBody
     @DeleteMapping("/replies/{reply_idx}/unlikes")
     public int unlikeParentDelete(@PathVariable int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ReplyLike replyLike = new ReplyLike();
-        replyLike.setReply_idx(reply_idx);
-        replyLike.setMember_idx(principalDetails.getMember().getMember_idx());
 
-
-        return replyService.unlikeParentDelete(replyLike);
+        return replyService.unlikeParentDelete(reply_idx,principalDetails);
     }
 }

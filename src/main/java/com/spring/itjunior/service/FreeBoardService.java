@@ -2,6 +2,7 @@ package com.spring.itjunior.service;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Category;
+import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.domain.FreeLike;
 import com.spring.itjunior.dto.BoardDto;
@@ -56,7 +57,12 @@ public class FreeBoardService {
     }
 
     //게시글 추가/
-    public int newBoard(FreeBoard freeBoard) {
+    public int newBoard(BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        FreeBoard freeBoard = FreeBoard.builder(principalDetails.getMember().getMember_idx()
+                ,principalDetails.getMember().getNickname(), boardDto.getCate_name()+" "+boardDto.getTitle()
+                ,boardDto.getContent(), DeleteYN.N,boardDto.getCategory())
+                .build();
+
         return freeBoardMapper.insertBoard(freeBoard);
     }
 
@@ -81,13 +87,18 @@ public class FreeBoardService {
     }
 
     //글 추천하기
-    public int freeLike(FreeLike freeLike){
+    public int freeLike(int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        FreeLike freeLike = FreeLike.builder(free_idx,principalDetails.getMember().getMember_idx())
+                .build();
 
         return freeBoardMapper.freeLike(freeLike);
     }
 
     //글 추천 삭제하기
-    public int deleteFreeLike(FreeLike freeLike){
+    public int deleteFreeLike(int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        FreeLike freeLike = FreeLike.builder(free_idx,principalDetails.getMember().getMember_idx())
+                .build();
 
         return freeBoardMapper.deleteFreeLike(freeLike);
     }
@@ -98,7 +109,10 @@ public class FreeBoardService {
     }
 
     //글 추천 여부 가져오기
-    public boolean likeState(FreeLike freeLike) {
+    public boolean likeState(int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        FreeLike freeLike = FreeLike.builder(free_idx,principalDetails.getMember().getMember_idx())
+                .build();
+
         int likeState = freeBoardMapper.likeState(freeLike);
 
         if(likeState == 1){

@@ -44,19 +44,13 @@ public class FreeBoardController {
         // 조회수 올리기
         freeBoardService.viewUpdate(free_idx);
 
-        //추천상태
-        FreeLike freeLike = FreeLike.builder(free_idx,principalDetails.getMember().getMember_idx())
-                .build();
-
         // 댓글 추천 상태
-        boolean likeState = freeBoardService.likeState(freeLike);
+        boolean likeState = freeBoardService.likeState(free_idx,principalDetails);
 
         //DTO에 담아서 보낸다.
         BoardDto boardDto = freeBoardService.selectBoard(free_idx);
         boardDto.setDtoTitle(boardDto.getTitle(),boardDto.getCate_name());
         boardDto.setLikeState(likeState);
-
-
 
         model.addAttribute("board",boardDto);
 
@@ -80,12 +74,7 @@ public class FreeBoardController {
     @PostMapping("/boards/new")
     public String newBoard(BoardDto boardDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        FreeBoard freeBoard = FreeBoard.builder(principalDetails.getMember().getMember_idx()
-                ,principalDetails.getMember().getNickname(), boardDto.getCate_name()+" "+boardDto.getTitle()
-                ,boardDto.getContent(),DeleteYN.N,boardDto.getCategory())
-                .build();
-
-        int result = freeBoardService.newBoard(freeBoard);
+        int result = freeBoardService.newBoard(boardDto, principalDetails);
 
         String resultmsg="";
         if(result>0){
@@ -102,10 +91,7 @@ public class FreeBoardController {
     @PostMapping("/boards/{free_idx}/likes")
     public int freeLike(@PathVariable int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
-        FreeLike freeLike = FreeLike.builder(free_idx,principalDetails.getMember().getMember_idx())
-                .build();
-
-        return freeBoardService.freeLike(freeLike);
+        return freeBoardService.freeLike(free_idx,principalDetails);
     }
 
     //글 추천 취소하기
@@ -113,10 +99,7 @@ public class FreeBoardController {
     @DeleteMapping("/boards/{free_idx}/likes")
     public int DeleteFreeLike(@PathVariable int free_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
-        FreeLike freeLike = FreeLike.builder(free_idx,principalDetails.getMember().getMember_idx())
-                .build();
-
-        return freeBoardService.deleteFreeLike(freeLike);
+        return freeBoardService.deleteFreeLike(free_idx,principalDetails);
     }
 
     // 글 수정 이동
