@@ -3,10 +3,12 @@ package com.spring.itjunior.service;
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.Reply;
 import com.spring.itjunior.domain.ReplyLike;
+import com.spring.itjunior.dto.ReplyDto;
 import com.spring.itjunior.mapper.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -52,7 +54,10 @@ public class ReplyService {
     }
 
     //부모 댓글 추가
-    public int insertParent(Reply reply){
+    public int insertParent( int free_idx, ReplyDto replyDto){
+        Reply reply = Reply.builder(free_idx, replyDto.getMember_idx(),replyDto.getWriter(),replyDto.getContent()
+                ,replyDto.getEmoji(),replyDto.getParent_idx(),replyDto.getReply_order())
+                .build();
         replyMapper.insertParent(reply);
         System.out.println("키값 : "+reply.getReply_idx());
         return reply.getReply_idx();
@@ -60,7 +65,11 @@ public class ReplyService {
     }
 
     // 대댓글 추가
-    public Reply insertChild(Reply reply){
+    public Reply insertChild(int free_idx, ReplyDto replyDto){
+
+        Reply reply = Reply.builder(free_idx, replyDto.getMember_idx(),replyDto.getWriter(),replyDto.getContent()
+                ,replyDto.getEmoji(),replyDto.getParent_idx(),replyDto.getReply_order())
+                .build();
         replyMapper.insertChild(reply);
 
         return replyMapper.lastOne();
@@ -84,22 +93,33 @@ public class ReplyService {
     }
 
     //댓글 좋아요
-    public int likeParent(ReplyLike replyLike){
+    public int likeParent(int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ReplyLike replyLike = ReplyLike.builder(reply_idx,principalDetails.getMember().getMember_idx())
+                .build();
         return replyMapper.likeParent(replyLike);
     }
 
     //댓글 좋아요취소하기
-    public int likeParentDelete(ReplyLike replyLike){
+    public int likeParentDelete(int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ReplyLike replyLike = ReplyLike.builder(reply_idx,principalDetails.getMember().getMember_idx())
+                .build();
+
         return replyMapper.likeParentDelete(replyLike);
     }
 
     //댓글 싫어요
-    public int unlikeParent(ReplyLike replyLike){
+    public int unlikeParent(int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ReplyLike replyLike = ReplyLike.builder(reply_idx,principalDetails.getMember().getMember_idx())
+                .build();
+
         return replyMapper.unlikeParent(replyLike);
     }
 
     //댓글 싫어요취소
-    public int unlikeParentDelete(ReplyLike replyLike){
+    public int unlikeParentDelete(int reply_idx, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ReplyLike replyLike = ReplyLike.builder(reply_idx,principalDetails.getMember().getMember_idx())
+                .build();
+
         return replyMapper.unlikeParentDelete(replyLike);
     }
 }
