@@ -39,37 +39,65 @@
 
         <div class="job-list">
             <c:forEach var="item" items="${result.jobs.job}">
-            <div class="job-card">
-                <div class="job-card-box">
-                    <div class="job-card1">
-                        <span class="job-name">${item.company.detail.name}</span>
-                        <div class="job-title">
-                            <span>${item.position.title}</span>
+                <div class="job-card">
+                    <div class="job-card-box">
+                        <div class="job-card1">
+                            <span class="job-name">${item.company.detail.name}</span>
+                            <div class="job-title">
+                                <span>${item.position.title}</span>
+                            </div>
+                            <div class="job-cop">
+                                <span>${item.position.location.name}</span>
+                            </div>
                         </div>
-                        <div class="job-cop">
-                            <span>${item.position.location.name}</span>
-                        </div>
-                    </div>
-                    <div class="job-card2">
-                        <div class="card2-box1">
-                            <span>기한</span>
-                            <span>${item.expiration-date} 마감</span>
-                            <span>${item.expiration-timestamp} 마감2</span>
-                        </div>
-                        <div class="card2-box2">
-                            <span>근무형태</span>
-                            <span>${item.position.job-type.name}</span>
-                        </div>
-                    </div>
-                    <div class="job-card3">
-                        <img src="${pageContext.request.contextPath}/image/down-arrow.png" alt="" id="slide">
-                    </div>
-                </div>
+                        <div class="job-card2">
+                            <div class="card2-box2">
+                                <span>근무형태</span>
+                                <span><c:out value="${item.position['job-type'].name}"/></span>
+                            </div>
+                            <div class="card2-box1">
+                                <span>기한</span>
+                                <c:if test="${item['close-type'].name eq '접수마감일'}">
+                                    <fmt:parseDate value="${item['expiration-date']}" var="parseDate" pattern="yyyy-MM-dd'T'HH:mm:ssZ"/>
+                                    <fmt:formatDate value="${parseDate}" var="formatDate" pattern="MM/dd HH:mm"/>
+                                    <c:out value="${formatDate}"/> 마감
+                                </c:if>
+                                <c:if test="${item['close-type'].name ne '접수마감일'}">
+                                    <span>${item['close-type'].name} 마감</span>
+                                </c:if>
 
-                <div id="job-desc-box">
-                    API로 뿌려줄 정보들 여기에 작성하면됩니다
+                            </div>
+                        </div>
+                        <div class="job-card3">
+                            <img src="${pageContext.request.contextPath}/image/down-arrow.png" alt="" id="slide">
+                        </div>
+                    </div>
+
+                    <div id="job-desc-box">
+                        <div>
+                            <span>직종</span>
+                            <span> : ${item.position['job-category'].name}</span>
+                        </div>
+                        <div>
+                            <span>경력</span>
+                            <span> : ${item.position['experience-level'].name}</span>
+                        </div>
+                        <div>
+                            <span>최종학력</span>
+                            <span> : ${item.position['required-education-level'].name}</span>
+                        </div>
+                        <div>
+                            <span>연봉</span>
+                            <span> : <c:out value="${item.salary.name}"/></span>
+                            <span>지원자 수</span>
+                            <span> : <c:out value="${item['apply-cnt']}"/></span>
+                        </div>
+                        <div>
+                            <a href="${item.url}" class="join-btn">채용상세정보</a>
+                            <a href="${item.company.detail.href}" class="join-btn">기업상세정보</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
             </c:forEach>
         </div>
         <div class="board-footer">
