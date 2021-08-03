@@ -18,12 +18,12 @@
         <form action="/qnaboards" method="post" class="board-search">
             <input type="hidden" name="currentPageNo" value="1">
             <input type="hidden" name="recordsPerPage" value="10">
-            <select name="searchType" class="board-select">
+            <select id="select-type" name="searchType" class="board-select">
                 <option value="all">전체</option>
                 <option value="writer">작성자</option>
                 <option value="title">질문</option>
             </select>
-            <input type="text" name="searchKeyword" class="board-input" autocomplete="off">
+            <input type="text" name="searchKeyword" value="${page.searchKeyword}" class="board-input" autocomplete="off">
             <input type="submit" value="🔍" class="board-submit">
         </form>
 
@@ -120,6 +120,17 @@
 <%@include file="../layout/footer.jsp"%>
 
 <script>
+
+    function changeValue() {
+
+        let cate ="${page.searchType}";
+        $("#select-type").val(cate).attr("selected",true);
+
+    }
+    $(document).ready(function () {
+
+        changeValue();
+    })
     function wrapWindowByMask(){
 
         //화면의 높이와 너비를 구한다.

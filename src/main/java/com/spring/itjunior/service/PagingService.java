@@ -35,5 +35,14 @@ public class PagingService {
         return pageDto;
     }
 
+    public PageDto makeNewsPaging(Object totalCount) {
+        PageDto pageDto = new PageDto();
+        pageDto.setRecordsPerPage(10);
+        PaginationInfo paginationInfo = new PaginationInfo(pageDto);
+        paginationInfo.setTotalRecordCount(Integer.parseInt(totalCount.toString()));
+        pageDto.setPaginationInfo(paginationInfo);
+
+        return pageDto;
+    }
 
 }

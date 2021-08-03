@@ -58,7 +58,7 @@
                 </c:when>
                 <c:otherwise>
                     <li><a href="/jobs">채용공고</a></li>
-                    <li><a href="#">IT News</a></li>
+                    <li><a href="/news">IT News</a></li>
                     <li><a href="/boards">취업토론</a></li>
                     <li><a href="/qnaboards">Q&A</a></li>
                 </c:otherwise>

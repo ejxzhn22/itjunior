@@ -12,11 +12,13 @@ import com.spring.itjunior.mapper.ReplyMapper;
 import com.spring.itjunior.paging.Criteria;
 import com.spring.itjunior.paging.PaginationInfo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +27,7 @@ public class FreeBoardService {
     private final FreeBoardMapper freeBoardMapper;
     private  final ReplyMapper replyMapper;
 
-    //모든 게시글 가져오기 /
+    //모든 게시글 가져오기 //
     public List<FreeBoard> boards(PageDto pageDto) {
 
         return freeBoardMapper.selectAll(pageDto);
