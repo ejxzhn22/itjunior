@@ -7,7 +7,7 @@
 <div class="content1-section">
     <img src="${pageContext.request.contextPath}/image/itju-main-card.png" alt="메인이미지" class="main-card-img">
     <span class="main-words">IT취업의 첫 걸음<br><p class="main-words-itju">잇주</p>가 함께합니다😀</span>
-    <a href="#" class="main-join">JOIN 🙌</a>
+    <a href="/auth/joinForm" class="main-join">JOIN 🙌</a>
     <img src="${pageContext.request.contextPath}/image/icon-downarrow.png" alt="" class="down-arrow" onclick="scrollDown();">
 </div>
 <section>

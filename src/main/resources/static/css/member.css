@@ -168,8 +168,10 @@ h1{
     margin:15px 0;
 }
 .join span:first-child{
-    width: 100px;
-    display:inline-block
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .join input:nth-child(2){
     font-size: 16px;
@@ -398,3 +400,24 @@ h1{
     font-family: nanumGothic;
     letter-spacing: -2px;
 }
+#id-check, #password-check, #password-check1, #password-check2, #name-check, #email-check, #nickname-check {
+    font-size: 11px;
+    color: #ea456b;
+    margin-left: 10px;
+}
+.possible-input {
+    font-size: 11px;
+    color: #4587ea !important;
+    margin-left: 10px;
+}
+#passwordChange{
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    padding: 2px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#passwordChange:hover{
+    background: #787878;
+}
+
