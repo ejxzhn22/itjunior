@@ -15,56 +15,56 @@
     font-family : "nanumgothic";
     src: url("../font/NanumGothic.ttf") format('ttf');
 }
-ul,li{
-    margin:0;
-    padding:0;
-    list-style: none;
-}
-p{
-    margin:0;
-    padding:0;
-}
-a{
-    text-decoration: none;
-}
-body{
-    font-family: hannaw,hannam,nanumGothic;
-    margin:0;
-    padding:0;
-}
-/* 헤더 */
-.logo-div{
-    width:15%;
-}
-.nav-div{
-    width:60%;
-}
-.member-div{
-    width:22%;
-    display:flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.nav-div ul{
-    display:flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height:100%;
-    font-size:20px;
-}
-.logo-img{
-    width:180px;
-    height:70px;
-}
-.header-section{
-    display:flex;
-    position:sticky;
-    top:0;
-    background-color: #fff;
-    z-index: 10;
-    padding:10px 35px;
-    transition:1s linear;
-}
+/*ul,li{*/
+/*    margin:0;*/
+/*    padding:0;*/
+/*    list-style: none;*/
+/*}*/
+/*p{*/
+/*    margin:0;*/
+/*    padding:0;*/
+/*}*/
+/*a{*/
+/*    text-decoration: none;*/
+/*}*/
+/*body{*/
+/*    font-family: hannaw,hannam,nanumGothic;*/
+/*    margin:0;*/
+/*    padding:0;*/
+/*}*/
+/*!* 헤더 *!*/
+/*.logo-div{*/
+/*    width:15%;*/
+/*}*/
+/*.nav-div{*/
+/*    width:60%;*/
+/*}*/
+/*.member-div{*/
+/*    width:22%;*/
+/*    display:flex;*/
+/*    justify-content: space-evenly;*/
+/*    align-items: center;*/
+/*}*/
+/*.nav-div ul{*/
+/*    display:flex;*/
+/*    justify-content: space-evenly;*/
+/*    align-items: center;*/
+/*    height:100%;*/
+/*    font-size:20px;*/
+/*}*/
+/*.logo-img{*/
+/*    width:180px;*/
+/*    height:70px;*/
+/*}*/
+/*.header-section{*/
+/*    display:flex;*/
+/*    position:sticky;*/
+/*    top:0;*/
+/*    background-color: #fff;*/
+/*    z-index: 10;*/
+/*    padding:10px 35px;*/
+/*    transition:1s linear;*/
+/*}*/
 
 
 /* 컨텐츠 */
