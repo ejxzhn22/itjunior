@@ -3,6 +3,7 @@ package com.spring.itjunior.service;
 import com.spring.itjunior.domain.DeleteYN;
 import com.spring.itjunior.domain.FreeBoard;
 import com.spring.itjunior.dto.BoardDto;
+import com.spring.itjunior.dto.PageDto;
 import com.spring.itjunior.paging.Criteria;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 
 @SpringBootTest
 class FreeBoardServiceTest {
@@ -40,6 +40,13 @@ class FreeBoardServiceTest {
 
         List<FreeBoard> boards = freeBoardService.boards(boardDto);
         Assertions.assertThat(boards.size()).isEqualTo(3);
+
+    }
+
+    @Test
+    public void 게시글갯수가져오기(PageDto pageDto){
+        int count = freeBoardService.selectBoardTotalCount(pageDto);
+        Assertions.assertThat(count).isEqualTo(61447);
 
     }
 
