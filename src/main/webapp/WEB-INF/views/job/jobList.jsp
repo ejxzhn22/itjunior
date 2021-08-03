@@ -73,28 +73,32 @@
                         </div>
                     </div>
 
-                    <div id="job-desc-box">
-                        <div>
-                            <span>직종</span>
-                            <span> : ${item.position['job-category'].name}</span>
+                    <div id="job-desc-box" class="job-desc-box">
+                        <div class="job-info">
+                            <div>
+                                <span>직종</span>
+                                <span> : ${item.position['job-category'].name}</span>
+                            </div>
+                            <div>
+                                <span>경력</span>
+                                <span> : ${item.position['experience-level'].name}</span>
+                            </div>
+                            <div>
+                                <span>최종학력</span>
+                                <span> : ${item.position['required-education-level'].name}</span>
+                            </div>
+                            <div>
+                                <span>연봉</span>
+                                <span> : <c:out value="${item.salary.name}"/></span>
+                            </div>
+                            <div>
+                                <span>지원자 수</span>
+                                <span> : <c:out value="${item['apply-cnt']}"/></span>
+                            </div>
                         </div>
-                        <div>
-                            <span>경력</span>
-                            <span> : ${item.position['experience-level'].name}</span>
-                        </div>
-                        <div>
-                            <span>최종학력</span>
-                            <span> : ${item.position['required-education-level'].name}</span>
-                        </div>
-                        <div>
-                            <span>연봉</span>
-                            <span> : <c:out value="${item.salary.name}"/></span>
-                            <span>지원자 수</span>
-                            <span> : <c:out value="${item['apply-cnt']}"/></span>
-                        </div>
-                        <div>
-                            <a href="${item.url}" class="join-btn">채용상세정보</a>
-                            <a href="${item.company.detail.href}" class="join-btn">기업상세정보</a>
+                        <div class="job-link">
+                            <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
+                            <a href="${item.company.detail.href}" target="_blank" class="join-btn">기업상세정보</a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +122,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
     $(document).ready(function() {
-        $("#job-desc-box").hide();
+        $(".job-desc-box").hide();
     });
     $('.category-class').slick({
         slidesToShow: 4,
@@ -128,9 +132,9 @@
     });
 
     $(function() {
-        $(".job-card").on("click", function() {
-            $("#job-desc-box").slideToggle('fast','linear',function(){
-                if ( $('#job-desc-box').css('display') === 'none' ) {
+        $(".job-card").on("click", function(e) {
+            $(e.currentTarget.childNodes[3]).slideToggle('fast','linear',function(){
+                if ( $(e.currentTarget.childNodes[3]).css('display') === 'none' ) {
                     $("#slide").css('transform','rotate(0deg)');
                     $(".job-card-box").css('border-bottom','none');
                 }
