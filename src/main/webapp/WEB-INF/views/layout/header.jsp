@@ -38,7 +38,7 @@
         <ul>
             <c:set var="uri" value="${requestScope['javax.servlet.forward.request_uri']}"/>
             <c:choose>
-                <c:when test = "${uri eq '/jobs'}">
+                <c:when test = "${uri eq '/job/list'}">
                     <li><a href="/job/list" class="select-a">채용공고</a></li>
                     <li><a href="/news">IT News</a></li>
                     <li><a href="/boards">취업토론</a></li>
@@ -51,19 +51,19 @@
                     <li><a href="/qnaboards">Q&A</a></li>
                 </c:when>
                 <c:when test = "${uri eq '/boards'}">
-                    <li><a href="/jobs">채용공고</a></li>
+                    <li><a href="/job/list">채용공고</a></li>
                     <li><a href="/news">IT News</a></li>
                     <li><a href="/boards" class="select-a">취업토론</a></li>
                     <li><a href="/qnaboards">Q&A</a></li>
                 </c:when>
                 <c:when test = "${uri eq '/qnaboards'}">
-                    <li><a href="/jobs">채용공고</a></li>
+                    <li><a href="/job/list">채용공고</a></li>
                     <li><a href="/news">IT News</a></li>
                     <li><a href="/boards">취업토론</a></li>
                     <li><a href="/qnaboards" class="select-a">Q&A</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="/jobs">채용공고</a></li>
+                    <li><a href="/job/list">채용공고</a></li>
                     <li><a href="/news">IT News</a></li>
                     <li><a href="/boards">취업토론</a></li>
                     <li><a href="/qnaboards">Q&A</a></li>

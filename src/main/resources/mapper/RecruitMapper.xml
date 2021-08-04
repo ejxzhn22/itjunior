@@ -41,4 +41,44 @@
         )
     </insert>
 
+    <select id="selectRecruitByIdx" resultType="RecruitDTO" parameterType="long">
+        SELECT <include refid="recruitColumns"/>
+        FROM tbl_recruit
+        WHERE job_idx=#{job_idx}
+    </select>
+<!--    <select id="selectRecruitIdxByJobIdx" parameterType="long">-->
+<!--        SELECT recruit_idx-->
+<!--        FROM tbl_recruit-->
+<!--        WHERE job_idx=#{job_idx}-->
+<!--    </select>-->
+
+    <select id="selectIsRecruitLike" resultType="int" parameterType="RecruitLike">
+        SELECT count(*)
+        FROM tbl_recruit_like
+        WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
+    </select>
+
+    <insert id="insertRecruitLike" parameterType="RecruitLike">
+        INSERT INTO tbl_recruit_like (
+            like_idx,
+            recruit_idx,
+            member_idx
+        ) VALUES (
+            #{like_idx},
+            #{recruit_idx},
+            #{member_idx}
+        )
+    </insert>
+
+    <delete id="deleteRecruitLike" parameterType="RecruitLike">
+        DELETE FROM tbl_recruit_like
+        WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
+    </delete>
+
+<!--    <select id="selectLikeCount" resultType="int" parameterType="int">-->
+<!--        SELECT count(*)-->
+<!--        FROM tbl_recruit_like-->
+<!--        WHERE recruit_idx=#{recruit_idx}-->
+<!--    </select>-->
+
 </mapper>

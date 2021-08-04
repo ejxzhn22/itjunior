@@ -1,5 +1,6 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.dto.PageDto;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,9 +30,11 @@ public class ApiService {
     //필드(부가항목 - 날짜/시간형식의 게시일, 날짜/시간형식의 마감일시, 업직종키워드 코드, 조회수/지원자수/댓글수
     private final String fields = "posting-date+expiration-date+keyword-code+count";
 
-    public JSONObject recruitApiList() {
+    public JSONObject recruitApiList(PageDto pageDto) {
         StringBuffer result = new StringBuffer();
         JSONObject jsonObject = new JSONObject();
+        int currentPageNo = pageDto.getCurrentPageNo()-1;
+//        int recordsPerPage = pageDto.getRecordsPerPage();
         try {
             StringBuilder urlBuilder = new StringBuilder(requestUrl);
 
@@ -39,10 +42,11 @@ public class ApiService {
             urlBuilder.append("&" + URLEncoder.encode("job_category","UTF-8")+"="+job_category);
             urlBuilder.append("&" + URLEncoder.encode("loc_cd","UTF-8")+"="+loc_cd);
             urlBuilder.append("&" + URLEncoder.encode("fields","UTF-8")+"="+fields);
-//            urlBuilder.append("&" + URLEncoder.encode("start","UTF-8")+"="+0);
-//            urlBuilder.append("&" + URLEncoder.encode("count","UTF-8")+"="+50);
-//            urlBuilder.append("&" + URLEncoder.encode("keywords","UTF-8")+"="+URLEncoder.encode("백엔드","UTF-8"));
+            urlBuilder.append("&" + URLEncoder.encode("start","UTF-8")+"="+currentPageNo);
+//            urlBuilder.append("&" + URLEncoder.encode("keywords","UTF-8")+"="+URLEncoder.encode("신입","UTF-8"));
+//            urlBuilder.append("&" + URLEncoder.encode("count","UTF-8")+"="+recordsPerPage);
 
+            log.info("pageDto >>> {}",pageDto.toString());
             URL url = new URL(urlBuilder.toString());
             log.info("url>>>>{}",url);
 
