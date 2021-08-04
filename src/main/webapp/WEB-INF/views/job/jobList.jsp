@@ -65,7 +65,6 @@
                                 <c:if test="${item['close-type'].name ne '접수마감일'}">
                                     <span>${item['close-type'].name} 마감</span>
                                 </c:if>
-
                             </div>
                         </div>
                         <div class="job-card3">
@@ -95,6 +94,12 @@
                                 <span>지원자 수</span>
                                 <span> : <c:out value="${item['apply-cnt']}"/></span>
                             </div>
+                            <c:if test="${item['active'] eq '0'}">
+                                <div>
+                                    <span>상태</span>
+                                    <span> : 마감된 공고입니다.</span>
+                                </div>
+                            </c:if>
                         </div>
                         <div class="job-link">
                             <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
@@ -105,15 +110,33 @@
             </c:forEach>
         </div>
         <div class="board-footer">
-            <div class="board-paging">
-                <a href="#"> < </a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#"> > </a>
-            </div>
+            <c:if test="${page != null and page.paginationInfo.totalRecordCount > 0}">
+                <ul class="board-paging" style="display: flex">
+                    <c:if test="${page.paginationInfo.hasPreviousPage}">
+                        <li onclick="movePage('${page.makeQueryString(1)}')" >
+                            <a href="javascript:void(0)"> << </a>
+                        </li>
+                        <li onclick="movePage('${page.makeQueryString(page.paginationInfo.firstPage - 1)}')" >
+                            <a href="javascript:void(0)"> < </a>
+                        </li>
+                    </c:if>
+                    <c:forEach begin="${page.paginationInfo.firstPage}" end="${page.paginationInfo.lastPage}" var="num">
+                        <li onclick="movePage('${page.makeQueryString(num)}')" >
+                            <a href="javascript:void(0)">${num}</a>
+                        </li>
+                    </c:forEach>
+
+                    <c:if test="${page.paginationInfo.hasNextPage}">
+                        <li onclick="movePage('${page.makeQueryString(page.paginationInfo.lastPage + 1)}')">
+                            <a href="javascript:void(0)"> > </a>
+                        </li>
+                        <li onclick="movePage('${page.makeQueryString(page.paginationInfo.totalPageCount)}')" >
+                            <a href="javascript:void(0)"> >> </a>
+                        </li>
+                    </c:if>
+                </ul>
+
+            </c:if>
         </div>
     </div>
 
@@ -121,6 +144,10 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
+    function movePage(queryString) {
+        location.href = "/job/list" + queryString;
+    }
+
     $(document).ready(function() {
         $(".job-desc-box").hide();
     });

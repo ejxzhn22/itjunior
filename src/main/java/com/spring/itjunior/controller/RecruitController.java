@@ -1,7 +1,10 @@
 package com.spring.itjunior.controller;
 
 import com.spring.itjunior.domain.RecruitDTO;
+import com.spring.itjunior.dto.PageDto;
+import com.spring.itjunior.service.PagingService;
 import com.spring.itjunior.service.RecruitService;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,33 +17,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
+@AllArgsConstructor
 @RequestMapping("/job/*")
 public class RecruitController {
 
     private RecruitService recruitService;
-
-    @Autowired
-    public RecruitController(RecruitService recruitService) {
-        this.recruitService = recruitService;
-    }
+    private PagingService pagingService;
 
     @GetMapping("/list")
-    public String recruitApiList(Model model) {
+    public String recruitApiList(Model model, PageDto pageDto) {
+        JSONObject resultInfo = recruitService.getApiList(pageDto);
 
-        JSONObject resultInfo = recruitService.getApiList();
+//        recruitService.selectLikeCount(resultInfo);
+
+        PageDto setPageDto = pagingService.makeRecruitPaging(pageDto, resultInfo);
+
         model.addAttribute("result",resultInfo);
+        model.addAttribute("page",setPageDto);
 
         return "job/jobList";
     }
 
-
-    @PostMapping("/newInfo")
-    public String registerRecruitInfo(@RequestBody RecruitDTO params) {
-
-        log.info("close_date >>> {}", params.getClose_date());
-
-        boolean isRegistered = recruitService.saveRecruitInfo(params);
-
-        return (isRegistered == true) ? "채용정보 등록 성공" : "채용정보 등록 실패..";
-    }
 }

@@ -61,15 +61,13 @@ public class PaginationInfo {
 
     public void setTotalRecordCount(int totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
-
+        System.out.println("들어옴***********"+criteria.getCurrentPageNo());
         if (totalRecordCount > 0) {
             calculation();
         }
     }
 
     private void calculation() {
-
-
 
         /* 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장) */
         totalPageCount = ((totalRecordCount - 1) / criteria.getRecordsPerPage()) + 1;
