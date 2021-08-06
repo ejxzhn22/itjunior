@@ -1,5 +1,6 @@
 package com.spring.itjunior.service;
 
+import com.spring.itjunior.dto.PageDto;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,23 @@ public class NaverNewsService {
     final String clientId = "cva86oC3kaQ2yLpsbcQg";//애플리케이션 클라이언트 아이디값";
     final String clientSecret = "TZwK3cWUma";//애플리케이션 클라이언트 시크릿값";
 
-    public JSONObject newsApiList() {
+    public JSONObject newsApiList(PageDto pageDto) {
         JSONObject jsonObject = new JSONObject();
+        int currentPage = pageDto.getCurrentPageNo();
+        System.out.println("current"+currentPage);
         try {
-            String text = URLEncoder.encode("아이티", "UTF-8"); //검색어";
-            String apiURL = "https://openapi.naver.com/v1/search/news.json?query="+ text + "&display=10&start=1&sort=date"; // 뉴스의 json 결과
+            String text = URLEncoder.encode("IT", "UTF-8"); //검색어";
+            String apiURL = "https://openapi.naver.com/v1/search/news.json?query="+ text + "&display=10&sort=sim";// 뉴스의 json 결과
+            apiURL +="&start=" + currentPage;
+            System.out.println("service pageDto: " +pageDto);
+            System.out.println("service pageinfo: " +pageDto.getPaginationInfo());
             URL url = new URL(apiURL);
 
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("X-Naver-Client-Id", clientId);
             con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+
             int responseCode = con.getResponseCode();
             BufferedReader br;
 
