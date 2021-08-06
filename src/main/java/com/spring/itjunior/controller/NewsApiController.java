@@ -17,11 +17,12 @@ public class NewsApiController {
     private final PagingService pagingService;
 
     @GetMapping("/news")
-    public String news(Model model){
+    public String news(Model model, PageDto pageDto){
 
 
-        JSONObject jsonObject = naverNewsService.newsApiList();
-        PageDto pageDto = pagingService.makeNewsPaging(jsonObject.get("total"));
+        JSONObject jsonObject = naverNewsService.newsApiList(pageDto);
+        System.out.println("total"+jsonObject.get("total").toString());
+        pageDto = pagingService.makeNewsPaging(pageDto,jsonObject);
 
         model.addAttribute("page", pageDto);
         model.addAttribute("result", jsonObject.get("items"));

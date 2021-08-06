@@ -56,6 +56,7 @@ public class PaginationInfo {
         }
 
 
+
         this.criteria = criteria;
     }
 
@@ -68,6 +69,10 @@ public class PaginationInfo {
     }
 
     private void calculation() {
+
+        if(totalRecordCount > 10000){
+            totalRecordCount = 10000;
+        }
 
         /* 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장) */
         totalPageCount = ((totalRecordCount - 1) / criteria.getRecordsPerPage()) + 1;
