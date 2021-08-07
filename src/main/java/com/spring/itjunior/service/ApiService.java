@@ -34,6 +34,11 @@ public class ApiService {
         StringBuffer result = new StringBuffer();
         JSONObject jsonObject = new JSONObject();
         int currentPageNo = pageDto.getCurrentPageNo()-1;
+        String keyword = pageDto.getSearchKeyword();
+        if(keyword == null){
+            keyword = "";
+        }
+        System.out.println("pagedto : "+pageDto);
 //        int recordsPerPage = pageDto.getRecordsPerPage();
         try {
             StringBuilder urlBuilder = new StringBuilder(requestUrl);
@@ -43,6 +48,7 @@ public class ApiService {
             urlBuilder.append("&" + URLEncoder.encode("loc_cd","UTF-8")+"="+loc_cd);
             urlBuilder.append("&" + URLEncoder.encode("fields","UTF-8")+"="+fields);
             urlBuilder.append("&" + URLEncoder.encode("start","UTF-8")+"="+currentPageNo);
+            urlBuilder.append("&" + URLEncoder.encode("keywords","UTF-8")+"="+URLEncoder.encode(keyword,"UTF-8"));
 //            urlBuilder.append("&" + URLEncoder.encode("keywords","UTF-8")+"="+URLEncoder.encode("신입","UTF-8"));
 //            urlBuilder.append("&" + URLEncoder.encode("count","UTF-8")+"="+recordsPerPage);
 

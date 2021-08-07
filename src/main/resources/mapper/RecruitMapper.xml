@@ -81,4 +81,8 @@
 <!--        WHERE recruit_idx=#{recruit_idx}-->
 <!--    </select>-->
 
+    <select id="selectKeyword" resultType="Category">
+        select * from tbl_category where cate_code = 200
+    </select>
+
 </mapper>
