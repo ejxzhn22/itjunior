@@ -54,7 +54,8 @@
                                 <span class="qna-q">Q.</span>
                                 ${qna.title}
                             </div>
-                            <div class="">${qna.writer} | ${qna.create_time}</div>
+                            <div class="">${qna.writer} | <fmt:parseDate value="${qna.create_time}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                <fmt:formatDate value="${parsedDateTime}" pattern="yyyy.MM.dd HH:mm"/></div>
                         </div>
                         <div class="qna-div2">
                             <c:if test="${qna.reply_yn == 'Y'}">
