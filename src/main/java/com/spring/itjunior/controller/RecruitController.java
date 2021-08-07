@@ -1,5 +1,6 @@
 package com.spring.itjunior.controller;
 
+import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.RecruitDTO;
 import com.spring.itjunior.dto.PageDto;
 import com.spring.itjunior.service.PagingService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -32,6 +35,10 @@ public class RecruitController {
 
         PageDto setPageDto = pagingService.makeRecruitPaging(pageDto, resultInfo);
 
+        //키워드 가져오기
+        List<Category> categories = recruitService.keywordList();
+
+        model.addAttribute("categories", categories);
         model.addAttribute("result",resultInfo);
         model.addAttribute("page",setPageDto);
 
