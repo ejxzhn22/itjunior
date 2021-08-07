@@ -58,6 +58,8 @@ public class ReplyService {
         Reply reply = Reply.builder(free_idx, replyDto.getMember_idx(),replyDto.getWriter(),replyDto.getContent()
                 ,replyDto.getEmoji(),replyDto.getParent_idx(),replyDto.getReply_order())
                 .build();
+
+        System.out.println("reply: "+reply);
         replyMapper.insertParent(reply);
         System.out.println("키값 : "+reply.getReply_idx());
         return reply.getReply_idx();

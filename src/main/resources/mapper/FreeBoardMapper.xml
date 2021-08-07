@@ -20,7 +20,8 @@
 
     <!-- 모든 게시글 가져오기 -->
     <select id="selectAll" resultType="FreeBoard" parameterType="PageDto">
-        SELECT * FROM tbl_board_free
+        SELECT *
+        FROM tbl_board_free
         where
         delete_yn="N"
         <include refid="category" />

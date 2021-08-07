@@ -29,7 +29,8 @@
             <div class="q-info">
                 <span class="q-name">${board.writer}</span>
                 |
-                <span class="q-date">${board.create_time}</span>
+                <span class="q-date"><fmt:parseDate value="${board.create_time}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                <fmt:formatDate value="${parsedDateTime}" pattern="yyyy.MM.dd HH:mm"/></span>
             </div>
         </div>
 
@@ -46,7 +47,8 @@
                 <div class="a-info">
                     <span class="a-name">${board.answer_writer}</span>
                     |
-                    <span class="a-date">${board.answer_create_time}</span>
+                    <span class="a-date"><fmt:parseDate value="${board.answer_create_time}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                <fmt:formatDate value="${parsedDateTime}" pattern="yyyy.MM.dd HH:mm"/></span>
                 </div>
             </div>
         </c:if>

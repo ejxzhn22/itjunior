@@ -19,7 +19,8 @@
         <img src="/image/icon-minus.png" alt="">
         <h1>${board.title}</h1>
     </div>
-    <span class="detail-date">${create_time}</span>
+    <span class="detail-date"><fmt:parseDate value="${board.create_time}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                <fmt:formatDate value="${parsedDateTime}" pattern="yyyy.MM.dd HH:mm"/></span>
     <div class="detail-content-section">
         <img src="/image/itju-sum.png" alt="" class="itju-main-img">
 
@@ -172,7 +173,7 @@
                 console.log("깊이 : " ,i.depth);
 
                 let content= i.content;
-                let create_time= i.create_time;
+                let create_time= i.create_time.replace("T", " ");
                 let depth= i.depth;
                 let emoji= i.emoji;
                 let free_idx= i.free_idx;
@@ -347,7 +348,7 @@
             contentType:"application/json; charset=utf-8",
             dataType:"json"
         }).done(res=>{
-
+            let create_time = res.create_time.replace("T", " ");
             console.log("성공",res);
 
             listhtml = "<div id='reply-total-container-"+res.reply_idx+"'>";
@@ -355,7 +356,7 @@
             listhtml+="<div class='reply-top' id='reply-top-"+res.reply_idx+"'>";
             listhtml+= "<span class='reply-emoji'>"+res.emoji+"</span>";
             listhtml+="<span class='reply-nick'>"+res.writer+"</span>";
-            listhtml+="<span class='reply-date'>"+res.create_time+"</span>";
+            listhtml+="<span class='reply-date'>"+create_time+"</span>";
             listhtml+="</div>";
 
 
@@ -441,6 +442,7 @@
             dataType:"json"
         }).done(res=>{
             console.log("성공", res);
+            let create_time = res.create_time.replace("T", " ");
 
             listhtml = "<div id='reply-total-container-"+res.reply_idx+"'>";
 
@@ -449,7 +451,7 @@
             listhtml += "<img src='/image/icon-rereply.png' alt='' class='rereply-img'>";
             listhtml += "<span>"+res.content+"</span>";
             listhtml += "<span>"+res.writer+"</span>";
-            listhtml += "<span class='reply-date'>"+res.create_time+"</span>";
+            listhtml += "<span class='reply-date'>"+create_time+"</span>";
             listhtml += "<div class='rereply-btns'>";
             listhtml += "<a href='javascript:void(0)' onclick='deleteChild("+res.reply_idx+")' class='delete'>삭제</a>";
             listhtml += "</div>";
