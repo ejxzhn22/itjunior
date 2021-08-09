@@ -21,11 +21,11 @@ public interface RecruitService {
 
     public boolean pushRecruitLike(long job_idx, PrincipalDetails principalDetails);
 
-    public boolean cancelRecruitLike(RecruitLike recruitLike);
+    public boolean cancelRecruitLike(long job_idx, PrincipalDetails principalDetails);
 
     public List<Category> keywordList();
 
     //채용게시판 글 좋아요 갯수 출력
-//    public int selectLikeCount(JSONObject jsonObject);
+    public int selectLikeCount(long job_idx);
 
 }

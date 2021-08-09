@@ -13,6 +13,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Log4j2
 @RestController
 @RequestMapping("/job/*")
@@ -26,13 +29,16 @@ public class RecruitApiController {
     }
 
     //좋아요 여부
-    @GetMapping("/isLike")
-    public ResponseEntity<String> isRecruitLikeTF(@RequestBody RecruitLike recruitLike) {
+    @GetMapping("/isLike/{job_idx}")
+    public Map<String,Object> isRecruitLikeTF(@PathVariable long job_idx, @RequestBody RecruitLike recruitLike) {
         boolean islikeTF = recruitService.isRecruitLike(recruitLike);
-        if (islikeTF) {
-            return new ResponseEntity<String>("isTrue", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("isFalse", HttpStatus.OK);
+        int count = recruitService.selectLikeCount(job_idx);
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("isLike",islikeTF);
+        resultMap.put("likeCnt", count);
+
+        return resultMap;
     }
 
     //좋아요 눌렀을 때
@@ -42,6 +48,13 @@ public class RecruitApiController {
             recruitService.saveRecruitInfo(recruitDTO);
         }
         boolean likeTF = recruitService.pushRecruitLike(job_idx, principalDetails);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    //좋아요 취소 했을 때
+    @DeleteMapping("/like/{job_idx}")
+    public ResponseEntity<String> recruitLikeCancel(@PathVariable long job_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        boolean cancelTF = recruitService.cancelRecruitLike(job_idx, principalDetails);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }
