@@ -16,24 +16,21 @@
 <div class="content-section">
     <div class="job-section">
         <!-- <span>2021개의 취업정보가 검색되었습니다. </span> -->
-        <form method="post" class="board-search">
+        <form method="get" action="/job/list" class="board-search">
             <select name="search-select" class="board-select">
                 <option value="전체">전체</option>
                 <option value="회사명">회사명</option>
                 <option value="공고명">공고명</option>
             </select>
-            <input type="text" name="board-search" class="board-input" autocomplete="off">
+            <input type="text" name="searchKeyword" class="board-input" autocomplete="off">
             <input type="submit" value="🔍" class="board-submit">
         </form>
         <div class="hot-category">
             <span class="hot-title">핫 카테고리🔥</span>
             <div class="category-class">
-                <a href="#">프론트엔드</a>
-                <a href="#">백엔드</a>
-                <a href="#">서버개발</a>
-                <a href="#">PCB</a>
-                <a href="#">서버관리</a>
-                <a href="#">통합망구축</a>
+            <c:forEach items="${categories}" var="cate">
+                <a href="/job/list?searchKeyword=${cate.name}" name="searchKeyword">${cate.name}</a>
+            </c:forEach>
             </div>
         </div>
 

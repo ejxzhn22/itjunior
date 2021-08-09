@@ -74,7 +74,8 @@
                             <td><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
                             <td>${board.writer}</td>
                             <td>${board.viewcnt}</td>
-                            <td>${board.create_time}</td>
+                            <td><fmt:parseDate value="${board.create_time}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                <fmt:formatDate value="${parsedDateTime}" pattern="yyyy.MM.dd HH:mm"/></td>
                         </tr>
                     </c:when>
                     <c:otherwise>
@@ -83,7 +84,8 @@
                             <td class="board-title"><a href="/boards/${board.free_idx}${page.makeQueryString(page.currentPageNo)}">${board.title}</a></td>
                             <td>${board.writer}</td>
                             <td>${board.viewcnt}</td>
-                            <td>${board.create_time}</td>
+                            <td><fmt:parseDate value="${board.create_time}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDateTime" type="both" />
+                                <fmt:formatDate value="${parsedDateTime}" pattern="yyyy.MM.dd HH:mm"/></td>
                         </tr>
                     </c:otherwise>
                 </c:choose>

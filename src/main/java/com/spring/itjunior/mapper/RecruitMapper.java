@@ -1,8 +1,11 @@
 package com.spring.itjunior.mapper;
 
+import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.RecruitDTO;
 import com.spring.itjunior.domain.RecruitLike;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface RecruitMapper {
@@ -17,6 +20,9 @@ public interface RecruitMapper {
     public int insertRecruitLike(RecruitLike recruitLike);
 
     public int deleteRecruitLike(RecruitLike recruitLike);
+
+    //잡리스트 키워드 가져오기
+    public List<Category> selectKeyword();
 
     //채용게시판 글 좋아요 갯수 출력
     public int selectLikeCount(int recruit_idx);

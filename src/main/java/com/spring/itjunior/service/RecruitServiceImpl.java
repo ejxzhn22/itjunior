@@ -1,6 +1,7 @@
 package com.spring.itjunior.service;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
+import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.RecruitDTO;
 import com.spring.itjunior.domain.RecruitLike;
 import com.spring.itjunior.dto.PageDto;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Log4j2
@@ -86,4 +89,9 @@ public class RecruitServiceImpl implements RecruitService{
         int count = recruitMapper.selectLikeCount(recruit_idx);
         return count;
     }
+
+    public List<Category> keywordList() {
+        return recruitMapper.selectKeyword();
+    }
+
 }
