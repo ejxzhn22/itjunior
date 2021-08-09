@@ -7,17 +7,19 @@
           recruit_idx
         , job_idx
         , company_name
+        , title
         , location
-        , experience
-        , close_date
+        , job_type
+        , expiration_date
         , close_type
         , category
+        , experience_level
+        , required_education_level
         , salary
-        , job_type
-        , required_edu
-        , url
         , applycnt
-        , likecnt
+        , active
+        , url
+        , company_href
     </sql>
     
     <insert id="insertRecruit" parameterType="RecruitDTO">
@@ -27,17 +29,19 @@
             #{recruit_idx}
             , #{job_idx}
             , #{company_name}
+            , #{title}
             , #{location}
-            , #{experience}
-            , now()
+            , #{job_type}
+            , #{expiration_date}
             , #{close_type}
             , #{category}
+            , #{experience_level}
+            , #{required_education_level}
             , #{salary}
-            , #{job_type}
-            , #{required_edu}
-            , #{url}
             , #{applycnt}
-            , 0
+            , #{active}
+            , #{url}
+            , #{company_href}
         )
     </insert>
 
@@ -46,38 +50,33 @@
         FROM tbl_recruit
         WHERE job_idx=#{job_idx}
     </select>
-<!--    <select id="selectRecruitIdxByJobIdx" parameterType="long">-->
-<!--        SELECT recruit_idx-->
-<!--        FROM tbl_recruit-->
-<!--        WHERE job_idx=#{job_idx}-->
-<!--    </select>-->
 
-    <select id="selectIsRecruitLike" resultType="int" parameterType="RecruitLike">
+    <select id="selectIsRecruitScrap" resultType="int" parameterType="RecruitScrap">
         SELECT count(*)
-        FROM tbl_recruit_like
+        FROM tbl_recruit_scrap
         WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
     </select>
 
-    <insert id="insertRecruitLike" parameterType="RecruitLike">
-        INSERT INTO tbl_recruit_like (
-            like_idx,
+    <insert id="insertRecruitScrap" parameterType="RecruitScrap">
+        INSERT INTO tbl_recruit_scrap (
+            scrap_idx,
             recruit_idx,
             member_idx
         ) VALUES (
-            #{like_idx},
+            #{scrap_idx},
             #{recruit_idx},
             #{member_idx}
         )
     </insert>
 
-    <delete id="deleteRecruitLike" parameterType="RecruitLike">
-        DELETE FROM tbl_recruit_like
+    <delete id="deleteRecruitScrap" parameterType="RecruitScrap">
+        DELETE FROM tbl_recruit_scrap
         WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
     </delete>
 
-    <select id="selectLikeCount" resultType="int" parameterType="int">
+    <select id="selectScrapCount" resultType="int" parameterType="int">
         SELECT count(*)
-        FROM tbl_recruit_like
+        FROM tbl_recruit_scrap
         WHERE recruit_idx=#{recruit_idx}
     </select>
 

@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RecruitLike {
-    private int like_idx;
+public class RecruitScrap {
+    private int scrap_idx;
     private int recruit_idx;
     private int member_idx;
 
     @Builder
-    public RecruitLike(int recruit_idx, int member_idx) {
+    public RecruitScrap(int recruit_idx, int member_idx) {
         this.recruit_idx = recruit_idx;
         this.member_idx = member_idx;
     }
