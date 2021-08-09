@@ -75,10 +75,10 @@
         WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
     </delete>
 
-<!--    <select id="selectLikeCount" resultType="int" parameterType="int">-->
-<!--        SELECT count(*)-->
-<!--        FROM tbl_recruit_like-->
-<!--        WHERE recruit_idx=#{recruit_idx}-->
-<!--    </select>-->
+    <select id="selectLikeCount" resultType="int" parameterType="int">
+        SELECT count(*)
+        FROM tbl_recruit_like
+        WHERE recruit_idx=#{recruit_idx}
+    </select>
 
 </mapper>

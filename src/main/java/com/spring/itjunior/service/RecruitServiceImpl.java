@@ -70,13 +70,20 @@ public class RecruitServiceImpl implements RecruitService{
     }
 
     @Override
-    public boolean cancelRecruitLike(RecruitLike recruitLike) {
+    public boolean cancelRecruitLike(long job_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        int recruit_idx = recruitMapper.selectRecruitByIdx(job_idx).getRecruit_idx();
+        RecruitLike recruitLike = RecruitLike.builder()
+                .recruit_idx(recruit_idx)
+                .member_idx(principalDetails.getMember().getMember_idx())
+                .build();
         int queryResult = recruitMapper.deleteRecruitLike(recruitLike);
         return (queryResult > 0) ? true : false;
     }
 
-//    @Override
-//    public int selectLikeCount(JSONObject jsonObject) {
-//        return 0;
-//    }
+    @Override
+    public int selectLikeCount(long job_idx) {
+        int recruit_idx = recruitMapper.selectRecruitByIdx(job_idx).getRecruit_idx();
+        int count = recruitMapper.selectLikeCount(recruit_idx);
+        return count;
+    }
 }

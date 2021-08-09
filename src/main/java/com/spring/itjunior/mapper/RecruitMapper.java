@@ -19,7 +19,7 @@ public interface RecruitMapper {
     public int deleteRecruitLike(RecruitLike recruitLike);
 
     //채용게시판 글 좋아요 갯수 출력
-//    public int selectLikeCount(int recruit_idx);
+    public int selectLikeCount(int recruit_idx);
 
 
 

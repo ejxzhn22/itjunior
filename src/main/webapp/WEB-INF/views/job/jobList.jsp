@@ -102,9 +102,16 @@
                             </c:if>
                         </div>
                         <div class="job-link">
-                            <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
-                            <a href="${item.company.detail.href}" target="_blank" class="join-btn">기업상세정보</a>
+                            <div>
+                                <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
+                                <a href="${item.company.detail.href}" target="_blank" class="join-btn">기업상세정보</a>
+                            </div>
+                            <div>
+                                <a class="glglyphicon-heart"></a>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </c:forEach>
