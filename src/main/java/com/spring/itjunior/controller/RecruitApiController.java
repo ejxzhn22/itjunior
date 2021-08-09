@@ -2,15 +2,12 @@ package com.spring.itjunior.controller;
 
 import com.spring.itjunior.config.auth.PrincipalDetails;
 import com.spring.itjunior.domain.RecruitDTO;
-import com.spring.itjunior.domain.RecruitLike;
 import com.spring.itjunior.service.RecruitService;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -29,32 +26,33 @@ public class RecruitApiController {
     }
 
     //좋아요 여부
-    @GetMapping("/isLike/{job_idx}")
-    public Map<String,Object> isRecruitLikeTF(@PathVariable long job_idx, @RequestBody RecruitLike recruitLike) {
-        boolean islikeTF = recruitService.isRecruitLike(recruitLike);
-        int count = recruitService.selectLikeCount(job_idx);
+    @GetMapping("/isScrap/{job_idx}")
+    public Map<String,Object> isRecruitLikeTF(@PathVariable String job_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        long job_idx_num = Long.parseLong(job_idx);
+        boolean isScrapTF = recruitService.isRecruitScrap(job_idx_num, principalDetails);
+        int count = recruitService.selectScrapCount(job_idx_num);
 
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("isLike",islikeTF);
-        resultMap.put("likeCnt", count);
+        resultMap.put("isScrap",isScrapTF);
+        resultMap.put("ScrapCnt", count);
 
         return resultMap;
     }
 
     //좋아요 눌렀을 때
-    @PostMapping("/like/{job_idx}")
-    public ResponseEntity<String> recruitLike(@PathVariable long job_idx, @RequestBody RecruitDTO recruitDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    @PostMapping("/scrap/{job_idx}")
+    public ResponseEntity<String> recruitScrap(@PathVariable long job_idx, @RequestBody RecruitDTO recruitDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         if (recruitService.getRecruitInfo(job_idx) == null) {
             recruitService.saveRecruitInfo(recruitDTO);
         }
-        boolean likeTF = recruitService.pushRecruitLike(job_idx, principalDetails);
+        boolean scrapTF = recruitService.pushRecruitScrap(job_idx, principalDetails);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     //좋아요 취소 했을 때
-    @DeleteMapping("/like/{job_idx}")
-    public ResponseEntity<String> recruitLikeCancel(@PathVariable long job_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        boolean cancelTF = recruitService.cancelRecruitLike(job_idx, principalDetails);
+    @DeleteMapping("/scrap/{job_idx}")
+    public ResponseEntity<String> recruitScrapCancel(@PathVariable long job_idx, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        boolean cancelTF = recruitService.cancelRecruitScrap(job_idx, principalDetails);
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }

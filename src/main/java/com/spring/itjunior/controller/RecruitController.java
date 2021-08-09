@@ -31,8 +31,6 @@ public class RecruitController {
     public String recruitApiList(Model model, PageDto pageDto) {
         JSONObject resultInfo = recruitService.getApiList(pageDto);
 
-//        recruitService.selectLikeCount(resultInfo);
-
         PageDto setPageDto = pagingService.makeRecruitPaging(pageDto, resultInfo);
 
         //키워드 가져오기
