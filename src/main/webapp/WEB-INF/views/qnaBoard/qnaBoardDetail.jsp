@@ -58,7 +58,7 @@
     </div>
     <div class="go-back">
         <c:if test="${principal.member.nickname == 'root' and board.reply_yn == 'N'}">
-            <a href="#" onclick="openMask(${board.qna_idx});" class="qna-a openMask">답변등록</a>
+            <a href="#" onclick="openMask(${board.qna_idx});" class="qna-a openMask answer-btn">답변등록</a>
         </c:if>
         <a href="javascript:window.history.go(-1);">목록</a>
     </div>
@@ -66,13 +66,15 @@
     <!-- modal -->
     <div id="mask"></div>
     <form action="/qnaboards/${board.qna_idx}/answer" method="post" class="window">
-        <div class="modal-container">
-            <input type="hidden" value="">
-            <img src="image/icon-lock.png" alt="" class="icon-lock">
-            <h3>답변입력</h3>
-            <input type="text" id="modal-title" name="answer_title" class="modal-title" placeholder="제목입력" autofocus/>
-            <textarea id="modal-content" name="answer_content" class="modal-content" placeholder="내용입력" ></textarea>
-            <div class="btns-container">
+        <div class="modal-answer-container">
+            <div class="answer-content-container">
+                <input type="hidden" value="">
+                <img src="image/icon-lock.png" alt="" class="icon-lock">
+                <h3>답변입력</h3>
+                <input type="text" id="modal-title" name="answer_title" class="modal-title" placeholder="제목입력" autofocus/>
+                <textarea id="modal-content" name="answer_content" class="modal-content" placeholder="내용입력" ></textarea>
+            </div>
+            <div class="answer-btns-container">
                 <button type="submit" id="modal-btn" value="답변 작성">답변 작성</button>
                 <a href="#" class="close">닫기</a>
             </div>
