@@ -175,11 +175,28 @@ body{
 .profile {
     border-radius: 350px;
     position: absolute;
-    top: 5px;
-    left: 10px;
-    width: 200px;
-    height: 70%;
+    top: 50px;
+    left: 50px;
+    width: 140px;
+    height: 140px;
     box-shadow: 0 0 15px #787878;
+    cursor: pointer;
+    z-index: 2;
+    transition: .3s linear;
+}
+.profile:hover{
+    z-index: 2;
+    opacity: 0.2;
+}
+.profile-text{
+    border-radius: 350px;
+    position:absolute;
+    top:50px;
+    left:50px;
+    width:110px;
+    height:140px;
+    padding:20px;
+    z-index: 1;
 }
 .profile-desc{
     display: flex;
@@ -194,9 +211,10 @@ body{
     letter-spacing: -1px;
     padding: 10px 30px;
     background: #03131b;
+    z-index: 3;
 }
 .profile-img{
-    width:100%;
+    width:140px;
     border-radius: 300px;
 }
 .profile-link{
@@ -287,9 +305,6 @@ body{
     .profile-desc{
         bottom: 30px;
     }
-    .main-words{
-        color:#fff;
-    }
     .mypage-btn {
         padding:5px 10px;
     }
@@ -357,6 +372,10 @@ body{
     .main-words {
         font-size: 7vw;
     }
+    .main-words2{
+        font-size: 7vw;
+        margin-top: 36px;
+    }
     .main-join{
         left: 11%;
         bottom: 17%;
@@ -411,21 +430,15 @@ body{
         height: 70%;
     }
 }
-/*420px!!*/
-@media screen and (max-width:620px){
-    .main-words {
-        right: 7%;
-        top: 50%;
-        font-size: 33px;
-        color:#000;
-    }
-    .menu-ul li a img {
-        width: 200px;
-    }
 
-}
 @media screen and (max-width:620px){
     .content-section{
         height:75vh;
+    }
+    .main-words-div{
+        height: 120px;
+    }
+    .menu-ul li a img {
+        width: 200px;
     }
 }

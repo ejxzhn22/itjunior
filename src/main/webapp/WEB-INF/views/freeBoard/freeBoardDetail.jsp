@@ -277,9 +277,11 @@
                     listhtml+="<div class='rereply-section' id='rereply-section'>";
 
                     listhtml += "<img src='/image/icon-rereply.png' alt='' class='rereply-img'>";
-                    listhtml += "<span>"+content+"</span>";
-                    listhtml += "<span>"+writer+"</span>";
+                    listhtml += "<p class='rereply-1'>"+content+"</p>";
+                    listhtml += "<div class='rereply-div1'>";
+                    listhtml += "<span class='rereply-2'>"+writer+"</span>";
                     listhtml += "<span class='reply-date'>"+create_time+"</span>";
+                    listhtml += "</div>";
                     listhtml += "<div class='rereply-btns'>";
                     if(member_idx == principalId){
                         listhtml += "<a href='javascript:void(0)' onclick='deleteChild("+reply_idx+")' class='delete'>삭제</a>";
@@ -448,12 +450,16 @@
             listhtml+="<div class='rereply-section' id='rereply-section'>";
 
             listhtml += "<img src='/image/icon-rereply.png' alt='' class='rereply-img'>";
-            listhtml += "<span>"+res.content+"</span>";
-            listhtml += "<span>"+res.writer+"</span>";
+            listhtml += "<p class='rereply-1'>"+content+"</p>";
+            listhtml += "<div class='rereply-div1'>";
+            listhtml += "<span class='rereply-2'>"+writer+"</span>";
             listhtml += "<span class='reply-date'>"+create_time+"</span>";
+            listhtml += "</div>";
             listhtml += "<div class='rereply-btns'>";
             listhtml += "<a href='javascript:void(0)' onclick='deleteChild("+res.reply_idx+")' class='delete'>삭제</a>";
             listhtml += "</div>";
+
+
 
             listhtml+="</div>";
 

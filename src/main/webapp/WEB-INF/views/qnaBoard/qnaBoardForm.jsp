@@ -25,8 +25,8 @@
         </div>
 
         <div>
-            <input type="checkbox" name="secret_yn" >비밀글
-            <input type="password" name="secret_pwd" placeholder="비밀번호를 입력하세요">
+            <input type="checkbox" name="secret_yn" id="secret_yn"> <label for="secret_yn">비밀글</label>
+            <input type="password" name="secret_pwd" id="secret_pwd" placeholder="비밀번호를 입력하세요">
         </div>
         <div class="btns-box">
             <input type="submit" value="작성하기" class="write-submit">

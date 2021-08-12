@@ -104,7 +104,7 @@
                             </c:if>
                         </div>
                         <div>
-                            <i class="far fa-star" id="scrap-button-${item.id}" onclick="scrap(${item.id})">스크랩</i>
+                            <i class="far fa-star" id="scrap-button-${item.id}" onclick="scrap(${item.id},event)">스크랩</i>
                         </div>
                         <div class="job-link">
                             <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
@@ -154,7 +154,8 @@
         location.href = "/job/list" + queryString;
     }
 
-    function scrap(job_idx) {
+    function scrap(job_idx,event) {
+        event.stopPropagation();
         let scrapIcon = $("#scrap-button-"+job_idx);
         console.log("job_idx >>> " + job_idx);
 

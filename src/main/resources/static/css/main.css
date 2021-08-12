@@ -80,19 +80,66 @@
     left:10%;
     top:10%;
 }
-.main-words{
+.main-words-div{
     position:absolute;
+    top:30%;
     right:7%;
-    top:19%;
+    height: 200px;
     font-size:80px;
-    animation-name: mainitju;
-    animation-duration: 2s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
+.main-words {
+    font-size: 80px;
+    min-width:11px;
+    white-space: nowrap;
+    margin: 0;
+    position: absolute;
+    color: transparent;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+.main-words::before {
+    content: "IT취업의 첫 걸음";
+    position: absolute;
+    top: -150%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    overflow: hidden;
+    border-right: 1px solid black;
+    animation: typing 3s steps(15);
+}
+.main-words2{
+        animation-name:mangz;
+        animation-duration: 4s;
+        opacity: 1;
+}
+@keyframes typing{
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@keyframes mangz{
+    0% {
+        opacity: 0;
+    }
+    90%{
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .main-words-itju{
-    animation-name: mainitju;
-    animation-duration: 5s;
     display:inline;
-    transition:ease;
 }
 .down-arrow {
     width: 35px;
@@ -159,6 +206,7 @@
     transition:ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    z-index: 20;
 }
 .main-tri{
     position: absolute;
@@ -196,6 +244,7 @@
 .content2-section{
     height: 100vh;
     background: #cfe0f7;
+    position:relative;
 }
 .spelling-img{
     width:440px;
@@ -414,4 +463,47 @@ section .curve{
 section .curve img{
     width:100%;
     height:100%;
+}
+.content2-title{
+    height:300px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: nanumGothic;
+    letter-spacing: -2px;
+    z-index: 10;
+    width:100%;
+    position:absolute;
+    margin-top: -80px;
+}
+.content2-line{
+    border-top:3px solid #3ab0e7;
+    height:20px;
+    width:40px;
+}
+.content2-desc1{
+    font-size:45px;
+    font-weight: 700;
+}
+.content2-desc2{
+    font-size:20px;
+    margin-top:20px;
+    text-align: center;
+    color:#787878;
+}
+.content2-card-box{
+    width:100%;
+    display:flex;
+    overflow: scroll;
+    padding-top:250px;
+    margin:10px 50px;
+    height: 400px;
+}
+.content2-card-box .c-card{
+    width:23%;
+    margin:20px 1%;
+    overflow: scroll;
+    background:#f1f3f5;
+    box-shadow: 0 0 15px #d2d2d2;
 }
