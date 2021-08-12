@@ -17,18 +17,21 @@
 </div>
 <div class="content-section">
     <div class="login-section">
+        <c:if test="${not empty cookie.user_check}">
+            <c:set var="checked" value="checked"/>
+        </c:if>
         <h1>로그인</h1>
         <form action="/auth/loginProc" method="POST" class="login-form">
             <div class="id-section">
                 <span>아이디</span>
-                <input type="text" class="id-input" id="userId" name="userId">
+                <input type="text" class="id-input" id="userId" name="userId" value="${cookie.user_check.value}">
             </div>
             <div class="pw-section">
                 <span>비밀번호</span>
                 <input type="password" class="pw-input" id="password" name="password">
             </div>
             <div class="member-bottom-section">
-                <p><input type="checkbox" value="" id="check" name="saveId"><label for="check">정보 기억하기</label></p>
+                <p><input type="checkbox" id="check" name="saveId" ${checked}><label for="check">아이디 기억</label></p>
                 <div>
                     <a href="/auth/member/find-id">ID 찾기</a>
                     &nbsp;&nbsp; / &nbsp;

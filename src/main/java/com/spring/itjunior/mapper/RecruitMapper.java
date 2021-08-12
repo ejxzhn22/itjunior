@@ -27,6 +27,8 @@ public interface RecruitMapper {
     //채용게시판 글 좋아요 갯수 출력
     public int selectScrapCount(int recruit_idx);
 
+    public List<RecruitDTO> selectScrappedInfoByUserIdx(int member_idx);
+
 
 
 }
