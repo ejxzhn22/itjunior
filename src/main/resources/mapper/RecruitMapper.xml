@@ -83,5 +83,15 @@
     <select id="selectKeyword" resultType="Category">
         select * from tbl_category where cate_code = 200
     </select>
+    
+    <select id="selectScrappedInfoByUserIdx" resultType="RecruitDTO" parameterType="int">
+        select *
+        from tbl_recruit_scrap a
+        left join tbl_recruit_scrap b
+        on a.recruit_idx = b.recruit_idx
+        where member_idx=#{member_idx}
+    </select>
+
+<!--    <select id="selectScrappedInfoBy"></select>-->
 
 </mapper>

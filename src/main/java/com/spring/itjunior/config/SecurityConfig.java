@@ -10,7 +10,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true) //특정 주소로 접근하면 권한 및 인증을 미리 체크하겠다.
 @EnableWebSecurity //시큐리티 필터 추 = 스프링 시큐리티가 활성화가 되어있고, 그에 해당하는 설정들을 현재 파일에서 하겠다.
@@ -56,6 +64,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/auth/loginProc") //스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인 해준다.
                     .usernameParameter("userId")
                     .defaultSuccessUrl("/")
+                    .successHandler(new AuthenticationSuccessHandler() {
+                        @Override
+                        public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                            String saveChecked = request.getParameter("saveId");
+                            Cookie cookie = new Cookie("user_check",request.getParameter("userId"));
+                            if (saveChecked != null) {
+                                response.addCookie(cookie);
+                            } else {
+                                cookie.setMaxAge(0);
+                                response.addCookie(cookie);
+                            }
+                            response.sendRedirect("/");
+                        }
+                    })
                 .and()
                     .logout()
                     .logoutSuccessUrl("/")
