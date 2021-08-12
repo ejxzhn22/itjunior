@@ -167,6 +167,7 @@
     $(function() {
         $(".job-card").on("click", function(e) {
             $(e.currentTarget.childNodes[3]).slideToggle('fast','linear',function(){
+                console.log("id",id);
                 let job_idx = $("#job-idx-val").val();
                 if ( $(e.currentTarget.childNodes[3]).css('display') === 'none' ) {
                     $("#slide").css('transform','rotate(0deg)');
