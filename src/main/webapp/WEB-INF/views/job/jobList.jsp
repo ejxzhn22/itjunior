@@ -36,21 +36,21 @@
 
         <div class="job-list">
             <c:forEach var="item" items="${result.jobs.job}">
-                <div class="job-card">
+                <div class="job-card" id="${item.id}">
                     <div class="job-card-box">
                         <div class="job-card1">
-                            <span class="job-name" id="company-name"><c:out value="${item.company.detail.name}"/></span>
+                            <span class="job-name" id="company-name-${item.id}"><c:out value="${item.company.detail.name}"/></span>
                             <div class="job-title">
-                                <span id="title"><c:out value="${item.position.title}"/></span>
+                                <span id="title-${item.id}"><c:out value="${item.position.title}"/></span>
                             </div>
                             <div class="job-cop">
-                                <span id="location"><c:out value="${item.position.location.name}"/></span>
+                                <span id="location-${item.id}"><c:out value="${item.position.location.name}"/></span>
                             </div>
                         </div>
                         <div class="job-card2">
                             <div class="card2-box2">
                                 <span>근무형태</span>
-                                <span id="job-type"><c:out value="${item.position['job-type'].name}"/></span>
+                                <span id="job-type-${item.id}"><c:out value="${item.position['job-type'].name}"/></span>
                             </div>
                             <div class="card2-box1">
                                 <span>기한</span>
@@ -58,11 +58,13 @@
                                     <fmt:parseDate value="${item['expiration-date']}" var="parseDate" pattern="yyyy-MM-dd'T'HH:mm:ssZ"/>
                                     <fmt:formatDate value="${parseDate}" var="formatDate" pattern="MM/dd HH:mm"/>
                                     <c:out value="${formatDate}"/> 마감
-                                    <input type="hidden" id="expiration-date" value="${item['expiration-date']}">
+                                    <input type="hidden" id="close-type-${item.id}" value="${item['close-type'].name}">
                                 </c:if>
                                 <c:if test="${item['close-type'].name ne '접수마감일'}">
-                                    <span id="close-type"><c:out value="${item['close-type'].name}"/></span> 마감
+                                    <span><c:out value="${item['close-type'].name}"/></span> 마감
+                                    <input type="hidden" id="close-type-${item.id}" value="${item['close-type'].name}">
                                 </c:if>
+                                <input type="hidden" id="expiration-date-${item.id}" value="${item['expiration-date']}">
                             </div>
                         </div>
                         <div class="job-card3">
@@ -74,26 +76,26 @@
                         <div class="job-info">
                             <div>
                                 <span>직종</span> :
-                                <span id="job-category"><c:out value="${item.position['job-category'].name}"/></span>
+                                <span id="job-category-${item.id}"><c:out value="${item.position['job-category'].name}"/></span>
                             </div>
                             <div>
                                 <span>경력</span> :
-                                <span id="experience-level"><c:out value="${item.position['experience-level'].name}"/></span>
+                                <span id="experience-level-${item.id}"><c:out value="${item.position['experience-level'].name}"/></span>
                             </div>
                             <div>
                                 <span>최종학력</span> :
-                                <span id="required-education-level"><c:out value="${item.position['required-education-level'].name}"/></span>
+                                <span id="required-education-level-${item.id}"><c:out value="${item.position['required-education-level'].name}"/></span>
                             </div>
                             <div>
                                 <span>연봉</span> :
-                                <span id="salary"><c:out value="${item.salary.name}"/></span>
+                                <span id="salary-${item.id}"><c:out value="${item.salary.name}"/></span>
                             </div>
                             <div>
                                 <span>지원자 수</span> :
-                                <span id="apply-cnt"><c:out value="${item['apply-cnt']}"/></span>
+                                <span id="apply-cnt-${item.id}"><c:out value="${item['apply-cnt']}"/></span>
                             </div>
 
-                            <input id="active" type="hidden" value="${item['active']}">
+                            <input id="active-${item.id}" type="hidden" value="${item['active']}">
                             <c:if test="${item['active'] eq '0'}">
                                 <div>
                                     <span>상태</span>
@@ -102,14 +104,13 @@
                             </c:if>
                         </div>
                         <div>
-                            <i class="far fa-star-o" id="scrap-button"></i>
-                            <input type="hidden" id="job-idx-val" value="${item.id}">
+                            <i class="far fa-star" id="scrap-button-${item.id}" onclick="scrap(${item.id})">스크랩</i>
                         </div>
                         <div class="job-link">
                             <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
                             <a href="${item.company.detail.href}" target="_blank" class="join-btn">기업상세정보</a>
-                            <input id="url" type="hidden" value="${item.url}">
-                            <input id="company-href" type="hidden" value="${item.company.detail.href}">
+                            <input id="url-${item.id}" type="hidden" value="${item.url}">
+                            <input id="company-href-${item.id}" type="hidden" value="${item.company.detail.href}">
                         </div>
                     </div>
                 </div>
@@ -141,7 +142,6 @@
                         </li>
                     </c:if>
                 </ul>
-
             </c:if>
         </div>
     </div>
@@ -152,6 +152,76 @@
 <script>
     function movePage(queryString) {
         location.href = "/job/list" + queryString;
+    }
+
+    function scrap(job_idx) {
+        let scrapIcon = $("#scrap-button-"+job_idx);
+        console.log("job_idx >>> " + job_idx);
+
+        if(${principal.member eq null}){
+            alert("로그인 후 사용하십시오.");
+            location.href = "/auth/loginForm";
+        }
+        let totalData = JSON.stringify({
+            job_idx : job_idx,
+            company_name : $("#company-name-"+job_idx).text(),
+            title : $("#title-"+job_idx).text(),
+            location : $("#location-"+job_idx).text(),
+            job_type : $("#job-type-"+job_idx).text(),
+            expiration_date : $("#expiration-date-"+job_idx).val(),
+            close_type : $("#close-type-"+job_idx).val(),
+            category : $("#job-category-"+job_idx).text(),
+            experience_level : $("#experience-level-"+job_idx).text(),
+            required_education_level : $("#required-education-level-"+job_idx).text(),
+            salary : $("#salary-"+job_idx).text(),
+            applycnt : $("#apply-cnt-"+job_idx).text(),
+            active : $("#active-"+job_idx).val(),
+            url : $("#url-"+job_idx).val(),
+            company_href : $("#company-href-"+job_idx).val()
+        });
+        if(scrapIcon.hasClass("far")){
+
+            $('#scrap-button-'+job_idx).addClass('fas');
+            $('#scrap-button-'+job_idx).addClass('active');
+            $('#scrap-button-'+job_idx).removeClass('far');
+            $('#scrap-button-'+job_idx).text("스크랩취소");
+            $.ajax({
+                url: "/job/scrap/"+job_idx,
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: totalData,
+                success: function(result) {
+                    console.log("result >> "+result);
+                    if (result === "success") {
+                        console.log("스크랩 성공");
+                    }
+                },
+                error: function (error) {
+                    console.log(error.status);
+                    console.log("서버호출 에러.");
+                }
+            })
+        } else {
+            $.ajax({
+                url: "/job/scrap/"+job_idx,
+                type: "DELETE",
+                success: function(result) {
+                    console.log("result >> "+result);
+                    if (result === "success") {
+                        console.log("스크랩 취소 성공");
+                        $('#scrap-button-'+job_idx).removeClass('fas');
+                        $('#scrap-button-'+job_idx).removeClass('active');
+                        $('#scrap-button-'+job_idx).addClass('far');
+                        $('#scrap-button-'+job_idx).text("스크랩");
+                        return false;
+                    }
+                },
+                error: function (error) {
+                    console.log(error.status);
+                    console.log("서버호출 에러.");
+                }
+            })
+        }
     }
 
     $(document).ready(function() {
@@ -166,16 +236,18 @@
 
     $(function() {
         $(".job-card").on("click", function(e) {
+            let job_idx = this.id;
             $(e.currentTarget.childNodes[3]).slideToggle('fast','linear',function(){
-                console.log("id",id);
-                let job_idx = $("#job-idx-val").val();
+
+                console.log("job-card-push job-idx>>> "+job_idx);
+
                 if ( $(e.currentTarget.childNodes[3]).css('display') === 'none' ) {
                     $("#slide").css('transform','rotate(0deg)');
                     $(".job-card-box").css('border-bottom','none');
                     console.log("닫기");
                 }
                 else{
-                    console.log("company-name >>> "+$("#company-name").text());
+                    console.log("company-name >>> "+$("#company-name-"+job_idx).text());
                     $("#slide").css('transform','rotate(180deg)');
                     $(".job-card-box").css('border-bottom','1px solid #d2d2d2');
                     console.log("열기");
@@ -184,13 +256,12 @@
                         url: "/job/isScrap/"+job_idx,
                         type: "GET",
                         success: function(result) {
-                            console.log("result >> "+result.isScrap);
                             if (result.isScrap) {
                                 console.log("이미 스크랩한 공고");
-                                $('#scrap-button').addClass('fas');
-                                $('#scrap-button').addClass('active');
-                                $('#scrap-button').removeClass('far');
-                                $('#scrap-button').text("스크랩취소");
+                                $('#scrap-button-'+job_idx).addClass('fas');
+                                $('#scrap-button-'+job_idx).addClass('active');
+                                $('#scrap-button-'+job_idx).removeClass('far');
+                                $('#scrap-button-'+job_idx).text("스크랩취소");
                                 return false;
                             }
                             console.log("스크랩 없음.")
@@ -205,74 +276,6 @@
 
             });
         });
-    });
-
-    $('#scrap-button').click(function (){
-        if(${principal.member eq null}){
-            alert("로그인 후 사용하십시오.");
-            location.href = "/auth/loginForm";
-        }
-        let totalData = JSON.stringify({
-            job_idx : $("#job-idx-val").val(),
-            company_name : $("#company-name").text(),
-            title : $("#title").text(),
-            location : $("#location").text(),
-            job_type : $("#job-type").text(),
-            expiration_date : $("#expiration-date").val(),
-            close_type : $("#close-type").text(),
-            category : $("#job-category").text(),
-            experience_level : $("#experience-level").text(),
-            required_education_level : $("#required-education-level").text(),
-            salary : $("#salary").text(),
-            applycnt : $("#apply-cnt").text(),
-            active : $("#active").val(),
-            url : $("#url").val(),
-            company_href : $("#company-href").val()
-        });
-        if($('#scrap-button').hasClass("far")){
-           $.ajax({
-               url: "/job/scrap/"+job_idx,
-               type: "POST",
-               contentType: "application/json; charset=utf-8",
-               data: totalData,
-               success: function(result) {
-                   console.log("result >> "+result);
-                   if (result === "success") {
-                       console.log("스크랩 성공");
-                       $('#scrap-button').addClass('fas');
-                       $('#scrap-button').addClass('active');
-                       $('#scrap-button').removeClass('far');
-                       $('#scrap-button').text("스크랩취소");
-                       alert("스크랩을 하였습니다.")
-                   }
-               },
-               error: function (error) {
-                   console.log(error.status);
-                   console.log("서버호출 에러.");
-               }
-           })
-        } else {
-            $.ajax({
-                url: "/job/scrap/"+job_idx,
-                type: "DELETE",
-                success: function(result) {
-                    console.log("result >> "+result);
-                    if (result === "success") {
-                        console.log("스크랩 취소 성공");
-                        $('#scrap-button').removeClass('fas');
-                        $('#scrap-button').removeClass('active');
-                        $('#scrap-button').addClass('far');
-                        $('#scrap-button').text("스크랩");
-                        alert("스크랩을 취소 하였습니다.");
-                        return false;
-                    }
-                },
-                error: function (error) {
-                    console.log(error.status);
-                    console.log("서버호출 에러.");
-                }
-            })
-        }
     });
 
     $('.category-class a').click(function(e){
