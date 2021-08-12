@@ -238,7 +238,9 @@
         $(".job-card").on("click", function(e) {
             let job_idx = this.id;
             $(e.currentTarget.childNodes[3]).slideToggle('fast','linear',function(){
+
                 console.log("job-card-push job-idx>>> "+job_idx);
+
                 if ( $(e.currentTarget.childNodes[3]).css('display') === 'none' ) {
                     $("#slide").css('transform','rotate(0deg)');
                     $(".job-card-box").css('border-bottom','none');
