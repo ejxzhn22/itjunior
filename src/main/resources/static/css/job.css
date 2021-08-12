@@ -135,7 +135,7 @@ button.slick-next.slick-arrow::after {
     display: block;
     margin-bottom: 5px;
 }
-#slide{
+.slide{
     transition:.2s linear;
 }
 #job-desc-box {
@@ -152,6 +152,14 @@ button.slick-next.slick-arrow::after {
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;  /* 말줄임 적용 */
+}
+
+.job-info-news{
+    width: 95%;
+    font-size: 17px;
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
     text-overflow: ellipsis;  /* 말줄임 적용 */
 }
 .job-link {

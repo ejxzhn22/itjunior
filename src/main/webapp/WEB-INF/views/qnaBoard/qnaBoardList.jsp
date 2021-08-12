@@ -107,10 +107,10 @@
 <div id="mask"></div>
 <form action="" method="post" class="window">
     <div class="modal-container">
-        <input type="hidden" value="">
-        <img src="image/icon-lock.png" alt="" class="icon-lock">
-        <h2>작성 시 입력하신 비밀번호를 입력하세요.</h2>
-        <input type="password" id="modal-pwd" name="secret_pwd" value="" class="modal-pw" maxlength="4" autofocus/>
+            <input type="hidden" value="">
+            <img src="image/icon-lock.png" alt="" class="icon-lock">
+            <h2>작성 시 입력하신 비밀번호를 입력하세요.</h2>
+            <input type="password" id="modal-pwd" name="secret_pwd" value="" class="modal-pw" maxlength="4" autofocus/>
         <div class="btns-container">
             <input id="modal-btn" onclick="pwdCheck(this.name,'${page.makeQueryString(page.currentPageNo)}')" type="button" value="확인">
             <a href="#" class="close">닫기</a>

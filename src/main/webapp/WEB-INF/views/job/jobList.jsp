@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="job-card3">
-                            <img src="${pageContext.request.contextPath}/image/down-arrow.png" alt="" id="slide">
+                            <img src="${pageContext.request.contextPath}/image/down-arrow.png" alt="" class="slide" id="slide-${item.id}">
                         </div>
                     </div>
 
@@ -242,13 +242,13 @@
                 console.log("job-card-push job-idx>>> "+job_idx);
 
                 if ( $(e.currentTarget.childNodes[3]).css('display') === 'none' ) {
-                    $("#slide").css('transform','rotate(0deg)');
+                    $("#slide-"+job_idx).css('transform','rotate(0deg)');
                     $(".job-card-box").css('border-bottom','none');
                     console.log("닫기");
                 }
                 else{
                     console.log("company-name >>> "+$("#company-name-"+job_idx).text());
-                    $("#slide").css('transform','rotate(180deg)');
+                    $("#slide-"+job_idx).css('transform','rotate(180deg)');
                     $(".job-card-box").css('border-bottom','1px solid #d2d2d2');
                     console.log("열기");
 
