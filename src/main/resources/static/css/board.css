@@ -377,7 +377,12 @@
 .reply-bottom {
     display: flex;
     justify-content: space-between;
-    margin-top:5px;
+    margin-top: 10px;
+    margin-bottom: 45px;
+
+}
+.rereply-btns {
+    width: 70px;
 }
 .reply-bottom .rereply{
     border:1px solid #d2d2d2;
@@ -439,18 +444,29 @@
     align-items: center;
     justify-content: space-between;
     margin:20px 0;
-
+}
+.rereply-1{
+    width: 80%;
+    border: 1px solid #d2d2d2;
+    padding: 10px 10px;
+    height: 25px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.rereply-div1{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .rereply-section span {
     width: fit-content;
     margin-right: auto;
+    font-size:12px;
 }
 .rereply-img{
     width:20px;
     margin:0 15px;
-}
-.rereply-btns{
-
 }
 
 /* 보드라이트.html */
@@ -658,7 +674,23 @@
 }
 
 /* qna detail */
-
+#secret_pwd{
+    width: 300px;
+    height: 20px;
+    padding: 5px;
+    margin-left: 20px;
+}
+#secret_yn{
+    display: inline-block;
+    width:15px;
+    hegiht:15px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+#secret_yn:checked{
+    background:#d2d2d2;
+}
 /* qna detail */
 .q-section {
     background: #fff;

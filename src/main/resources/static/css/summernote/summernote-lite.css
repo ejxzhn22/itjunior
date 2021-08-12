@@ -57,10 +57,10 @@
   margin-left: 0.3em;
 }
 .note-icon-align::before {
-  content: "";
+  content: "정렬";
 }
 .note-icon-align-center::before {
-  content: "";
+  content: "정렬";
 }
 .note-icon-align-indent::before {
   content: "";
@@ -99,10 +99,10 @@
   content: "";
 }
 .note-icon-bold::before {
-  content: "";
+  content: "굵게";
 }
 .note-icon-caret::before {
-  content: "";
+  content: "";
 }
 .note-icon-chain-broken::before {
   content: "";
@@ -113,8 +113,10 @@
 .note-icon-close::before {
   content: "";
 }
+
+
 .note-icon-code::before {
-  content: "하이";
+  content: "코드보기";
 }
 .note-icon-col-after::before {
   content: "";
@@ -126,7 +128,7 @@
   content: "";
 }
 .note-icon-eraser::before {
-  content: "";
+  content: "지우개";
 }
 .note-icon-float-left::before {
   content: "";
@@ -138,7 +140,7 @@
   content: "";
 }
 .note-icon-font::before {
-  content: "";
+  content: "마지막으로 사용한 색";
 }
 .note-icon-frame::before {
   content: "";
@@ -147,28 +149,28 @@
   content: "";
 }
 .note-icon-link::before {
-  content: "";
+  content: "링크";
 }
 .note-icon-magic::before {
-  content: "";
+  content: "스타일";
 }
 .note-icon-menu-check::before {
-  content: "";
+  content: "";
 }
 .note-icon-minus::before {
   content: "";
 }
 .note-icon-orderedlist::before {
-  content: "";
+  content: "번호 매기기";
 }
 .note-icon-pencil::before {
   content: "";
 }
 .note-icon-picture::before {
-  content: "";
+  content: "그림";
 }
 .note-icon-question::before {
-  content: "";
+  content: "도움말";
 }
 .note-icon-redo::before {
   content: "";
@@ -204,7 +206,7 @@
   content: "";
 }
 .note-icon-table::before {
-  content: "";
+  content: "표";
 }
 .note-icon-text-height::before {
   content: "";
@@ -213,16 +215,16 @@
   content: "";
 }
 .note-icon-underline::before {
-  content: "";
+  content: "밑줄";
 }
 .note-icon-undo::before {
   content: "";
 }
 .note-icon-unorderedlist::before {
-  content: "";
+  content: "글머리 기호";
 }
 .note-icon-video::before {
-  content: "";
+  content: "동영상";
 }
 .note-frame {
   -ms-box-sizing: border-box;

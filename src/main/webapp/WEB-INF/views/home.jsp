@@ -6,15 +6,16 @@
 
 <div class="content1-section">
     <img src="${pageContext.request.contextPath}/image/itju-main-card.png" alt="메인이미지" class="main-card-img">
-    <span class="main-words">IT취업의 첫 걸음<br><p class="main-words-itju">잇주</p>가 함께합니다😀</span>
+<%--    <span class="main-words">IT취업의 첫 걸음<br><p class="main-words-itju">잇주</p>가 함께합니다😀</span>--%>
+    <div class="main-words-div">
+        <span class="main-words">IT취업의 첫 걸음</span>
+        <span class="main-words2"><p class="main-words-itju">잇주</p>가 함께합니다😀</span>
+    </div>
+
     <a href="/auth/joinForm" class="main-join">JOIN 🙌</a>
     <img src="${pageContext.request.contextPath}/image/icon-downarrow.png" alt="" class="down-arrow" onclick="scrollDown();">
 </div>
-<section>
-    <span class="curve">
-        <img src="${pageContext.request.contextPath}/image/curve.png">
-    </span>
-</section>
+
 
 <img src="${pageContext.request.contextPath}/image/main-o.svg" alt="" class="main-o">
 <img src="${pageContext.request.contextPath}/image/triangle.png" alt="" class="main-tri">
@@ -70,30 +71,47 @@
 <%--</div>--%>
 
 <div class="content2-section">
-    <section class="itju-menu">
-        <ul class="menu-ul">
-            <li data-text="Information">
-                <a href="#" class="menu-i">
-                    <img src="${pageContext.request.contextPath}/image/itjui.png">
-                </a>
-            </li>
-            <li data-text="Truly">
-                <a href="#" class="menu-t">
-                    <img src="${pageContext.request.contextPath}/image/itjut.png">
-                </a>
-            </li>
-            <li data-text="Junior">
-                <a href="#" class="menu-j">
-                    <img src="${pageContext.request.contextPath}/image/itjuj.png">
-                </a>
-            </li>
-            <li data-text="Useful">
-                <a href="#" class="menu-u">
-                    <img src="${pageContext.request.contextPath}/image/itjuu.png">
-                </a>
-            </li>
-        </ul>
+<%--    <section class="itju-menu">--%>
+<%--        <ul class="menu-ul">--%>
+<%--            <li data-text="Information">--%>
+<%--                <a href="#" class="menu-i">--%>
+<%--                    <img src="${pageContext.request.contextPath}/image/itjui.png">--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--            <li data-text="Truly">--%>
+<%--                <a href="#" class="menu-t">--%>
+<%--                    <img src="${pageContext.request.contextPath}/image/itjut.png">--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--            <li data-text="Junior">--%>
+<%--                <a href="#" class="menu-j">--%>
+<%--                    <img src="${pageContext.request.contextPath}/image/itjuj.png">--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--            <li data-text="Useful">--%>
+<%--                <a href="#" class="menu-u">--%>
+<%--                    <img src="${pageContext.request.contextPath}/image/itjuu.png">--%>
+<%--                </a>--%>
+<%--            </li>--%>
+<%--        </ul>--%>
+<%--    </section>--%>
+    <div class="content2-title">
+        <div class="content2-line"></div>
+        <span class="content2-desc1">ITJU를 만들면서</span>
+        <span class="content2-desc2">모든게 어려운 초보 IT인들에게<br>도움이 되는 사이트를 만들고 싶습니다.</span>
+    </div>
+    <section>
+        <span class="curve">
+            <img src="${pageContext.request.contextPath}/image/curve.png">
+        </span>
     </section>
+    <div class="content2-card-box">
+        <div class="c-card"></div>
+        <div class="c-card"></div>
+        <div class="c-card"></div>
+        <div class="c-card"></div>
+        <div class="c-card"></div>
+    </div>
 </div>
 <%--<div class="content3-section">--%>
 <%--    <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-sum">--%>
