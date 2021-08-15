@@ -27,4 +27,6 @@ public interface RecruitService {
     //채용게시판 글 좋아요 갯수 출력
     public int selectScrapCount(long job_idx);
 
+    public List<RecruitDTO> getRecruitScrapList(PrincipalDetails principalDetails);
+
 }
