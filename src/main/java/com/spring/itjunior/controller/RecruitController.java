@@ -52,7 +52,7 @@ public class RecruitController {
 //        model.addAttribute("categories", categories);
 //        model.addAttribute("result",resultInfo);
 //        model.addAttribute("page",setPageDto);
-
+//        git test token
         return "job/jobList";
     }
 
