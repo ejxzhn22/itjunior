@@ -24,7 +24,7 @@
             <c:when test="${principal.member.provider eq null}">
                 <div class="mypage-update-btns">
                     <a href="/mypage/passwordCheck" class="mypage-update">회원정보 수정</a>
-                    <a href="/mypage/scrapList" class="mypage-update">스크랩 확인</a>
+                    <a href="/job/mypage/scrapList" class="mypage-update">스크랩 확인</a>
                     <a href="/mypage/deletePasswordCheck" class="mypage-delete">회원탈퇴 </a>
                 </div>
             </c:when>

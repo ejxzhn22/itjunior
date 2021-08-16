@@ -86,7 +86,7 @@
     
     <select id="selectScrappedInfoByUserIdx" resultType="RecruitDTO" parameterType="int">
         select *
-        from tbl_recruit_scrap a
+        from tbl_recruit a
         left join tbl_recruit_scrap b
         on a.recruit_idx = b.recruit_idx
         where member_idx=#{member_idx}

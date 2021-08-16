@@ -16,36 +16,28 @@
 <div class="content-section">
     <div class="job-section">
         <!-- <span>2021개의 취업정보가 검색되었습니다. </span> -->
-        <form method="get" action="/job/list" class="board-search">
-            <select name="search-select" class="board-select">
-                <option value="전체">전체</option>
-                <option value="회사명">회사명</option>
-                <option value="공고명">공고명</option>
-            </select>
-        </form>
-
         <div class="job-list">
             <c:forEach var="item" items="${result}">
                 <div class="job-card" id="${item.job_idx}">
                     <div class="job-card-box">
                         <div class="job-card1">
-                            <span class="job-name" id="company-name-${item.id}"><c:out value="${item.company_name}"/></span>
+                            <span class="job-name" id="company-name-${item.job_idx}"><c:out value="${item.company_name}"/></span>
                             <div class="job-title">
-                                <span id="title-${item.id}"><c:out value="${item.title}"/></span>
+                                <span id="title-${item.job_idx}"><c:out value="${item.title}"/></span>
                             </div>
                             <div class="job-cop">
-                                <span id="location-${item.id}"><c:out value="${item.location}"/></span>
+                                <span id="location-${item.job_idx}"><c:out value="${item.location}"/></span>
                             </div>
                         </div>
                         <div class="job-card2">
                             <div class="card2-box2">
                                 <span>근무형태</span>
-                                <span id="job-type-${item.id}"><c:out value="${item.job_type}"/></span>
+                                <span id="job-type-${item.job_idx}"><c:out value="${item.job_type}"/></span>
                             </div>
                             <div class="card2-box1">
                                 <span>기한</span>
                                 <c:if test="${item.close_type eq '접수마감일'}">
-                                    <fmt:parseDate value="${item.expiration_date}" var="parseDate" pattern="yyyy-MM-dd'T'HH:mm:ssZ"/>
+                                    <fmt:parseDate value="${item.expiration_date}" var="parseDate" pattern="yyyy-MM-dd'T'HH:mm:ss" type="both"/>
                                     <fmt:formatDate value="${parseDate}" var="formatDate" pattern="MM/dd HH:mm"/>
                                     <c:out value="${formatDate}"/> 마감
                                     <input type="hidden" id="close-type-${item.job_idx}" value="${item.close_type}">
@@ -74,7 +66,7 @@
                             </div>
                             <div>
                                 <span>최종학력</span> :
-                                <span id="required-education-level-${item.job_idx}"><c:out value="${item.required-education-level}"/></span>
+                                <span id="required-education-level-${item.job_idx}"><c:out value="${item.required_education_level}"/></span>
                             </div>
                             <div>
                                 <span>연봉</span> :
@@ -94,7 +86,7 @@
                             </c:if>
                         </div>
                         <div>
-                            <i class="far fa-star" id="scrap-button-${item.job_idx}" onclick="scrap(${item.job_idx},event)">스크랩</i>
+                            <i class="far fa-star" id="scrap-button-${item.job_idx}" onclick="scrap(${item.job_idx},event)"></i>
                         </div>
                         <div class="job-link">
                             <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
@@ -141,7 +133,7 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
     function movePage(queryString) {
-        location.href = "/job/list" + queryString;
+        location.href = "/job/mypage/scrapList" + queryString;
     }
 
     function scrap(job_idx,event) {

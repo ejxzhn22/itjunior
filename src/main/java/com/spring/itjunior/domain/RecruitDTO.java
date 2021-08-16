@@ -18,7 +18,6 @@ public class RecruitDTO {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private LocalDateTime expiration_date; //마감일
-
     private String close_type;  //마감일 형식
     private String category; //직종
     private String experience_level; //경력(값)
