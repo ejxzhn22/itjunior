@@ -109,6 +109,12 @@ public class RecruitServiceImpl implements RecruitService{
         return recruitScrapList;
     }
 
+    @Override
+    public int selectScrapMyCount(int member_idx) {
+        int scrapTotalCount = recruitMapper.selectTotalScrapCount(member_idx);
+        return scrapTotalCount;
+    }
+
     //jobList.jsp 에서 받아온 job_idx를 DB Recruit테이블로 넘겨서 해당 idx의 대한 기업정보가 존재하지 않으면 true 반환.
     private boolean isRecruitInfo(long job_idx) {
         if (recruitMapper.selectRecruitByIdx(job_idx) == null) {
