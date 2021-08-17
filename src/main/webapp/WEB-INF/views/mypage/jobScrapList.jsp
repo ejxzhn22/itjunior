@@ -4,7 +4,7 @@
 <%@include file="../layout/header.jsp"%>
 <div class="banner-section3">
     <div class="banner-write">
-        <span class="banner-title">마이페이지</span>
+        <span class="banner-title">스크랩</span>
         <span class="banner-desc3">스크랩 한 공고를 <br>확인하실 수 있습니다.✍️</span>
     </div>
     <div class="banner-img3">
@@ -35,18 +35,26 @@
                                 <span id="job-type-${item.job_idx}"><c:out value="${item.job_type}"/></span>
                             </div>
                             <div class="card2-box1">
-                                <span>기한</span>
-                                <c:if test="${item.close_type eq '접수마감일'}">
-                                    <fmt:parseDate value="${item.expiration_date}" var="parseDate" pattern="yyyy-MM-dd'T'HH:mm:ss" type="both"/>
-                                    <fmt:formatDate value="${parseDate}" var="formatDate" pattern="MM/dd HH:mm"/>
-                                    <c:out value="${formatDate}"/> 마감
-                                    <input type="hidden" id="close-type-${item.job_idx}" value="${item.close_type}">
-                                </c:if>
-                                <c:if test="${item.close_type ne '접수마감일'}">
-                                    <span><c:out value="${item.close_type}"/></span> 마감
-                                    <input type="hidden" id="close-type-${item.job_idx}" value="${item.close_type}">
-                                </c:if>
-                                <input type="hidden" id="expiration-date-${item.job_idx}" value="${item.expiration_date}">
+                                <c:choose>
+                                    <c:when test="${item.active eq '0'}">
+                                        <span>기한</span>
+                                        <span style="color: #d01212">접수 마감</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span>기한</span>
+                                        <c:if test="${item.close_type eq '접수마감일'}">
+                                            <fmt:parseDate value="${item.expiration_date}" var="parseDate" pattern="yyyy-MM-dd'T'HH:mm" type="both"/>
+                                            <fmt:formatDate value="${parseDate}" var="formatDate" pattern="MM/dd HH:mm"/>
+                                            <c:out value="${formatDate}"/> 마감
+                                            <input type="hidden" id="close-type-${item.job_idx}" value="${item.close_type}">
+                                        </c:if>
+                                        <c:if test="${item.close_type ne '접수마감일'}">
+                                            <span><c:out value="${item.close_type}"/></span> 마감
+                                            <input type="hidden" id="close-type-${item.job_idx}" value="${item.close_type}">
+                                        </c:if>
+                                        <input type="hidden" id="expiration-date-${item.job_idx}" value="${item.expiration_date}">
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                         <div class="job-card3">
@@ -138,13 +146,8 @@
 
     function scrap(job_idx,event) {
         event.stopPropagation();
-        let scrapIcon = $("#scrap-button-"+job_idx);
         console.log("job_idx >>> " + job_idx);
 
-        if(${principal.member eq null}){
-            alert("로그인 후 사용하십시오.");
-            location.href = "/auth/loginForm";
-        }
         //스크랩 삭제
         $.ajax({
             url: "/job/scrap/"+job_idx,

@@ -85,16 +85,19 @@
     <select id="selectKeyword" resultType="Category">
         select * from tbl_category where cate_code = 200
     </select>
-    
-    <select id="selectScrappedInfoByUserIdx" resultType="RecruitDTO" parameterType="int">
+
+    <!-- mypage 내가 스크랩한 공고 List (including pagination) -->
+    <select id="selectScrappedInfoByUserIdx" resultType="RecruitDTO" parameterType="HashMap">
         select *
         from tbl_recruit a
         left join tbl_recruit_scrap b
         on a.recruit_idx = b.recruit_idx
         where member_idx=#{member_idx}
         ORDER BY b.create_time DESC
+        LIMIT #{pageDto.paginationInfo.firstRecordIndex}, #{pageDto.recordsPerPage}
     </select>
 
+    <!-- mypage 내가 스크랩한 공고 총 갯수 -->
     <select id="selectTotalScrapCount" resultType="int" parameterType="int">
         select count(*)
         from tbl_recruit_scrap

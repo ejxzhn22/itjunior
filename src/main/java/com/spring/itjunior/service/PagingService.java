@@ -44,11 +44,16 @@ public class PagingService {
     public PageDto makeScrapMyPaging(PageDto pageDto, int member_idx) {
 
         int qnaTotalCount = recruitService.selectScrapMyCount(member_idx);
+        log.info("total scrap count >>> {}",qnaTotalCount);
+        log.info("pageDto >>> {}",pageDto);
+        pageDto.setRecordsPerPage(10);
+        pageDto.setPageSize(10);
 
         PaginationInfo paginationInfo = new PaginationInfo(pageDto);
         paginationInfo.setTotalRecordCount(qnaTotalCount);
         pageDto.setPaginationInfo(paginationInfo);
-        pageDto.setRecordsPerPage(10);
+
+        log.info("paginationInfo >>> {}",pageDto.getPaginationInfo().toString());
 
         return pageDto;
     }

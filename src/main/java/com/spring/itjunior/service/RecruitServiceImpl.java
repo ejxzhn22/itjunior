@@ -13,7 +13,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Log4j2
@@ -33,7 +35,6 @@ public class RecruitServiceImpl implements RecruitService{
     @Override
     public boolean saveRecruitInfo(RecruitDTO recruitDTO) {
         int queryResult = 0;
-        log.info("saveRecruit >>> {}",recruitDTO.toString());
         queryResult = recruitMapper.insertRecruit(recruitDTO);
 
         return (queryResult == 1) ? true : false;
@@ -48,9 +49,6 @@ public class RecruitServiceImpl implements RecruitService{
     @Override
     public JSONObject getApiList(PageDto pageDto) {
         JSONObject apiResult = apiService.recruitApiList(pageDto);
-
-        log.info("api 호출 json 값 >>> {}",apiResult.get("jobs"));
-
         return apiResult;
 
     }
@@ -102,10 +100,14 @@ public class RecruitServiceImpl implements RecruitService{
     }
 
     @Override
-    public List<RecruitDTO> getRecruitScrapList(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public List<RecruitDTO> getRecruitScrapList(@AuthenticationPrincipal PrincipalDetails principalDetails,PageDto pageDto) {
         int member_idx = principalDetails.getMember().getMember_idx();
-        log.info("member_idx scrapService : {} // {}",member_idx, principalDetails.getMember().getUserId());
-        List<RecruitDTO> recruitScrapList = recruitMapper.selectScrappedInfoByUserIdx(member_idx);
+
+        Map<String, Object> scrapListParams = new HashMap<String, Object>();
+        scrapListParams.put("member_idx",member_idx);
+        scrapListParams.put("pageDto", pageDto);
+
+        List<RecruitDTO> recruitScrapList = recruitMapper.selectScrappedInfoByUserIdx(scrapListParams);
         return recruitScrapList;
     }
 
