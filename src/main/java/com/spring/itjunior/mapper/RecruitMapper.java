@@ -3,9 +3,12 @@ package com.spring.itjunior.mapper;
 import com.spring.itjunior.domain.Category;
 import com.spring.itjunior.domain.RecruitDTO;
 import com.spring.itjunior.domain.RecruitScrap;
+import com.spring.itjunior.dto.PageDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface RecruitMapper {
@@ -27,7 +30,7 @@ public interface RecruitMapper {
     //채용게시판 글 좋아요 갯수 출력
     public int selectScrapCount(int recruit_idx);
 
-    public List<RecruitDTO> selectScrappedInfoByUserIdx(int member_idx);
+    public List<RecruitDTO> selectScrappedInfoByUserIdx(Map<String,Object> scrapListParams);
 
     public int selectTotalScrapCount(int member_idx);
 
