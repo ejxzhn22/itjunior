@@ -48,9 +48,11 @@ public class RecruitController {
     @GetMapping("/mypage/scrapList")
     public String scrappedList(Model model, PageDto pageDto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         List<RecruitDTO> recruitScrapList = recruitService.getRecruitScrapList(principalDetails);
+        int member_idx = principalDetails.getMember().getMember_idx();
+        PageDto setPageDto = pagingService.makeScrapMyPaging(pageDto, member_idx);
 
         model.addAttribute("result",recruitScrapList);
-//        model.addAttribute("page",setPageDto);
+        model.addAttribute("page",setPageDto);
         return "mypage/jobScrapList";
     }
 

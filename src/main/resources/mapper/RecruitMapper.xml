@@ -61,11 +61,13 @@
         INSERT INTO tbl_recruit_scrap (
             scrap_idx,
             recruit_idx,
-            member_idx
+            member_idx,
+            create_time
         ) VALUES (
             #{scrap_idx},
             #{recruit_idx},
-            #{member_idx}
+            #{member_idx},
+            NOW()
         )
     </insert>
 
@@ -90,8 +92,14 @@
         left join tbl_recruit_scrap b
         on a.recruit_idx = b.recruit_idx
         where member_idx=#{member_idx}
+        ORDER BY b.create_time DESC
     </select>
 
-<!--    <select id="selectScrappedInfoBy"></select>-->
+    <select id="selectTotalScrapCount" resultType="int" parameterType="int">
+        select count(*)
+        from tbl_recruit_scrap
+        where member_idx = #{member_idx}
+    </select>
+
 
 </mapper>

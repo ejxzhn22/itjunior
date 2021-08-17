@@ -29,4 +29,6 @@ public interface RecruitService {
 
     public List<RecruitDTO> getRecruitScrapList(PrincipalDetails principalDetails);
 
+    public int selectScrapMyCount(int member_idx);
+
 }

@@ -29,6 +29,8 @@ public interface RecruitMapper {
 
     public List<RecruitDTO> selectScrappedInfoByUserIdx(int member_idx);
 
+    public int selectTotalScrapCount(int member_idx);
+
 
 
 }

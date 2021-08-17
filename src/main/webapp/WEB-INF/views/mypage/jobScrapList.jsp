@@ -4,7 +4,7 @@
 <%@include file="../layout/header.jsp"%>
 <div class="banner-section3">
     <div class="banner-write">
-        <span class="banner-title">내가 스크랩한 공고</span>
+        <span class="banner-title">마이페이지</span>
         <span class="banner-desc3">스크랩 한 공고를 <br>확인하실 수 있습니다.✍️</span>
     </div>
     <div class="banner-img3">
@@ -18,7 +18,7 @@
         <!-- <span>2021개의 취업정보가 검색되었습니다. </span> -->
         <div class="job-list">
             <c:forEach var="item" items="${result}">
-                <div class="job-card" id="${item.job_idx}">
+                <div class="job-card job-card-${item.job_idx}" id="${item.job_idx}">
                     <div class="job-card-box">
                         <div class="job-card1">
                             <span class="job-name" id="company-name-${item.job_idx}"><c:out value="${item.company_name}"/></span>
@@ -86,7 +86,7 @@
                             </c:if>
                         </div>
                         <div>
-                            <i class="far fa-star" id="scrap-button-${item.job_idx}" onclick="scrap(${item.job_idx},event)"></i>
+                            <i style="color: darkred" class="fas fa-trash-alt" id="scrap-button-${item.job_idx}" onclick="scrap(${item.job_idx},event)">삭제</i>
                         </div>
                         <div class="job-link">
                             <a href="${item.url}" target="_blank" class="join-btn">채용상세정보</a>
@@ -145,66 +145,25 @@
             alert("로그인 후 사용하십시오.");
             location.href = "/auth/loginForm";
         }
-        let totalData = JSON.stringify({
-            job_idx : job_idx,
-            company_name : $("#company-name-"+job_idx).text(),
-            title : $("#title-"+job_idx).text(),
-            location : $("#location-"+job_idx).text(),
-            job_type : $("#job-type-"+job_idx).text(),
-            expiration_date : $("#expiration-date-"+job_idx).val(),
-            close_type : $("#close-type-"+job_idx).val(),
-            category : $("#job-category-"+job_idx).text(),
-            experience_level : $("#experience-level-"+job_idx).text(),
-            required_education_level : $("#required-education-level-"+job_idx).text(),
-            salary : $("#salary-"+job_idx).text(),
-            applycnt : $("#apply-cnt-"+job_idx).text(),
-            active : $("#active-"+job_idx).val(),
-            url : $("#url-"+job_idx).val(),
-            company_href : $("#company-href-"+job_idx).val()
+        //스크랩 삭제
+        $.ajax({
+            url: "/job/scrap/"+job_idx,
+            type: "DELETE",
+            success: function(result) {
+                console.log("result >> "+result);
+                if (result === "success") {
+                    console.log("스크랩 취소 성공");
+                    alert("선택하신 공고가 삭제되었습니다.");
+                    $(".job-card-"+job_idx).remove();
+                    return false;
+                }
+            },
+            error: function (error) {
+                console.log(error.status);
+                console.log("서버호출 에러.");
+            }
         });
-        if(scrapIcon.hasClass("far")){
 
-            $('#scrap-button-'+job_idx).addClass('fas');
-            $('#scrap-button-'+job_idx).addClass('active');
-            $('#scrap-button-'+job_idx).removeClass('far');
-            $('#scrap-button-'+job_idx).text("스크랩취소");
-            $.ajax({
-                url: "/job/scrap/"+job_idx,
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: totalData,
-                success: function(result) {
-                    console.log("result >> "+result);
-                    if (result === "success") {
-                        console.log("스크랩 성공");
-                    }
-                },
-                error: function (error) {
-                    console.log(error.status);
-                    console.log("서버호출 에러.");
-                }
-            })
-        } else {
-            $.ajax({
-                url: "/job/scrap/"+job_idx,
-                type: "DELETE",
-                success: function(result) {
-                    console.log("result >> "+result);
-                    if (result === "success") {
-                        console.log("스크랩 취소 성공");
-                        $('#scrap-button-'+job_idx).removeClass('fas');
-                        $('#scrap-button-'+job_idx).removeClass('active');
-                        $('#scrap-button-'+job_idx).addClass('far');
-                        $('#scrap-button-'+job_idx).text("스크랩");
-                        return false;
-                    }
-                },
-                error: function (error) {
-                    console.log(error.status);
-                    console.log("서버호출 에러.");
-                }
-            })
-        }
     }
 
     $(document).ready(function() {
@@ -234,27 +193,6 @@
                     $("#slide-"+job_idx).css('transform','rotate(180deg)');
                     $(".job-card-box").css('border-bottom','1px solid #d2d2d2');
                     console.log("열기");
-
-                    $.ajax({
-                        url: "/job/isScrap/"+job_idx,
-                        type: "GET",
-                        success: function(result) {
-                            if (result.isScrap) {
-                                console.log("이미 스크랩한 공고");
-                                $('#scrap-button-'+job_idx).addClass('fas');
-                                $('#scrap-button-'+job_idx).addClass('active');
-                                $('#scrap-button-'+job_idx).removeClass('far');
-                                $('#scrap-button-'+job_idx).text("스크랩취소");
-                                return false;
-                            }
-                            console.log("스크랩 없음.")
-                        },
-                        error: function (error) {
-                            console.log(error.status);
-                            console.log("서버호출 에러.");
-                        }
-                    })
-
                 }
 
             });
