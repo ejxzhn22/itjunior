@@ -46,8 +46,6 @@ public class MemberController {
     public String join(@Valid JoinDto joinDto, BindingResult bindingResult,Model model, RedirectAttributes rttr) {
         boolean resultJoin = memberService.saveMemberInfo(joinDto);
 
-        log.info("회원 등록 성공/실패 >>> {}",resultJoin);
-
         if (resultJoin) {
             rttr.addFlashAttribute("insertMsg","success");
             return "redirect:/";
@@ -71,12 +69,10 @@ public class MemberController {
     /****** 회원 PASSWORD 찾기 인증 Form (email 인증 Form) *******/
     @GetMapping("/auth/member/find-password-certification/{idx}")
     public String findPwdByEmail(@PathVariable("idx") int member_idx, Model model) {
-        log.info("memberIdx >>> {}",member_idx);
-
         Member member= memberService.findByIdx(member_idx);
         String encEmail = memberService.partialEncEmail(member.getEmail());
         int certificationNum = mailService.mailSend(member.getEmail(),member.getName());
-        log.info("email전송 서비스 완료,, 인증번호 >>> {}",certificationNum);
+
         model.addAttribute("email", encEmail);
         model.addAttribute("certificationNum", certificationNum);
         model.addAttribute("member", member);
@@ -87,7 +83,6 @@ public class MemberController {
     /****** 회원 PASSWORD 찾기 - 이메일인증 - 새로운 비밀번호 생성 Form *******/
     @GetMapping("/auth/member/change-pw/{idx}")
     public String changePwd(@PathVariable("idx") int member_idx, Model model) {
-        log.info("비밀번호 변경 페이지 진입,, member_idx >>> {}",member_idx);
         model.addAttribute("member_idx",member_idx);
         return "member/changePasswordForm";
     }
@@ -135,19 +130,16 @@ public class MemberController {
     /****** 회원 수정 Form *******/
     @RequestMapping(value = "/member/updateForm",method = {RequestMethod.GET,RequestMethod.POST})
     public String updateForm(Member member,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        log.info("passwordCheckForm 에서 받은 password >>> {}",member.toString());
         log.info("isFirstLogin >>> {}",principalDetails.isFirstOauthLogin());
 
         //oauth로그인 유저가 아닌 일반 유저면,,
         if (StringUtils.isBlank(principalDetails.getMember().getProvider())) {
             String fixedPwd = member.getPassword();
-            log.info("고정 평문 비밀번호 >>> {}",fixedPwd);
             member.setPassword(fixedPwd);
             return "member/updateForm";
         }
 
         String fixedPwd = "itjunior"+principalDetails.getMember().getUuid();
-        log.info("고정 평문 비밀번호 >>> {}",fixedPwd);
         member.setPassword(fixedPwd);
 
         return "member/updateForm";
@@ -157,22 +149,17 @@ public class MemberController {
     @PostMapping("/member")
     public String updateMember(@RequestParam("originPwd") String originPwd, @Valid UpdateMemberDto updateMemberDto,
                                BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model, RedirectAttributes rttr) {
-        log.info("들어온 member >> {}",updateMemberDto.toString());
-        log.info("평문 비밀번호 >>> {}",originPwd);
-
         memberService.updateMemberInfo(updateMemberDto);
 
         String updatedPwd = updateMemberDto.getPassword();
         String userId = principalDetails.getUsername();
         if (StringUtils.isBlank(updatedPwd)) { //받아온 비밀번호가 null,"" 일때
             log.info("비밀번호를 수정하지 않았습니다. 평문 비밀번호를 가져오세요.");
-            log.info("평문 >>> {}",originPwd);
             forceLoginProc(userId,originPwd);
         }else {
             forceLoginProc(userId,updatedPwd);
         }
 
-        log.info("수정된 세션 비밀번호 >>> {}",principalDetails.getPassword());
         rttr.addFlashAttribute("udateMsg","success");
         return "redirect:/";
     }
