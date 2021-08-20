@@ -21,7 +21,7 @@
         , url
         , company_href
     </sql>
-    
+    <!-- 채용게시판 해당 공고 스크랩버튼 클릭시 공고 정보 table insert-->
     <insert id="insertRecruit" parameterType="RecruitDTO">
         INSERT INTO tbl_recruit (
             <include refid="recruitColumns" />
@@ -45,18 +45,21 @@
         )
     </insert>
 
+    <!-- 로그인한 회원 idx로 스크랩 정보 가져오기-->
     <select id="selectRecruitByIdx" resultType="RecruitDTO" parameterType="long">
         SELECT <include refid="recruitColumns"/>
         FROM tbl_recruit
         WHERE job_idx=#{job_idx}
     </select>
 
+    <!-- 해당 채용 공고 스크랩 여부 확인-->
     <select id="selectIsRecruitScrap" resultType="int" parameterType="RecruitScrap">
         SELECT count(*)
         FROM tbl_recruit_scrap
         WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
     </select>
 
+    <!-- 스크랩 버튼 클릭시 해당 공고의 스크랩여부 테이블 insert-->
     <insert id="insertRecruitScrap" parameterType="RecruitScrap">
         INSERT INTO tbl_recruit_scrap (
             scrap_idx,
@@ -71,17 +74,20 @@
         )
     </insert>
 
+    <!-- 스크랩 취소-->
     <delete id="deleteRecruitScrap" parameterType="RecruitScrap">
         DELETE FROM tbl_recruit_scrap
         WHERE recruit_idx=#{recruit_idx} AND member_idx=#{member_idx}
     </delete>
 
+    <!-- 해당 공고 스크랩 횟수-->
     <select id="selectScrapCount" resultType="int" parameterType="int">
         SELECT count(*)
         FROM tbl_recruit_scrap
         WHERE recruit_idx=#{recruit_idx}
     </select>
 
+    <!-- 채용 게시판 키워드값-->
     <select id="selectKeyword" resultType="Category">
         select * from tbl_category where cate_code = 200
     </select>

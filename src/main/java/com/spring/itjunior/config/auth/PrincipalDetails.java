@@ -15,7 +15,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private Member member; //콤포지션 : 객체를 품고 있는 것
     private Map<String, Object> attributes;
-    private boolean isFirstOauthLogin;
+    private boolean isFirstOauthLogin; //oauth로그인이 첫번째 인지 확인시켜주는 변수
 
     //일반 로그인
     public PrincipalDetails(Member member) {

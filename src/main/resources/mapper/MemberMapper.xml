@@ -62,29 +62,34 @@
         WHERE userId=#{userId}
     </select>
 
+    <!-- 아이디 찾기 (유저 이름과 이메일)-->
     <select id="findNameAndEmail" resultType="String" parameterType="Member">
         SELECT userId
         FROM tbl_member
         WHERE name=#{name} AND email=#{email}
     </select>
 
+    <!-- 유저 ID와 이름으로 member_idx 찾기-->
     <select id="findUserIdAndName" resultType="int" parameterType="Member">
         SELECT member_idx
         FROM tbl_member
         WHERE userId=#{userId} AND name=#{name}
     </select>
 
+    <!-- 회원 수정에서 비밀번호 변경-->
     <update id="changePasswordByIdx" parameterType="Member">
         UPDATE tbl_member
         SET password=#{password}
         WHERE member_idx=#{member_idx}
     </update>
 
+    <!-- oauth 회원 탈퇴-->
     <delete id="deleteMemberByIdxForOauth" parameterType="int">
         DELETE FROM tbl_member
         WHERE
             member_idx=#{member_idx}
     </delete>
+    <!-- 일반 유저 회원 탈퇴-->
     <delete id="deleteMemberByIdx" parameterType="Member">
         DELETE FROM tbl_member
         WHERE
@@ -92,8 +97,8 @@
         AND
             password=#{password}
     </delete>
-    
 
+    <!-- 회원 마지막 로그인 시간 체크-->
     <update id="updateLoginTime" parameterType="Member">
         UPDATE
             tbl_member
@@ -103,18 +108,21 @@
             userId=#{userId}
     </update>
 
+    <!-- 회원가입 시 아이디 중복 확인 여부-->
     <select id="idCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM tbl_member
         WHERE userId=#{userId}
     </select>
 
+    <!-- 회원가입 시 이메일 중복 확인 여부-->
     <select id="emailCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM tbl_member
         WHERE email=#{email}
     </select>
 
+    <!-- 회원가입 시 닉네임 중복 확인 여부-->
     <select id="nickNameCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM tbl_member
