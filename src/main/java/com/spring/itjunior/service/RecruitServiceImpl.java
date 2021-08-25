@@ -36,7 +36,7 @@ public class RecruitServiceImpl implements RecruitService{
     public boolean saveRecruitInfo(RecruitDTO recruitDTO) {
         int queryResult = 0;
         queryResult = recruitMapper.insertRecruit(recruitDTO);
-
+        log.info("채용정보 저장.");
         return (queryResult == 1) ? true : false;
     }
 

@@ -54,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable() //csrf토큰 비활성 (테스트시 걸어두는게 좋음)
                 .authorizeRequests()
-                    .antMatchers("/member/**","/mypage/**","/boards/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-                    .antMatchers("/auth/**","/qnaboards/**","/","/oauth2/**","/job/**").permitAll()  // /auth로 시작하는 모든 매핑에 대하여 허용한다.
+                    .antMatchers("/member/**","/qnaboards/**","/mypage/**","/boards/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                    .antMatchers("/auth/**","/","/oauth2/**","/job/**").permitAll()  // /auth로 시작하는 모든 매핑에 대하여 허용한다.
                     .anyRequest()
                     .authenticated() //허용을 제외한 나머지 모든 매핑은 인증(로그인)을 받아야 진입 가능하다.
                 .and()
