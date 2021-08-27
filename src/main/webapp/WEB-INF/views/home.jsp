@@ -106,16 +106,52 @@
         </span>
     </section>
     <div class="content2-card-box">
-        <div class="c-card"></div>
-        <div class="c-card"></div>
-        <div class="c-card"></div>
-        <div class="c-card"></div>
-        <div class="c-card"></div>
+        <div class="c-card">
+            <p class="c-card-header">
+                잇주를 만들게된 이유
+            </p>
+            <div class="c-card-footer">
+                <span class="card-footer-span" style="font-size:19px;">ITJU</span>
+            </div>
+        </div>
+        <div class="c-card">
+            <p class="c-card-header">
+                잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)
+            </p>
+            <div class="c-card-footer">
+                <img src="${pageContext.request.contextPath}/image/jaebok-img.png" class="card-footer-img">
+                <span class="card-footer-span">백엔드개발 이재복</span>
+            </div>
+        </div>
+        <div class="c-card">
+            <p class="c-card-header">
+                잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)
+            </p>
+            <div class="c-card-footer">
+                <img src="${pageContext.request.contextPath}/image/sujin-img.png" class="card-footer-img">
+                <span class="card-footer-span">백엔드개발 김수진</span>
+            </div>
+        </div>
+        <div class="c-card">
+            <p class="c-card-header">
+                잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)
+            </p>
+            <div class="c-card-footer">
+                <img src="${pageContext.request.contextPath}/image/jeseon-img.jpeg" class="card-footer-img">
+                <span class="card-footer-span">프론트엔드개발 문제선</span>
+            </div>
+        </div>
+<%--        <div class="c-card">--%>
+<%--            <p class="c-card-header">--%>
+<%--                잇주를 개발하면서--%>
+<%--            </p>--%>
+<%--            <div class="c-card-footer">--%>
+<%--                <img src="${pageContext.request.contextPath}/image/jeseon-img.jpeg" class="card-footer-img">--%>
+<%--                <span class="card-footer-span">프론트엔드개발 문제선</span>--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
 </div>
-<%--<div class="content3-section">--%>
-<%--    <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-sum">--%>
-<%--</div>--%>
 <style>
     .footer-section{
         margin-top:0px !important;
