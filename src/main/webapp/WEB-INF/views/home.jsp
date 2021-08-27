@@ -108,7 +108,7 @@
     <div class="content2-card-box">
         <div class="c-card">
             <p class="c-card-header">
-                잇주를 만들게된 이유
+                잇주를 만들게된 이유 
             </p>
             <div class="c-card-footer">
                 <span class="card-footer-span" style="font-size:19px;">ITJU</span>
