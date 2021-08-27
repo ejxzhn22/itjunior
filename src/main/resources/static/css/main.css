@@ -563,3 +563,55 @@ section .curve img{
     color: #787878;
     margin: 15px 10px 0px 14px;
 }
+.c-card-main{
+    position:relative;
+}
+.ribbon-bottom-right {
+    bottom: -10px;
+    right: -10px;
+}
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+}
+ribbon-bottom-right::before, .ribbon-bottom-right::after {
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+}
+.ribbon::before{
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2f3e75;
+}
+.ribbon::after {
+     position: absolute;
+     top: 0;
+    right:0;
+     z-index: -1;
+     content: '';
+     display: block;
+     border: 5px solid #2f3e75;
+ }
+.ribbon-bottom-right span {
+    left: -25px;
+    bottom: 30px;
+    transform: rotate(-45deg);
+}
+.ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #5a7dfa;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgb(0 0 0 / 20%);
+    text-transform: uppercase;
+    text-align: center;
+}
