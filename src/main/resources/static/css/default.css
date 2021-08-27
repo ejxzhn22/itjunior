@@ -308,6 +308,7 @@ body{
     .mypage-btn {
         padding:5px 10px;
     }
+
 }
 @media screen and (max-width:820px){
     html,
@@ -441,4 +442,16 @@ body{
     .menu-ul li a img {
         width: 200px;
     }
-}
+    .content2-section {
+        height: 100vh;
+    }
+    .content2-card-box .c-card {
+        width: 70%;
+    }
+    .content2-desc1 {
+    font-size:35px;
+    }
+    .content2-desc2{
+        font-size:16px;
+    }
+    }
