@@ -106,13 +106,17 @@
         </span>
     </section>
     <div class="content2-card-box">
-        <div class="c-card">
+        <div class="c-card c-card-main">
             <p class="c-card-header">
-                잇주를 만들게된 이유 
+                신입 IT취업자를 위한 사이트가 있으면 어떨까?<br>
+                “신입 IT인의 눈높이로 만든 사이트”<br>
+                뭐라쓰지
+
             </p>
             <div class="c-card-footer">
-                <span class="card-footer-span" style="font-size:19px;">ITJU</span>
+                <span class="card-footer-span" style="font-size:19px;">운영진</span>
             </div>
+            <div class="ribbon ribbon-bottom-right"><span class="noto500">ITJU ⭐ ️</span></div>
         </div>
         <div class="c-card">
             <p class="c-card-header">
@@ -134,7 +138,19 @@
         </div>
         <div class="c-card">
             <p class="c-card-header">
-                잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)
+                안녕하세요 신입 <strong>프론트엔드 개발자 문제선</strong>입니다.
+                ITJU 프론트엔드 개발에 참여하여 기획 / 퍼블리싱을 맡아 진행하였습니다.
+                <br>
+                <br>
+                <strong>느낀점/배운점</strong><br><br>
+                독학하면서는 보이지 않았던 저의 부족한 부분을 알게되는 계기가 되었습니다.
+                많은 웹사이트를 참고하고, 더 정형화된 코드를 짜보며 부족한 안목을 키우는데 큰 도움이 되었습니다.
+                <br>
+                <br>
+
+                <strong>중점을 둔 부분</strong><br><br>
+                매주 팀회의와 GIT코드관리를 통해 현업의 팀프로젝트 연습을 하는 것에 의의를 두며 진행하였습니다.
+                개인프로젝트 진행할 때와는 다르게 어려운 부분도 많았지만 팀과 프로젝트를 완성했을 땐 그 희열이 배가 되었던 것 같습니다.
             </p>
             <div class="c-card-footer">
                 <img src="${pageContext.request.contextPath}/image/jeseon-img.jpeg" class="card-footer-img">
