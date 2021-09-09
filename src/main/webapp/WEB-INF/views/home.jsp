@@ -108,15 +108,15 @@
     <div class="content2-card-box">
         <div class="c-card c-card-main">
             <p class="c-card-header">
-                신입 IT취업자를 위한 사이트가 있으면 어떨까?<br>
-                “신입 IT인의 눈높이로 만든 사이트”<br>
+                <span style="font-size: 20px;font-weight: 700">신입 IT취업자를 위한 사이트가 있으면 어떨까?</span><br><br>
+                <span style="font-size:18px;">“신입 IT인의 눈높이로 만든 사이트”</span><br><br>
                 기존의 사람인 Open API를 활용하여 IT 신입 개발자들에게 중점을 두어 보다 간략하고 필요한 기업 정보만 보여줄 수 있고, 검색 가능한 웹을 제작하였습니다.
                 필요한 취업 정보를 즐겨찾기를 통하여 편리하게 관리할 수 있습니다.
                 또한 주니어 개발자들 간의 IT 기업 정보를 편리하게 공유할 수 있도록 '취업토론' 게시판을 제공하며 이 부분은 IT 계열의 종사하고 있는 어떠한 개발자도 참여 가능합니다.
 
             </p>
             <div class="c-card-footer">
-                <span class="card-footer-span" style="font-size:19px;">운영진</span>
+                <span class="card-footer-span">운영진</span>
             </div>
             <div class="ribbon ribbon-bottom-right"><span class="noto500">ITJU ⭐ ️</span></div>
         </div>

@@ -447,6 +447,7 @@ body{
     }
     .content2-card-box .c-card {
         width: 70%;
+        min-width: 270px;
     }
     .content2-desc1 {
     font-size:35px;
