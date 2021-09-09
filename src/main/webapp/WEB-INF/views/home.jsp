@@ -122,7 +122,7 @@
         <div class="c-card">
             <p class="c-card-header">
                 안녕하세요 신입 <strong>백엔드 개발자 이재복</strong>입니다.
-                ITJU 백엔드 개발에 참여하여 개발환경설계/DB설계(공통)/회원/채용공고 를 맡아 진행하였습니다.
+                ITJUnior 백엔드 개발에 참여하여 개발환경설계/DB설계(공통)/회원/채용공고 를 맡아 진행하였습니다.
                 <br>
                 <br>
                 <strong>느낀점/배운점</strong><br><br>
