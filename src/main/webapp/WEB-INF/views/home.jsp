@@ -148,8 +148,17 @@
             </div>
         </div>
         <div class="c-card">
-            <p class="c-card-header">
-                잇주를 만들면서 느낀점or배운점 / 중점을 둔 부분 등 자유롭게 쓰기 (itju관련해서)
+            <p class="c-card-header" style="text-align: center">
+                안녕하세요 신입 <strong>백엔드 개발자 김수진</strong>입니다.<br>
+                ITJU 백엔드 개발에 참여하여 <i>취업토론, Q&A, IT News 게시판, 페이징, 검색</i> 을 맡아 진행하였습니다.
+                <br><br>
+                주로 게시판을 위주로 개발하였는데 기본 게시판 기능과 댓글 기능은 복습하는 느낌으로 조금 더 깔끔하고 완벽하게
+                만들기에 중점을 두었고, 페이징과 검색 기능은 공부하면서 찾아보고 새로운 기능들을 습득하는데 중점을 두어 개발하였습니다.
+                <br>
+                팀원들과 협업하며 처음으로 프론트엔드와 백엔드로 나누어 개발하여 프론트 개발자와 대화하고 맞추어 가며 개발하면서
+                커뮤니케이션의 중요성을 느끼게 되었고 혼자 프론트엔드와 백엔드를 했을 때와는 달리 같이 함께 만들어간다는 느낌을 확실히 받을 수 있었습니다.
+                <br><br>
+                <strong><i>" 저희와 같은 신입 개발자분들에게 도움이 되는, 함께 갈 수 있는 사이트가 될 수 있도록 노력하겠습니다! "</i></strong>
             </p>
             <div class="c-card-footer">
                 <img src="${pageContext.request.contextPath}/image/sujin-img.png" class="card-footer-img">
@@ -159,7 +168,7 @@
         <div class="c-card">
             <p class="c-card-header">
                 안녕하세요 신입 <strong>프론트엔드 개발자 문제선</strong>입니다.
-                ITJU 프론트엔드 개발에 참여하여 기획 / 퍼블리싱을 맡아 진행하였습니다.
+                ITJU 프론트엔드 개발에 참여하여 기획 / 퍼블리싱 / 프론트엔드 개발을 맡아 진행하였습니다.
                 <br>
                 <br>
                 <strong>느낀점/배운점</strong><br><br>
