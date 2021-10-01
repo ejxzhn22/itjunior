@@ -9,6 +9,7 @@ import com.spring.itjunior.mapper.MemberMapper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class MemberServiceImpl implements MemberService{
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    public MemberServiceImpl(MemberMapper memberMapper,BCryptPasswordEncoder encoder,AuthenticationManager authenticationManager) {
+    public MemberServiceImpl(MemberMapper memberMapper, @Lazy BCryptPasswordEncoder encoder, AuthenticationManager authenticationManager) {
         this.memberMapper = memberMapper;
         this.encoder = encoder;
         this.authenticationManager = authenticationManager;
