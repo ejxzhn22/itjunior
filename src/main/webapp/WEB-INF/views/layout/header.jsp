@@ -85,7 +85,7 @@
                 <a href="/mypage" class="mypage-btn">마이페이지</a>
                 <c:choose>
                     <c:when test="${principal.member.provider == 'kakao'}">
-                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://localhost:8000/logout">로그아웃</a>
+                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://54.180.2.255:8000/logout">로그아웃</a>
                     </c:when>
                     <c:otherwise>
                         <a href="/logout" class="logout-btn">로그아웃</a>
@@ -114,7 +114,7 @@
                 <a href="/mypage" class="mypage-btn">마이페이지</a>
                 <c:choose>
                     <c:when test="${principal.member.provider == 'kakao'}">
-                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://localhost:8000/logout">로그아웃</a>
+                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://54.180.2.255:8000/logout">로그아웃</a>
                     </c:when>
                     <c:otherwise>
                         <a href="/logout" class="logout-btn">로그아웃</a>
