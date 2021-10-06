@@ -524,6 +524,7 @@ section .curve img{
 .content2-card-box .c-card{
     width: 30%;
     height: 420px;
+    min-width: 300px;
     margin:220px 1%;
     background: #f1f3f5;
     display: inline-block;

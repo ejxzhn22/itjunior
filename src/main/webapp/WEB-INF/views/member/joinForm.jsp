@@ -77,6 +77,17 @@
 <%@include file="../layout/footer.jsp"%>
 <script>
     $(function(){
+        $("input").keyup(function(){
+            if($("#join-btn").is(":disabled")===false){
+                $("#join-btn").css('background','#3ab0e7');
+                //console.log('afasdf hadfadsfsdfsdf');
+            }
+            else if($("#join-btn").is(":disabled")===true){
+                $("#join-btn").css('background','#a5a5a5');
+            }
+        })
+
+
         $("#join-form").submit(function(){
             if($.trim($("#password").val()) !== $("#password").val() || $.trim($("#email").val()) !== $("#email").val() || $.trim($("#userId").val()) !== $("#userId").val()){
                 alert("공백은 입력이 불가능합니다.");
@@ -93,22 +104,22 @@
             if (passwordVal.length < 8 || passwordVal.length > 16) {
                 $("#password-check").html("비밀번호 8 ~ 16 자리를 입력해 주세요.");
                 $('#password-check').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else if (!speTest) {
                 $("#password-check").html("영문 대/소문자, 숫자, 특수기호 중 2가지 이상을 사용해 주세요.");
                 $('#password-check').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else if(/(\w)\1\1\1/.test(passwordVal)){
                 $("#password-check").html("같은 문자나 숫자를 네번이상 사용하실 수 없습니다.");
                 $('#password-check').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else {
                 $("#password-check").html("사용 가능합니다.");
                 $('#password-check').addClass('possible-input');
-                $("#join-btn").removeAttr("disabled");
+                $("#join-btn").attr("disabled", false);
             }
         });
 
@@ -116,12 +127,12 @@
             if($("#password").val() !== $("#password2").val()){
                 $("#password-check2").html("비밀번호가 다릅니다.");
                 $('#password-check2').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else {
                 $("#password-check2").html("비밀번호가 일치합니다.");
                 $('#password-check2').addClass('possible-input');
-                $("#join-btn").removeAttr("disabled");
+                $("#join-btn").attr("disabled", false);
             }
 
         });
@@ -133,12 +144,12 @@
             if(!numTest){
                 $("#name-check").html("숫자와 특수문자는 사용할 수 없습니다. 최대 20자");
                 $('#name-check').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else {
                 $("#name-check").html("사용 가능합니다.");
                 $('#name-check').addClass('possible-input');
-                $("#join-btn").removeAttr("disabled");
+                $("#join-btn").attr("disabled", false);
             }
         });
 
@@ -157,15 +168,16 @@
                     if (result === "same") {
                         $("#id-check").html("중복된 아이디가 있습니다.");
                         $('#id-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     } else if (!userIdTest) {
                         $("#id-check").html("영문소문자,숫자,특수기호(_)만 사용 가능. 4자이상 50자이하.");
                         $('#id-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     } else {
                         $("#id-check").html("사용 가능합니다.");
                         $('#id-check').addClass('possible-input');
-                        $("#join-btn").removeAttr("disabled");
+                        // $("#join-btn").removeAttr("disabled");
+                        $("#join-btn").attr("disabled", false);
                     }
                 },
                 error: function (error) {
@@ -200,11 +212,11 @@
                     if (result["result"] === "same") {
                         $("#email-check").html("중복된 이메일이 있습니다.");
                         $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     }else {
                         $("#email-check").html("사용 가능합니다.");
                         $('#email-check').addClass('possible-input');
-                        $("#join-btn").removeAttr("disabled");
+                        $("#join-btn").attr("disabled", false);
                     }
                     console.log("최종 email 합한 값 >>> "+$("#email").val());
                 },
@@ -234,15 +246,15 @@
                     if (result === "same") {
                         $("#email-check").html("중복된 이메일이 있습니다.");
                         $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     } else if (!emailTest) {
                         $("#email-check").html("올바른 이메일 형식이 아닙니다.");
                         $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     } else {
                         $("#email-check").html("사용 가능합니다.");
                         $('#email-check').addClass('possible-input');
-                        $("#join-btn").removeAttr("disabled");
+                        $("#join-btn").attr("disabled", false);
                     }
                 },
                 error: function (error) {
@@ -266,15 +278,15 @@
                     if (result == "same") {
                         $("#nickname-check").html("중복된 닉네임이 있습니다.");
                         $('#nickname-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     }else if (!nicknameTest) {
                         $("#nickname-check").html("영문,한글,숫자 사용 가능. 1 ~ 20자.");
                         $('#nickname-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
+                        $("#join-btn").attr("disabled", true);
                     } else {
                         $("#nickname-check").html("사용 가능합니다.");
                         $('#nickname-check').addClass('possible-input');
-                        $("#join-btn").removeAttr("disabled");
+                        $("#join-btn").attr("disabled", false);
                     }
                 },
                 error: function (error) {

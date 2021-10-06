@@ -420,6 +420,27 @@ h1{
 #passwordChange:hover{
     background: #787878;
 }
+.another-login-section div{
+    cursor: pointer;
+}
+.oauth-submit{
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px 80px;
+    background: #3ab0e7;
+    color: #fff;
+    cursor: pointer;
+}
+.oauth-exit{
+    border-radius: 5px;
+    border: none;
+    background: #f54242;
+    cursor: pointer;
+    color: #fff;
+}
+
 @media screen and (max-width: 820px){
     .banner-img2{
         bottom:-20px;

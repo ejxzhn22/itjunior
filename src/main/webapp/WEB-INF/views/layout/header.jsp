@@ -11,6 +11,7 @@
 <html id="html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Spring Boot Application with JSP</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

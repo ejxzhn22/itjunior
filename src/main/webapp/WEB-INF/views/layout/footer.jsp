@@ -42,7 +42,6 @@
         <div class="profile">
             <img src="${pageContext.request.contextPath}/image/jeseon-img.jpeg" class="profile-img">
         </div>
-        <span class="profile-text">안녕하세요 문제선입니다.</span>
         <div class="profile-desc">
             <span>Front - 문제선</span>
             <div class="profile-link">
