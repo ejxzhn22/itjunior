@@ -15,11 +15,11 @@
 </div>
 
 <div class="content-section">
-    <form action="/boards/new" method="POST" class="write-form">
+    <form action="/boards/new" onsubmit="return categoryState()" method="POST" class="write-form">
 
         <div class="write-content">
             <select id="select" name="category" class="board-category-select" onchange="changeSelect()" required>
-                <option selected disabled>카테고리</option>
+                <option id="option" selected disabled>카테고리</option>
                 <c:forEach var="category" items="${categories}">
                     <option  id="${category.cate_no}" name="category" value="${category.cate_no}">${category.name} </option>
                 </c:forEach>
@@ -27,7 +27,7 @@
                     <option id="301" name="category" value="301">공지사항</option>
                 </c:if>
             </select>
-            <input type="text" class="cate-input" id="cate_name"  name="cate_name" readonly>
+            <input type="text" class="cate-input" id="cate_name"  name="cate_name" readonly required>
             <input type="text" class="write-input" id="title" placeholder="Enter title" name="title" required>
         </div>
 
@@ -52,6 +52,8 @@
             placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 
         });
+
+
     });
     window.addEventListener('scroll',e=>{
         if(window.scrollY>0){
@@ -78,6 +80,18 @@
 
         $('input[name=cate_name]').attr('value', "["+selectText+"]");
 
+    }
+
+    function categoryState() {
+        let text = $("#cate_name").val();
+        if(text === ""){
+            alert("카테고리를 선택해주세요. ");
+            $("#select").focus();
+            return false;
+
+        }else{
+            return true;
+        }
     }
 </script>
 
