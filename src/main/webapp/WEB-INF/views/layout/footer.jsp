@@ -7,7 +7,7 @@
 <div class="footer-section">
     <div class="footer-logo">
         <img src="${pageContext.request.contextPath}/image/itju-sum.png" alt="" class="itju-footer-logo">
-        <span>상업적인 홈페이지가 아닌<br> <strong>포트폴리오/팀 프로젝트 페이지</strong>입니다.</span>
+        <span>상업적인 홈페이지가 아닌<br> <strong>포트폴리오/팀 프로젝트 페이지</strong>입니다.<br> Powered by <a href="http://www.saramin.co.kr" target="_blank">취업 사람인</a></span>
     </div>
 
     <div class="footer-team">
@@ -42,7 +42,6 @@
         <div class="profile">
             <img src="${pageContext.request.contextPath}/image/jeseon-img.jpeg" class="profile-img">
         </div>
-        <span class="profile-text">안녕하세요 문제선입니다.</span>
         <div class="profile-desc">
             <span>Front - 문제선</span>
             <div class="profile-link">

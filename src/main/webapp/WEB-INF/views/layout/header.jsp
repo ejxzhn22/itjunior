@@ -11,6 +11,7 @@
 <html id="html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Spring Boot Application with JSP</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -85,7 +86,7 @@
                 <a href="/mypage" class="mypage-btn">마이페이지</a>
                 <c:choose>
                     <c:when test="${principal.member.provider == 'kakao'}">
-                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://localhost:8000/logout">로그아웃</a>
+                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://54.180.2.255:8000/logout">로그아웃</a>
                     </c:when>
                     <c:otherwise>
                         <a href="/logout" class="logout-btn">로그아웃</a>
@@ -114,7 +115,7 @@
                 <a href="/mypage" class="mypage-btn">마이페이지</a>
                 <c:choose>
                     <c:when test="${principal.member.provider == 'kakao'}">
-                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://localhost:8000/logout">로그아웃</a>
+                        <a href="https://kauth.kakao.com/oauth/logout?client_id=316b4f3202bb2e509e866b17e7ccc4c7&logout_redirect_uri=http://54.180.2.255:8000/logout">로그아웃</a>
                     </c:when>
                     <c:otherwise>
                         <a href="/logout" class="logout-btn">로그아웃</a>

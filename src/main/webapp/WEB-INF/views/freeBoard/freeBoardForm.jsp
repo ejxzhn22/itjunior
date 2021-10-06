@@ -85,7 +85,7 @@
     function categoryState() {
         let text = $("#cate_name").val();
         if(text === ""){
-            alert("카테고리를 선택해주세요.");
+            alert("카테고리를 선택해주세요. ");
             $("#select").focus();
             return false;
 
