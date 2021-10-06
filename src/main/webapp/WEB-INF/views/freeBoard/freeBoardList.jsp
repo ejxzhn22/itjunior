@@ -186,7 +186,7 @@ $(document).ready(function () {
             let inText = document.createTextNode(cutStr[0]);
             makeSpan.appendChild(inText);
 
-            if(cutStr[0]==="[잡답]"){
+            if(cutStr[0]==="[잡담]"){
                 makeSpan.classList.add('cate1');
             } else if(cutStr[0]==="[공부법]"){
                 makeSpan.classList.add('cate2');
