@@ -40,7 +40,6 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 	implementation 'org.springframework.security:spring-security-taglibs'
 
-
 }
 
 test {

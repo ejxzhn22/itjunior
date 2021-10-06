@@ -186,7 +186,7 @@ $(document).ready(function () {
             let inText = document.createTextNode(cutStr[0]);
             makeSpan.appendChild(inText);
 
-            if(cutStr[0]==="[잡답]"){
+            if(cutStr[0]==="[잡담]"){
                 makeSpan.classList.add('cate1');
             } else if(cutStr[0]==="[공부법]"){
                 makeSpan.classList.add('cate2');
@@ -197,8 +197,8 @@ $(document).ready(function () {
             } else if(cutStr[0]==="[합격후기]"){
                 makeSpan.classList.add('cate5');
             }
-            //str.appendChild(makeSpan); 얘는 뒤에 추가가됨
-
+            //str.appendChild(makeSpan); 얘는 뒤에 추가가됨.
+//
             document.getElementsByClassName('board-title')[i].insertBefore(makeSpan,str);
 
             let a = str.innerText.replace(cutStr[0],"");
