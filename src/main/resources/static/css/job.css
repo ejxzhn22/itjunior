@@ -141,6 +141,8 @@ button.slick-next.slick-arrow::after {
 #job-desc-box {
     padding: 30px 0px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     justify-content: space-between;
 }
 .job-link a:hover{

@@ -34,9 +34,9 @@
                     <input type="hidden" name="member_idx" value="${principal.member.member_idx}">
                     <input type="hidden" name="userId" value="${principal.member.userId}">
                     <input type="hidden" name="password" value="${member.password}">
-                    <button type="submit">oauth 회원정보 수정</button>
+                    <button type="submit" class="oauth-submit">oauth 회원정보 수정</button>
                 </form>
-                <a href="/mypage/isDelete"> 회원탈퇴 </a>
+                <a href="/mypage/isDelete" class="oauth-exit"> 회원탈퇴 </a>
             </c:otherwise>
         </c:choose>
 <%--        <a href="/mypage/passwordCheck">oauth회원정보수정인증</a>--%>
