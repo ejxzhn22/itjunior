@@ -41,8 +41,13 @@
 
     <!--  부모 댓글 추가하기  -->
     <insert id="insertParent" parameterType="Reply">
+
+
         <selectKey resultType="int" keyProperty="reply_idx" order="BEFORE">
-            SELECT MAX(reply_idx)+1 FROM tbl_board_reply
+            SELECT if (isnull(MAX(reply_idx)), 1, MAX(reply_idx)+1)
+            FROM tbl_board_reply
+-- SELECT MAX(reply_idx)+1 FROM tbl_board_reply
+
         </selectKey>
 
         INSERT INTO tbl_board_reply(
