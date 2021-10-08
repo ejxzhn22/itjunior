@@ -39,21 +39,21 @@
                     <span>현재 비밀번호
                         <img src="${pageContext.request.contextPath}/image/icon-pw1.png" id="publicPw">
                     </span>
-                    <input type="password" class="join-pw-input" id="password" autocomplete="off" maxlength="16" required placeholder="현재 비밀번호를 입력해주세요.">
+                    <input type="password" class="join-pw-input" id="password" autocomplete="off" maxlength="16"  placeholder="현재 비밀번호를 입력해주세요.">
                     <span id="password-check"></span>
                 </div>
                 <div class="join join-pw-check" id="new-Password">
                     <span>새 비밀번호
                      <img src="${pageContext.request.contextPath}/image/icon-pw1.png" id="publicPw1">
                     </span>
-                    <input type="password" class="join-pw-input" id="password1" name="password" autocomplete="off" maxlength="16" required placeholder="영문대/소문자, 숫자, 특수문자 중 2가지 이상조합. 8자이상 16이하.">
+                    <input type="password" class="join-pw-input" id="password1" name="password" autocomplete="off" maxlength="16"  placeholder="영문대/소문자, 숫자, 특수문자 중 2가지 이상조합. 8자이상 16이하.">
                     <span id="password-check1"></span>
                 </div>
                 <div class="join join-pw-check" id="new-Password2">
                     <span>새 비밀번호 확인
                         <img src="${pageContext.request.contextPath}/image/icon-pw1.png" id="publicPw2">
                     </span>
-                    <input type="password" class="join-pw-check-input" id="password2" maxlength="16" autocomplete="off" required>
+                    <input type="password" class="join-pw-check-input" id="password2" maxlength="16" autocomplete="off" >
                     <span id="password-check2"></span>
                 </div>
             </div>
@@ -65,17 +65,7 @@
             <div class="join join-pw">
                 <span>이메일</span>
                 <div class="join-box">
-                    <input type="email" class="join-pw-input" id="email" value="${principal.member.email}" autocomplete="off" required>
-                    <select id="select-mail">
-                        <option value="">직접입력</option>
-                        <option value="@naver.com">@naver.com</option>
-                        <option value="@hanmail.net">@hanmail.net</option>
-                        <option value="@daum.net">@daum.net</option>
-                        <option value="@nate.com">@nate.com</option>
-                        <option value="@hotmail.com">@hotmail.com</option>
-                        <option value="@gmail.com">@gmail.com</option>
-                        <option value="@icloud.com">@icloud.com</option>
-                    </select>
+                    <input type="email" class="join-pw-input" id="email" value="${principal.member.email}" autocomplete="off" disabled>
                     <input type="hidden" id="email-sum" name="email" value="${principal.member.email}">
                 </div>
                 <span id="email-check"></span>
@@ -87,7 +77,7 @@
             </div>
             <div class="join join-btns">
                 <input type="submit" id="join-btn" value="회원수정" autocomplete="off" >
-                <button onclick="history.go(-1);">뒤로가기</button>
+                <button type="button" onclick="history.go(-1);">뒤로가기</button>
             </div>
         </form>
     </div>
@@ -107,43 +97,67 @@
             }
         });
 
+        let on_off_Slide = "off";
         $("#passwordChange").click(function (){
-            $("#total-password").slideToggle();
+            if (on_off_Slide === "off") {
+                $("#total-password").slideDown();
+                $("#password").attr("required", true);
+                $("#password1").attr("required", true);
+                $("#password2").attr("required", true);
+                on_off_Slide = "on";
+            } else if (on_off_Slide === "on") {
+                $("#total-password").slideUp();
+                $("#password").attr("required", false);
+                $("#password1").attr("required", false);
+                $("#password2").attr("required", false);
+                if ($("#password1").val() !== "") {
+                    console.log("패스워드1 존재");
+                    $("#password2").attr("required", true);
+                }
+                on_off_Slide = "off";
+            }
         });
 
+        //현재 비밀번호 입력란
         $("#password").keyup(function (){
             let nowPwd = "${member.password}";
             if ($("#password").val() === nowPwd) {
                 $("#password-check").html("사용 가능합니다.");
                 $('#password-check').addClass('possible-input');
-                $("#join-btn").removeAttr("disabled");
+                $("#join-btn").removeAttr("disabled", false);
             }else {
                 $("#password-check").html("현재 비밀번호와 다릅니다.");
                 $('#password-check').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
             }
         });
 
         $("#password1").keyup(function() {
             let pwdRegexp = RegExp(/^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9~!@#$%^&*()_+=|?/,.<>;:'"{}]).{8,16}$/);
             let passwordVal = $("#password1").val();
+            let nowPwd = "${member.password}";
 
             let speTest = pwdRegexp.test(passwordVal);
 
             if (passwordVal.length < 8 || passwordVal.length > 16) {
                 $("#password-check1").html("비밀번호 8 ~ 16 자리를 입력해 주세요.");
                 $('#password-check1').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else if (!speTest) {
                 $("#password-check1").html("영문 대/소문자, 숫자, 특수기호 중 2가지 이상을 사용해 주세요.");
                 $('#password-check1').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else if(/(\w)\1\1\1/.test(passwordVal)){
                 $("#password-check1").html("같은 문자나 숫자를 네번이상 사용하실 수 없습니다.");
                 $('#password-check1').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
+                return false;
+            }else if (nowPwd === passwordVal) {
+                $("#password-check1").html("현재 비밀번호와 같습니다.");
+                $('#password-check1').removeClass('possible-input');
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else {
                 $("#password-check1").html("사용 가능합니다.");
@@ -153,17 +167,16 @@
         });
 
         $("#password2").keyup(function() {
-            if($("#password1").val() !== $("#password2").val()){
+            if($("#password1").val() !== $("#password2").val() || $("#password2").val() === ""){
                 $("#password-check2").html("비밀번호가 다릅니다.");
                 $('#password-check2').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else {
                 $("#password-check2").html("사용 가능합니다.");
                 $('#password-check2').addClass('possible-input');
-                $("#join-btn").removeAttr("disabled");
+                $("#join-btn").removeAttr("disabled", false);
             }
-
         });
 
         $("#name").keyup(function() {
@@ -173,7 +186,7 @@
             if(!numTest){
                 $("#name-check").html("숫자와 특수문자는 사용할 수 없습니다. 최대 20자");
                 $('#name-check').removeClass('possible-input');
-                $("#join-btn").attr("disabled", "disabled");
+                $("#join-btn").attr("disabled", true);
                 return false;
             }else {
                 $("#name-check").html("사용 가능합니다.");
@@ -183,87 +196,6 @@
         });
 
 
-        $("#email").keyup(function(){
-            let email1 = $("#email").val();
-            $("#email-sum").val(email1);
-
-            console.log("email : "+$("#email-sum").val());
-            let emailRegexp = RegExp(/^[a-z0-9_+.-]+@([a-z0-9-]+\.)+[a-z0-9]{2,4}$/);
-            let emailTest = emailRegexp.test($("#email-sum").val());
-            $.ajax({
-                url : "/auth/join/emailCheck",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data : JSON.stringify({
-                    email : $("#email-sum").val()
-                }),
-                success : function(result) {
-                    console.log(result);
-                    if (result === "same") {
-                        $("#email-check").html("중복된 이메일이 있습니다.");
-                        $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
-                    } else if (!emailTest) {
-                        $("#email-check").html("올바른 이메일 형식이 아닙니다.");
-                        $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
-                    } else if (!$("#email").val()) {
-                        $("#email-check").html("이메일 정보는 필수 입니다.");
-                        $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
-                    } else {
-                        $("#email-check").html("사용 가능합니다.");
-                        $('#email-check').addClass('possible-input');
-                        $("#join-btn").removeAttr("disabled");
-                    }
-                },
-                error: function (error) {
-                    console.log(error.status);
-                    console.log("서버호출 에러.");
-                }
-            })
-        });
-
-        //email 옵션을 선택할 때
-        $("#select-mail").change(function (){
-            let email1 = $("#email").val();
-            let email2 = $("#select-mail").val();
-
-            if (email2 != "") {
-                console.log("직접입력 아닐때로 넘어옴")
-                $("#email").val(email1+email2);
-                $("#email").attr("disabled",true);
-            }else if (email2 == "") {
-                $("#email").attr("disabled", false);
-            }
-            console.log("옵션 체크 했을때 ajax로 넘어갈 email1 값 >>> "+$("#email").val());
-
-            $.ajax({
-                url : "/auth/email/direct/"+$("#email").val(),
-                type: "GET",
-                success : function(result) {
-                    console.log("ajax호출 후 중복 결과 >>> " + result["result"]);
-                    console.log("ajax호출 후 split 된 값 >>> " + result["email"]);
-                    $("#email").val(result["email"]+email2);
-                    $("#email-sum").val(result["email"]+email2);
-                    if (result["result"] === "same") {
-                        $("#email-check").html("중복된 이메일이 있습니다.");
-                        $('#email-check').removeClass('possible-input');
-                        $("#join-btn").attr("disabled", "disabled");
-                    }else {
-                        $("#email-check").html("사용 가능합니다.");
-                        $('#email-check').addClass('possible-input');
-                        $("#join-btn").removeAttr("disabled");
-                    }
-                    console.log("최종 email 합한 값 >>> "+$("#email").val());
-                },
-                error: function (error) {
-                    console.log(error.status);
-                    console.log("서버호출 에러.");
-                }
-            });
-        });
-
         $("#nickname").keyup(function(){
             let nicknameRegexp = RegExp(/^[a-zA-Z가-힣0-9]{1,20}$/);
             let nicknameTest = nicknameRegexp.test($("#nickname").val());
@@ -272,7 +204,7 @@
                 type : "POST",
                 contentType: "application/json; charset=utf-8",
                 data : JSON.stringify({
-                    email : $("#nickname").val()
+                    nickname : $("#nickname").val()
                 }),
                 success : function(result) {
                     console.log(result);
