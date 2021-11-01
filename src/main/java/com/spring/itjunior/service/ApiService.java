@@ -22,13 +22,19 @@ public class ApiService {
     private final String serviceKey = "9YSJckDyEdi9WJqaVoAauyXIYC09YbzvtjiWkkc2qI8JTPuheTi";
     //요청 키워드
     private final String keywords = "백엔드";
+
     //직업/직종 -> 산업/업종 코드표(참고:사람인 api 코드표 페이지)
     //402:서버,네트워크,보안  404:웹개발  407:응용프로그램개발  408:시스템개발  410:통신,모바  413:퍼블리싱,ui개발  417:인공지능,빅데이터
-    private final String job_category = "404+410+402+407+408+413+417";
+//    private final String job_category = "404+410+402+407+408+413+417"; job_mid_code로 변경됨
+
+
     //근무 지역 -> 서울전체, 경기전체, 인천전체
     private final String loc_cd = "101000+102000+108000";
     //필드(부가항목 - 날짜/시간형식의 게시일, 날짜/시간형식의 마감일시, 업직종키워드 코드, 조회수/지원자수/댓글수
     private final String fields = "posting-date+expiration-date+keyword-code+count";
+
+    //job_category가 job_code로 바뀌면서 상위 직족코드 job_mid_code가 it통합 코드가 됨
+    private final String job_mid_code = "2";
 
     public JSONObject recruitApiList(PageDto pageDto) {
         StringBuffer result = new StringBuffer();
@@ -44,7 +50,7 @@ public class ApiService {
             StringBuilder urlBuilder = new StringBuilder(requestUrl);
 
             urlBuilder.append("?" + URLEncoder.encode("access-key","UTF-8")+"="+serviceKey);
-            urlBuilder.append("&" + URLEncoder.encode("job_category","UTF-8")+"="+job_category);
+            urlBuilder.append("&" + URLEncoder.encode("job_mid_cd","UTF-8")+"="+job_mid_code);
             urlBuilder.append("&" + URLEncoder.encode("loc_cd","UTF-8")+"="+loc_cd);
             urlBuilder.append("&" + URLEncoder.encode("fields","UTF-8")+"="+fields);
             urlBuilder.append("&" + URLEncoder.encode("start","UTF-8")+"="+currentPageNo);

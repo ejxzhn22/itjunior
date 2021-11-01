@@ -76,7 +76,7 @@
                         <div class="job-info">
                             <div>
                                 <span>직종</span> :
-                                <span id="job-category-${item.id}"><c:out value="${item.position['job-category'].name}"/></span>
+                                <span id="job-category-${item.id}"><c:out value="${item.position['job-code'].name}"/></span>
                             </div>
                             <div>
                                 <span>경력</span> :
@@ -171,7 +171,7 @@
             job_type : $("#job-type-"+job_idx).text(),
             expiration_date : $("#expiration-date-"+job_idx).val(),
             close_type : $("#close-type-"+job_idx).val(),
-            category : $("#job-category-"+job_idx).text(),
+            category : $("#job-code-"+job_idx).text(),
             experience_level : $("#experience-level-"+job_idx).text(),
             required_education_level : $("#required-education-level-"+job_idx).text(),
             salary : $("#salary-"+job_idx).text(),
